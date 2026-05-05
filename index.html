@@ -40,14 +40,72 @@ nav {
 }
 .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.5px; }
 .nav-logo span { color: var(--accent); }
-.nav-links { display: flex; gap: 32px; margin-left: 48px; }
-.nav-links a { font-size: 14px; color: var(--ink2); text-decoration: none; font-weight: 400; transition: color 0.2s; }
-.nav-links a:hover { color: var(--ink); }
-.nav-right { margin-left: auto; display: flex; gap: 12px; align-items: center; }
+.nav-right { display: flex; gap: 12px; align-items: center; }
 .btn-ghost { padding: 8px 20px; border: 1px solid var(--border); border-radius: 2px; background: none; font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; color: var(--ink); transition: all 0.2s; text-decoration: none; }
 .btn-ghost:hover { background: var(--ink); color: var(--white); }
 .btn-solid { padding: 8px 20px; background: var(--accent); color: white; border: none; border-radius: 2px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; text-decoration: none; }
 .btn-solid:hover { background: #c42d22; }
+
+/* SIDEBAR */
+.sb-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:198 }
+.sb-overlay.open { display:block }
+.sidebar {
+  position:fixed;top:0;left:-380px;width:360px;height:100vh;
+  background:var(--white);border-right:1px solid var(--border);
+  z-index:199;transition:left 0.3s cubic-bezier(0.4,0,0.2,1);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.sidebar.open { left:0 }
+.sb-head { background:#0a0a0a;padding:20px 20px 16px;flex-shrink:0 }
+.sb-head-top { display:flex;align-items:center;justify-content:space-between;margin-bottom:14px }
+.sb-close { width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center }
+.sb-user { display:flex;align-items:center;gap:10px }
+.sb-avatar { width:38px;height:38px;border-radius:50%;background:#e63c2f;color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0 }
+.sb-username { font-size:13px;font-weight:500;color:white }
+.sb-usersub { font-size:11px;color:rgba(255,255,255,0.45) }
+.sb-nav { flex-shrink:0;border-bottom:1px solid var(--border);background:var(--white) }
+.sb-nav-scroll { display:flex;overflow-x:auto;padding:8px 12px;gap:6px;scrollbar-width:none }
+.sb-nav-scroll::-webkit-scrollbar { display:none }
+.sb-nav-btn { display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--border);border-radius:20px;background:none;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--ink2);white-space:nowrap;flex-shrink:0;transition:all 0.15s }
+.sb-nav-btn.active { background:#0a0a0a;color:white;border-color:#0a0a0a }
+.sb-nav-btn:hover:not(.active) { background:var(--paper) }
+.sb-content { flex:1;overflow-y:auto;padding:0 }
+.sb-pane { display:none;padding:16px }
+.sb-pane.active { display:block }
+.sb-footer { padding:12px 16px;border-top:1px solid var(--border);flex-shrink:0 }
+.sb-footer-btn { display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:6px;background:#0a0a0a;color:white;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;width:100%;transition:background 0.2s }
+.sb-footer-btn:hover { background:#e63c2f }
+.tracker-stat { background:var(--paper);border-radius:8px;padding:12px 14px }
+.tracker-stat-val { font-family:'Syne',sans-serif;font-size:24px;font-weight:800;letter-spacing:-1px }
+.tracker-stat-label { font-size:11px;color:var(--ink3);margin-top:2px }
+.tracker-item-card { border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px;transition:all 0.15s }
+.tracker-item-card.on-target { border-color:#16a34a;background:#f0fdf4 }
+.tracker-item-card.on-sale { border-color:#e63c2f;background:#fff7f7 }
+.ti-top { display:flex;align-items:flex-start;gap:8px;margin-bottom:8px }
+.ti-icon { width:34px;height:34px;border-radius:8px;background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0 }
+.ti-name { font-size:13px;font-weight:500;flex:1 }
+.ti-brand { font-size:11px;color:var(--ink3) }
+.ti-price-col { text-align:right }
+.ti-current { font-size:15px;font-weight:600 }
+.ti-target { font-size:10px;color:var(--ink3) }
+.ti-progress { height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:5px }
+.ti-progress-fill { height:100%;border-radius:3px;transition:width 0.4s }
+.ti-meta { display:flex;justify-content:space-between;font-size:11px;color:var(--ink3) }
+.ti-actions { display:flex;gap:5px;margin-top:8px }
+.ti-btn { flex:1;padding:6px;border:1px solid var(--border);border-radius:4px;background:none;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink);transition:all 0.15s }
+.ti-btn:hover { background:var(--ink);color:white;border-color:var(--ink) }
+.ti-btn.danger:hover { background:#dc2626;border-color:#dc2626 }
+.add-tracker-form { border:1.5px dashed var(--border);border-radius:8px;padding:14px;margin-bottom:12px;text-align:center;cursor:pointer;transition:all 0.2s }
+.add-tracker-form:hover { border-color:var(--ink);background:var(--paper) }
+.atf-expanded { border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:12px;display:none }
+.atf-row { margin-bottom:9px }
+.atf-label { font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:3px;display:block }
+.atf-input { width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:4px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none }
+.atf-input:focus { border-color:var(--ink) }
+.atf-grid { display:grid;grid-template-columns:1fr 1fr;gap:8px }
+.atf-save { width:100%;padding:9px;background:#0a0a0a;color:white;border:none;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px }
+.atf-save:hover { background:#e63c2f }
+
 
 /* HERO */
 .hero {
@@ -240,7 +298,6 @@ footer {
 /* RESPONSIVE */
 @media (max-width: 768px) {
   nav { padding: 0 20px; }
-  .nav-links { display: none; }
   .hero { grid-template-columns: 1fr; padding: 120px 20px 60px; gap: 40px; }
   .features-strip { grid-template-columns: 1fr 1fr; padding: 40px 20px; }
   .section { padding: 60px 20px; }
@@ -256,75 +313,244 @@ footer {
 </head>
 <body>
 
-<!-- DOWNLOAD APP MODAL -->
-<div id="downloadModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center" onclick="if(event.target===this)closeDownloadModal()">
-  <div style="background:var(--white);border-radius:12px;width:100%;max-width:480px;margin:20px;position:relative;overflow:hidden">
+<!-- SIDEBAR OVERLAY -->
+<div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
 
-    <div style="background:#0a0a0a;padding:28px 28px 24px">
-      <button onclick="closeDownloadModal()" style="position:absolute;top:14px;right:16px;border:none;background:rgba(255,255,255,0.1);width:28px;height:28px;border-radius:50%;color:white;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">&#10005;</button>
-      <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;color:white;margin-bottom:6px">Get the PriceWatch app</div>
-      <div style="font-size:14px;color:rgba(255,255,255,0.55)">Save money every day — in store, at home, and everywhere in between</div>
+<!-- SIDEBAR OVERLAY -->
+<div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR — unified tab design -->
+<aside class="sidebar" id="sidebar">
+
+  <div class="sb-head">
+    <div class="sb-head-top">
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg width="24" height="24" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="7" fill="#1a1a1a" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/><circle cx="18" cy="15" r="7.5" fill="none" stroke="#e63c2f" stroke-width="2"/><circle cx="18" cy="15" r="2.5" fill="#e63c2f"/><polyline points="9,30 13,25.5 16.5,27.5 21,21 25,23.5 29,18" fill="none" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:white">Price<span style="color:#e63c2f">Watch</span></span>
+      </div>
+      <button class="sb-close" onclick="closeSidebar()">&#10005;</button>
     </div>
-
-    <div style="padding:24px 28px">
-
-      <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink3);margin-bottom:14px">Download for your device</div>
-
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
-
-        <a href="https://apps.apple.com" onclick="handleAppDownload(event,'ios')" target="_blank" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border:1.5px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.2s;background:var(--white)" onmouseover="this.style.borderColor='var(--ink)';this.style.background='var(--paper)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--white)'">
-          <div style="width:44px;height:44px;background:#0a0a0a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🍎</div>
-          <div style="flex:1">
-            <div style="font-size:11px;color:var(--ink3);margin-bottom:2px">Download on the</div>
-            <div style="font-size:16px;font-weight:600;font-family:'Syne',sans-serif;letter-spacing:-0.5px">App Store</div>
-            <div style="font-size:11px;color:var(--ink3);margin-top:2px">iPhone · iPad · iOS 15+</div>
-          </div>
-          <div style="font-size:20px">→</div>
-        </a>
-
-        <a href="https://play.google.com" onclick="handleAppDownload(event,'android')" target="_blank" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border:1.5px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.2s;background:var(--white)" onmouseover="this.style.borderColor='var(--ink)';this.style.background='var(--paper)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--white)'">
-          <div style="width:44px;height:44px;background:#01875f;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">▶</div>
-          <div style="flex:1">
-            <div style="font-size:11px;color:var(--ink3);margin-bottom:2px">Get it on</div>
-            <div style="font-size:16px;font-weight:600;font-family:'Syne',sans-serif;letter-spacing:-0.5px">Google Play</div>
-            <div style="font-size:11px;color:var(--ink3);margin-top:2px">Android 8.0+</div>
-          </div>
-          <div style="font-size:20px">→</div>
-        </a>
-
-      </div>
-
-      <div id="downloadComingSoon" style="display:none;background:#fef3c7;border:1px solid #fbbf24;border-radius:8px;padding:14px 16px;margin-bottom:20px">
-        <div style="font-size:14px;font-weight:500;color:#92400e;margin-bottom:4px">🚀 App coming soon!</div>
-        <div style="font-size:13px;color:#78350f;line-height:1.6">The PriceWatch app is currently in development. Sign up for early access below and you will be the first to know the moment it launches on the App Store and Google Play.</div>
-      </div>
-
-      <div style="background:var(--paper);border-radius:8px;padding:16px;margin-bottom:16px">
-        <div style="font-size:13px;font-weight:500;margin-bottom:4px">Get notified when the app launches</div>
-        <div style="font-size:12px;color:var(--ink3);margin-bottom:12px">Join thousands on the early access waitlist — be first in line</div>
-        <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:block;padding:11px;background:var(--ink);color:white;text-align:center;border-radius:6px;text-decoration:none;font-size:14px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='#e63c2f'" onmouseout="this.style.background='var(--ink)'">
-          Join the waitlist — free →
-        </a>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center">
-        <div style="padding:10px 8px;background:var(--paper);border-radius:6px">
-          <div style="font-size:18px;font-weight:700;font-family:'Syne',sans-serif">Free</div>
-          <div style="font-size:11px;color:var(--ink3);margin-top:2px">to download</div>
-        </div>
-        <div style="padding:10px 8px;background:var(--paper);border-radius:6px">
-          <div style="font-size:18px;font-weight:700;font-family:'Syne',sans-serif">iOS</div>
-          <div style="font-size:11px;color:var(--ink3);margin-top:2px">&amp; Android</div>
-        </div>
-        <div style="padding:10px 8px;background:var(--paper);border-radius:6px">
-          <div style="font-size:18px;font-weight:700;font-family:'Syne',sans-serif">4.9★</div>
-          <div style="font-size:11px;color:var(--ink3);margin-top:2px">avg rating</div>
-        </div>
-      </div>
-
+    <div class="sb-user">
+      <div class="sb-avatar">PW</div>
+      <div style="flex:1"><div class="sb-username">Welcome back!</div><div class="sb-usersub">Sign in to access your account</div></div>
+      <button onclick="closeSidebar();openSignin()" style="padding:5px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:4px;background:none;color:rgba(255,255,255,0.7);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;flex-shrink:0">Sign in</button>
     </div>
   </div>
-</div>
+
+  <div class="sb-nav">
+    <div class="sb-nav-scroll">
+      <button class="sb-nav-btn active" onclick="showPane('about',this)">ℹ️ About</button>
+      <button class="sb-nav-btn" onclick="showPane('tracker',this)">📊 My Tracker</button>
+      <button class="sb-nav-btn" onclick="showPane('stores',this)">🏪 My Stores</button>
+      <button class="sb-nav-btn" onclick="showPane('account',this)">👤 Account</button>
+      <button class="sb-nav-btn" onclick="showPane('explore',this)">🔍 Explore</button>
+      <button class="sb-nav-btn" onclick="showPane('tutorials',this)">🎓 Tutorials</button>
+      <button class="sb-nav-btn" onclick="showPane('contact',this)">✉️ Contact</button>
+      <button class="sb-nav-btn" onclick="showPane('tech',this)">⚙️ Tech</button>
+    </div>
+  </div>
+
+  <div class="sb-content">
+
+    <!-- ABOUT PANE -->
+    <div class="sb-pane active" id="sbp-about">
+      <div style="display:flex;align-items:center;gap:12px;padding:14px;background:#0a0a0a;border-radius:10px;margin-bottom:16px">
+        <svg width="40" height="40" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="7" fill="#1a1a1a" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/><circle cx="18" cy="15" r="7.5" fill="none" stroke="#e63c2f" stroke-width="2"/><line x1="18" y1="7.5" x2="18" y2="4.5" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/><line x1="18" y1="22.5" x2="18" y2="25.5" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/><line x1="10.5" y1="15" x2="7.5" y2="15" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/><line x1="25.5" y1="15" x2="28.5" y2="15" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="15" r="2.5" fill="#e63c2f"/><polyline points="9,30 13,25.5 16.5,27.5 21,21 25,23.5 29,18" fill="none" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;letter-spacing:-0.5px">Price<span style="color:#e63c2f">Watch</span></div><div style="font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase">Never overpay again</div></div>
+      </div>
+      <p style="font-size:13px;line-height:1.75;color:var(--ink2);margin-bottom:12px">PriceWatch tracks prices across <strong>500+ retailers</strong>, grocery stores, delivery apps, and local businesses — so you always know where to buy anything for the least money.</p>
+      <p style="font-size:13px;line-height:1.75;color:var(--ink2);margin-bottom:16px">Our users save an average of <strong style="color:#16a34a">$847 per year</strong> simply by knowing where prices are lowest before they buy.</p>
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink3);margin-bottom:10px">Features</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--paper);border-radius:8px"><span style="font-size:16px;flex-shrink:0">🔍</span><div><div style="font-size:12px;font-weight:500;margin-bottom:1px">Search &amp; compare prices</div><div style="font-size:11px;color:var(--ink3)">Type a name or scan a barcode — top 10 results ranked by true total cost</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--paper);border-radius:8px"><span style="font-size:16px;flex-shrink:0">🛒</span><div><div style="font-size:12px;font-weight:500;margin-bottom:1px">Grocery list comparison</div><div style="font-size:11px;color:var(--ink3)">Compare every store including Amazon Fresh — import list to any cart</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--paper);border-radius:8px"><span style="font-size:16px;flex-shrink:0">🔔</span><div><div style="font-size:12px;font-weight:500;margin-bottom:1px">Price drop alerts</div><div style="font-size:11px;color:var(--ink3)">Set a target price — get email, text, or push notification instantly</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--paper);border-radius:8px"><span style="font-size:16px;flex-shrink:0">🔁</span><div><div style="font-size:12px;font-weight:500;margin-bottom:1px">My Tracker</div><div style="font-size:11px;color:var(--ink3)">Track repeat purchases daily with brand alternatives and savings totals</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--paper);border-radius:8px"><span style="font-size:16px;flex-shrink:0">📍</span><div><div style="font-size:12px;font-weight:500;margin-bottom:1px">Local discovery</div><div style="font-size:11px;color:var(--ink3)">Search "ice cream" or "coffee" — find nearby places with prices &amp; directions</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--paper);border-radius:8px"><span style="font-size:16px;flex-shrink:0">📊</span><div><div style="font-size:12px;font-weight:500;margin-bottom:1px">12-month price history</div><div style="font-size:11px;color:var(--ink3)">See if today's price is genuinely a deal — never get fooled by fake sales</div></div></div>
+      </div>
+      <div style="background:#0a0a0a;border-radius:8px;padding:12px;text-align:center;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
+        <div style="padding:8px;background:rgba(255,255,255,0.06);border-radius:6px"><div style="font-size:15px;font-weight:700;color:white">Free</div><div style="font-size:10px;color:rgba(255,255,255,0.4)">Forever</div></div>
+        <div style="padding:8px;background:#e63c2f;border-radius:6px"><div style="font-size:15px;font-weight:700;color:white">$4.99</div><div style="font-size:10px;color:rgba(255,255,255,0.8)">Pro/mo</div></div>
+        <div style="padding:8px;background:rgba(255,255,255,0.06);border-radius:6px"><div style="font-size:15px;font-weight:700;color:white">$9.99</div><div style="font-size:10px;color:rgba(255,255,255,0.4)">Family/mo</div></div>
+      </div>
+      <div style="font-size:11px;color:var(--ink3);text-align:center">Founded in Columbus, Ohio &middot; 2026</div>
+    </div>
+
+    <!-- TRACKER PANE -->
+    <div class="sb-pane" id="sbp-tracker">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+        <div class="tracker-stat"><div class="tracker-stat-val" style="color:#16a34a" id="totalSavedDisplay">$247.80</div><div class="tracker-stat-label">Total saved</div></div>
+        <div class="tracker-stat"><div class="tracker-stat-val">8</div><div class="tracker-stat-label">Items tracked</div></div>
+        <div class="tracker-stat"><div class="tracker-stat-val" style="color:#e63c2f">3</div><div class="tracker-stat-label">Active alerts</div></div>
+        <div class="tracker-stat"><div class="tracker-stat-val" style="color:#d97706">2</div><div class="tracker-stat-label">On sale now</div></div>
+      </div>
+      <button onclick="showPane('stores', document.querySelectorAll('.sb-nav-btn')[2])" style="width:100%;display:flex;align-items:center;gap:10px;padding:11px 13px;background:#fff8f0;border:1.5px solid #fed7aa;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:12px" onmouseover="this.style.background='#fef3e2'" onmouseout="this.style.background='#fff8f0'">
+        <span style="font-size:20px">🏪</span><div style="text-align:left"><div style="font-size:12px;font-weight:500;color:#92400e">My Favorite Stores</div><div style="font-size:11px;color:#b45309">Track products per store &middot; compare &middot; sale alerts</div></div><span style="margin-left:auto;color:#b45309">→</span>
+      </button>
+      <div class="add-tracker-form" id="addTrackerToggle" onclick="toggleAddForm()">
+        <div style="font-size:20px;margin-bottom:3px">+</div>
+        <div style="font-size:13px;font-weight:500;color:var(--ink)">Add item to track</div>
+        <div style="font-size:11px;color:var(--ink3);margin-top:2px">Set target price &middot; get alerts</div>
+      </div>
+      <div class="atf-expanded" id="addTrackerForm">
+        <div class="atf-row"><label class="atf-label">Item name</label><input class="atf-input" id="atfName" placeholder="e.g. Tide Pods, Nike Air Max..."></div>
+        <div class="atf-grid">
+          <div class="atf-row"><label class="atf-label">Current price</label><input class="atf-input" id="atfCurrent" type="number" placeholder="$0.00" step="0.01"></div>
+          <div class="atf-row"><label class="atf-label">Target price</label><input class="atf-input" id="atfTarget" type="number" placeholder="$0.00" step="0.01"></div>
+        </div>
+        <div class="atf-row"><label class="atf-label">Store</label><input class="atf-input" id="atfStore" placeholder="e.g. Kroger, Amazon..."></div>
+        <div class="atf-row"><label class="atf-label">How often do you buy it?</label><select class="atf-input" id="atfFreq"><option>Weekly</option><option>Bi-weekly</option><option selected>Monthly</option><option>Every 2 months</option><option>As needed</option><option>Future purchase</option></select></div>
+        <div class="atf-row">
+          <label class="atf-label">Alert me via</label>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px"><input type="checkbox" id="atfAlertEmail" checked style="accent-color:#0a0a0a;width:14px;height:14px"> 📧 Email alert</label>
+            <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px"><input type="checkbox" id="atfAlertText" style="accent-color:#0a0a0a;width:14px;height:14px"> 💬 Text message</label>
+            <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px"><input type="checkbox" id="atfAlertPush" checked style="accent-color:#0a0a0a;width:14px;height:14px"> 📱 Push notification</label>
+          </div>
+        </div>
+        <div class="atf-row">
+          <label class="atf-label">Notify when</label>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer"><input type="checkbox" id="atfNotifyTarget" checked style="accent-color:#0a0a0a"> Price reaches my target</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer"><input type="checkbox" id="atfNotifySale" checked style="accent-color:#0a0a0a"> Goes on sale anywhere</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer"><input type="checkbox" id="atfNotifyLow" checked style="accent-color:#0a0a0a"> Hits 12-month low</label>
+          </div>
+        </div>
+        <div style="display:flex;gap:7px;margin-top:6px">
+          <button class="atf-save" onclick="saveTrackerItem()" style="flex:2">Save to tracker</button>
+          <button onclick="toggleAddForm()" style="flex:1;padding:9px;background:none;border:1px solid var(--border);border-radius:4px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">Cancel</button>
+        </div>
+      </div>
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink3);margin-bottom:8px">Tracked items</div>
+      <div id="trackerItemsList"></div>
+    </div>
+
+    <!-- MY STORES PANE -->
+    <div class="sb-pane" id="sbp-stores">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div class="tracker-stat"><div class="tracker-stat-val" id="storeCount">4</div><div class="tracker-stat-label">Stores tracked</div></div>
+        <div class="tracker-stat"><div class="tracker-stat-val" id="storeSaleCount" style="color:#e63c2f">5</div><div class="tracker-stat-label">Items on sale</div></div>
+      </div>
+      <div id="addStoreToggle" onclick="toggleAddStoreForm()" style="border:1.5px dashed var(--border);border-radius:8px;padding:12px;margin-bottom:12px;text-align:center;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='var(--ink)';this.style.background='var(--paper)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='white'">
+        <div style="font-size:20px;margin-bottom:3px">+</div>
+        <div style="font-size:13px;font-weight:500">Add a favorite store</div>
+        <div style="font-size:11px;color:var(--ink3);margin-top:2px">Track products &amp; get sale alerts</div>
+      </div>
+      <div id="addStoreForm" style="display:none;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
+        <div class="atf-row"><label class="atf-label">Store name</label>
+          <select class="atf-input" id="asStoreName">
+            <option value="">Select a store...</option>
+            <option>Kroger</option><option>Walmart</option><option>Aldi</option><option>Meijer</option>
+            <option>Target</option><option>Costco</option><option>Amazon</option><option>Amazon Fresh</option>
+            <option>Whole Foods</option><option>Sam's Club</option><option>Dollar General</option>
+            <option>CVS</option><option>Walgreens</option><option>Best Buy</option><option>Home Depot</option>
+            <option>Other (type below)</option>
+          </select>
+        </div>
+        <div class="atf-row"><label class="atf-label">Custom store name (if Other)</label><input class="atf-input" id="asCustomName" placeholder="Enter store name..."></div>
+        <div class="atf-row"><label class="atf-label">Products I buy here (comma separated)</label><input class="atf-input" id="asProducts" placeholder="milk, eggs, bread, coffee..."></div>
+        <div class="atf-row">
+          <label class="atf-label">Sale alert via</label>
+          <div style="display:flex;gap:6px;margin-top:5px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;padding:5px 9px;border:1px solid var(--border);border-radius:20px"><input type="checkbox" id="asAlertEmail" checked style="accent-color:#0a0a0a"> 📧 Email</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;padding:5px 9px;border:1px solid var(--border);border-radius:20px"><input type="checkbox" id="asAlertText" style="accent-color:#0a0a0a"> 💬 Text</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;padding:5px 9px;border:1px solid var(--border);border-radius:20px"><input type="checkbox" id="asAlertPush" checked style="accent-color:#0a0a0a"> 📱 Push</label>
+          </div>
+        </div>
+        <div style="display:flex;gap:7px;margin-top:6px">
+          <button onclick="saveStore()" style="flex:2;padding:9px;background:#0a0a0a;color:white;border:none;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Save store</button>
+          <button onclick="toggleAddStoreForm()" style="flex:1;padding:9px;background:none;border:1px solid var(--border);border-radius:4px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">Cancel</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:10px">
+        <button onclick="compareAllStores()" style="flex:1;padding:8px;background:#0a0a0a;color:white;border:none;border-radius:4px;font-size:11px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">⚖️ Compare all stores</button>
+        <button onclick="showSalesOnly()" id="salesFilterBtn" style="flex:1;padding:8px;background:none;border:1px solid #e63c2f;color:#e63c2f;border-radius:4px;font-size:11px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">🏷️ Sales only</button>
+      </div>
+      <div id="storesList"></div>
+      <div id="compareModal" style="display:none;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:10px">
+        <div style="background:#0a0a0a;padding:8px 12px;font-size:11px;font-weight:500;color:white;display:flex;justify-content:space-between;align-items:center"><span>Price comparison</span><button onclick="document.getElementById('compareModal').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer">✕</button></div>
+        <div id="compareTable" style="padding:10px 12px"></div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT PANE -->
+    <div class="sb-pane" id="sbp-account">
+      <div style="background:var(--paper);border-radius:8px;padding:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px">
+        <div style="width:44px;height:44px;border-radius:50%;background:#0a0a0a;color:white;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;flex-shrink:0">PW</div>
+        <div><div style="font-size:13px;font-weight:500">Your Account</div><div style="font-size:11px;color:var(--ink3)">Sign in to manage your profile</div></div>
+        <button onclick="closeSidebar();openSignin()" style="margin-left:auto;padding:7px 12px;background:#0a0a0a;color:white;border:none;border-radius:4px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">Sign in</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <a href="#account" onclick="closeSidebar()" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);background:white;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">👤</span><div><div style="font-size:13px;font-weight:500">Personal info</div><div style="font-size:11px;color:var(--ink3)">Name, address, email, phone</div></div><span style="margin-left:auto;color:var(--ink3)">→</span></a>
+        <a href="#account" onclick="closeSidebar();setTimeout(function(){showAcct('stores',null)},300)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);background:white;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">🏪</span><div><div style="font-size:13px;font-weight:500">Preferred stores</div><div style="font-size:11px;color:var(--ink3)">Kroger, Walmart, Aldi, Target...</div></div><span style="margin-left:auto;color:var(--ink3)">→</span></a>
+        <a href="#account" onclick="closeSidebar();setTimeout(function(){showAcct('alerts',null)},300)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);background:white;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">🔔</span><div><div style="font-size:13px;font-weight:500">Alert preferences</div><div style="font-size:11px;color:var(--ink3)">Push, email, text notifications</div></div><span style="margin-left:auto;color:var(--ink3)">→</span></a>
+        <a href="#account" onclick="closeSidebar();setTimeout(function(){showAcct('subscription',null)},300)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);background:white;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">💳</span><div><div style="font-size:13px;font-weight:500">Subscription &amp; billing</div><div style="font-size:11px;color:var(--ink3)">Plan, cancel anytime</div></div><span style="margin-left:auto;color:var(--ink3)">→</span></a>
+        <a href="#account" onclick="closeSidebar();setTimeout(function(){showAcct('payment',null)},300)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);background:white;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">💰</span><div><div style="font-size:13px;font-weight:500">Payment info</div><div style="font-size:11px;color:var(--ink3)">Billing card, Stripe secured</div></div><span style="margin-left:auto;color:var(--ink3)">→</span></a>
+        <a href="#account" onclick="closeSidebar();setTimeout(function(){showAcct('privacy',null)},300)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);background:white;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">🔒</span><div><div style="font-size:13px;font-weight:500">Privacy &amp; data</div><div style="font-size:11px;color:var(--ink3)">Control your data</div></div><span style="margin-left:auto;color:var(--ink3)">→</span></a>
+      </div>
+    </div>
+
+    <!-- EXPLORE PANE -->
+    <div class="sb-pane" id="sbp-explore">
+      <div style="font-size:12px;color:var(--ink3);margin-bottom:14px;line-height:1.6">Jump to any section of the PriceWatch website.</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <button onclick="closeSidebar();document.getElementById('tutorial').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">🎯</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">How it works</div><div style="font-size:11px;color:var(--ink3)">Step-by-step guide to PriceWatch</div></div></button>
+        <button onclick="closeSidebar();document.getElementById('platforms').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">🏪</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">What we track</div><div style="font-size:11px;color:var(--ink3)">500+ retailers, groceries, C2C</div></div></button>
+        <button onclick="closeSidebar();document.getElementById('local').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">📍</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Local discovery</div><div style="font-size:11px;color:var(--ink3)">Find ice cream, coffee, pizza nearby</div></div></button>
+        <button onclick="closeSidebar();document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">💳</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Pricing plans</div><div style="font-size:11px;color:var(--ink3)">Free, Pro $4.99/mo, Family $9.99/mo</div></div></button>
+        <button onclick="closeSidebar();openDownloadModal()" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:18px">📲</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Download app</div><div style="font-size:11px;color:var(--ink3)">iOS and Android — coming soon</div></div></button>
+      </div>
+    </div>
+
+    <!-- TUTORIALS PANE -->
+    <div class="sb-pane" id="sbp-tutorials">
+      <div style="font-size:12px;color:var(--ink3);margin-bottom:14px;line-height:1.6">Tap any tutorial to jump straight to it on the page.</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <button onclick="closeSidebar();openTutorialFromHero();setTimeout(function(){showTutorial('search',null)},500)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">🔍</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Search &amp; compare prices</div><div style="font-size:11px;color:var(--ink3)">Type a name or scan a barcode</div></div></button>
+        <button onclick="closeSidebar();openTutorialFromHero();setTimeout(function(){showTutorial('scan',null)},500)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">📷</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Barcode scanner</div><div style="font-size:11px;color:var(--ink3)">Scan in-store, compare instantly</div></div></button>
+        <button onclick="closeSidebar();openTutorialFromHero();setTimeout(function(){showTutorial('grocery',null)},500)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">🛒</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Grocery list comparison</div><div style="font-size:11px;color:var(--ink3)">Compare every store, import to cart</div></div></button>
+        <button onclick="closeSidebar();openTutorialFromHero();setTimeout(function(){showTutorial('alerts',null)},500)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">🔔</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Price drop alerts</div><div style="font-size:11px;color:var(--ink3)">Set targets, get notified instantly</div></div></button>
+        <button onclick="closeSidebar();openTutorialFromHero();setTimeout(function(){showTutorial('staples',null)},500)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">🔁</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Repeat purchases</div><div style="font-size:11px;color:var(--ink3)">Track staples, find brand alternatives</div></div></button>
+        <button onclick="closeSidebar();openTutorialFromHero();setTimeout(function(){showTutorial('delivery',null)},500)" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:white;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;width:100%;transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">🚗</span><div><div style="font-size:13px;font-weight:500;color:var(--ink)">Delivery comparison</div><div style="font-size:11px;color:var(--ink3)">DoorDash vs Instacart vs store direct</div></div></button>
+      </div>
+    </div>
+
+    <!-- CONTACT PANE -->
+    <div class="sb-pane" id="sbp-contact">
+      <div style="font-size:12px;color:var(--ink3);margin-bottom:14px;line-height:1.6">We respond to every message within 24 hours Monday through Friday.</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+        <a href="mailto:support@pricewatch.app" style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">📧</span><div><div style="font-size:13px;font-weight:500">Email us directly</div><div style="font-size:11px;color:#e63c2f">support@pricewatch.app</div></div></a>
+        <a href="#contact" onclick="closeSidebar()" style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">📝</span><div><div style="font-size:13px;font-weight:500">Contact form</div><div style="font-size:11px;color:var(--ink3)">Send a detailed message</div></div></a>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px"><span style="font-size:20px">📍</span><div><div style="font-size:13px;font-weight:500">Columbus, Ohio</div><div style="font-size:11px;color:var(--ink3)">Serving shoppers nationwide</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px"><span style="font-size:20px">⏱️</span><div><div style="font-size:13px;font-weight:500">Response time</div><div style="font-size:11px;color:var(--ink3)">Within 24 hours, Mon–Fri</div></div></div>
+      </div>
+      <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:block;padding:11px;background:#0a0a0a;color:white;text-align:center;border-radius:6px;text-decoration:none;font-size:13px;font-weight:500">Join early access waitlist →</a>
+    </div>
+
+    <!-- TECH PANE -->
+    <div class="sb-pane" id="sbp-tech">
+      <div style="font-size:12px;color:var(--ink3);margin-bottom:14px;line-height:1.6">PriceWatch is built on enterprise-grade infrastructure designed to track millions of prices in real time.</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><div style="background:#0a0a0a;padding:7px 12px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#e63c2f">Frontend</div><div style="padding:10px 12px"><div style="font-size:13px;font-weight:500;margin-bottom:2px">React Native + Next.js</div><div style="font-size:11px;color:var(--ink3);line-height:1.5">Cross-platform iOS &amp; Android. Next.js for fast web.</div></div></div>
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><div style="background:#0a0a0a;padding:7px 12px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#e63c2f">Backend</div><div style="padding:10px 12px"><div style="font-size:13px;font-weight:500;margin-bottom:2px">Node.js + FastAPI</div><div style="font-size:11px;color:var(--ink3);line-height:1.5">RESTful APIs + ML-based price anomaly detection.</div></div></div>
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><div style="background:#0a0a0a;padding:7px 12px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#e63c2f">Database</div><div style="padding:10px 12px"><div style="font-size:13px;font-weight:500;margin-bottom:2px">PostgreSQL + Redis + InfluxDB</div><div style="font-size:11px;color:var(--ink3);line-height:1.5">User data, sub-100ms caching, and price time series.</div></div></div>
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><div style="background:#0a0a0a;padding:7px 12px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#e63c2f">Data feeds</div><div style="padding:10px 12px"><div style="font-size:13px;font-weight:500;margin-bottom:2px">Rainforest API + SerpAPI</div><div style="font-size:11px;color:var(--ink3);line-height:1.5">Retail price feeds from 500+ sources + Google Shopping.</div></div></div>
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><div style="background:#0a0a0a;padding:7px 12px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#e63c2f">Infrastructure</div><div style="padding:10px 12px"><div style="font-size:13px;font-weight:500;margin-bottom:2px">AWS + Cloudflare</div><div style="font-size:11px;color:var(--ink3);line-height:1.5">ECS containers, Lambda alert jobs, global CDN.</div></div></div>
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><div style="background:#0a0a0a;padding:7px 12px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#e63c2f">Payments</div><div style="padding:10px 12px"><div style="font-size:13px;font-weight:500;margin-bottom:2px">Stripe</div><div style="font-size:11px;color:var(--ink3);line-height:1.5">Subscription billing, free trials, affiliate tracking.</div></div></div>
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><div style="background:#0a0a0a;padding:7px 12px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#e63c2f">Notifications</div><div style="padding:10px 12px"><div style="font-size:13px;font-weight:500;margin-bottom:2px">Firebase + SendGrid</div><div style="font-size:11px;color:var(--ink3);line-height:1.5">Push notifications + personalized email alerts.</div></div></div>
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden"><div style="background:#0a0a0a;padding:7px 12px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#e63c2f">Maps &amp; Tax</div><div style="padding:10px 12px"><div style="font-size:13px;font-weight:500;margin-bottom:2px">Google Maps + TaxJar</div><div style="font-size:11px;color:var(--ink3);line-height:1.5">Store locations, directions, hours, sales tax by ZIP.</div></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sb-footer">
+    <button class="sb-footer-btn" onclick="closeSidebar();openDownloadModal()">
+      <span style="font-size:16px">📲</span>Download the app
+    </button>
+  </div>
+</aside>
 
 <!-- ADD TO WATCHLIST MODAL -->
 <div id="watchModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,0.5);align-items:center;justify-content:center">
@@ -383,25 +609,42 @@ footer {
 </div>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-logo">Price<span>Watch</span></div>
-  <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#tutorial">How it works</a>
-    <a href="#platforms">What we track</a>
-    <a href="#local" style="color:var(--accent);font-weight:500">Local</a>
-    <a href="#tutorial" style="color:var(--accent);font-weight:500">Tutorial</a>
-    <a href="#account">My account</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="nav-right">
-    <button onclick="openDownloadModal()" style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--border);border-radius:2px;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);transition:all 0.2s" onmouseover="this.style.background='var(--ink)';this.style.color='white'" onmouseout="this.style.background='none';this.style.color='var(--ink)'">
-      <span style="font-size:14px">📲</span> Download app
+<nav style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 24px;height:64px;position:sticky;top:0;z-index:100;background:rgba(248,246,241,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)">
+
+  <div style="display:flex;align-items:center;gap:8px;justify-content:flex-start">
+    <button onclick="openSidebar()" style="display:flex;flex-direction:column;gap:5px;padding:8px;border:none;background:none;cursor:pointer;flex-shrink:0" aria-label="Open menu">
+      <span style="display:block;width:22px;height:2px;background:var(--ink);border-radius:1px"></span>
+      <span style="display:block;width:16px;height:2px;background:var(--ink);border-radius:1px"></span>
+      <span style="display:block;width:22px;height:2px;background:var(--ink);border-radius:1px"></span>
     </button>
-    <button onclick="openSignin()" class="btn-ghost">Sign in</button>
-    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" class="btn-solid">Get early access</a>
+    <button onclick="openSignin()" class="btn-ghost" style="white-space:nowrap">Sign in</button>
   </div>
+
+  <a href="#" style="text-decoration:none;display:flex;align-items:center;gap:10px;justify-content:center">
+    <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="36" height="36" rx="7" fill="#0a0a0a"/>
+      <circle cx="18" cy="15" r="7.5" fill="none" stroke="#e63c2f" stroke-width="2"/>
+      <line x1="18" y1="7.5" x2="18" y2="4.5" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="18" y1="22.5" x2="18" y2="25.5" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="10.5" y1="15" x2="7.5" y2="15" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="25.5" y1="15" x2="28.5" y2="15" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="13.2" y1="10.2" x2="11.1" y2="8.1" stroke="#e63c2f" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="22.8" y1="19.8" x2="24.9" y2="21.9" stroke="#e63c2f" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="22.8" y1="10.2" x2="24.9" y2="8.1" stroke="#e63c2f" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="13.2" y1="19.8" x2="11.1" y2="21.9" stroke="#e63c2f" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="18" cy="15" r="2.5" fill="#e63c2f"/>
+      <polyline points="9,30 13,25.5 16.5,27.5 21,21 25,23.5 29,18" fill="none" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;color:#0a0a0a">Price<span style="color:#e63c2f">Watch</span></span>
+  </a>
+
+  <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">
+    <button onclick="openDownloadModal()" style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--border);border-radius:2px;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);transition:all 0.2s;white-space:nowrap" onmouseover="this.style.background='var(--ink)';this.style.color='white'" onmouseout="this.style.background='none';this.style.color='var(--ink)'">
+      <span style="font-size:14px">📲</span> Download
+    </button>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" class="btn-solid" style="white-space:nowrap">Get early access</a>
+  </div>
+
 </nav>
 
 <!-- PRICE TICKER STRIP -->
@@ -780,54 +1023,6 @@ footer {
 </div>
 </div>
 
-<!-- TECH STACK -->
-<div class="section reveal" id="tech">
-  <div class="section-label">Technology</div>
-  <div class="section-title">Built on a modern,<br>scalable stack</div>
-  <div class="section-sub">Enterprise-grade infrastructure powering real-time price data at scale.</div>
-  <div class="tech-grid">
-    <div class="tech-card">
-      <div class="tech-layer">Frontend</div>
-      <div class="tech-name">React Native + Next.js</div>
-      <div class="tech-detail">Cross-platform iOS & Android app from one codebase. Next.js for fast server-rendered web.</div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-layer">Backend</div>
-      <div class="tech-name">Node.js + FastAPI</div>
-      <div class="tech-detail">RESTful APIs on Node.js. Python FastAPI for ML-based price anomaly detection and deal scoring.</div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-layer">Database</div>
-      <div class="tech-name">PostgreSQL + Redis</div>
-      <div class="tech-detail">Postgres for product & user data. Redis for sub-100ms search caching. InfluxDB for price time series.</div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-layer">Data</div>
-      <div class="tech-name">Rainforest + SerpAPI</div>
-      <div class="tech-detail">Retail price feeds from 500+ sources. Google Shopping data. Custom scrapers for remaining sources.</div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-layer">Infrastructure</div>
-      <div class="tech-name">AWS + Cloudflare</div>
-      <div class="tech-detail">ECS containers, RDS, ElastiCache, Lambda for alert jobs. Cloudflare CDN globally.</div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-layer">Payments</div>
-      <div class="tech-name">Stripe</div>
-      <div class="tech-detail">Subscription billing, free trial management, and affiliate revenue tracking built in.</div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-layer">Notifications</div>
-      <div class="tech-name">Firebase + SendGrid</div>
-      <div class="tech-detail">Push notifications via Firebase Cloud Messaging. Email alerts via SendGrid with personalization.</div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-layer">Maps & Tax</div>
-      <div class="tech-name">Google Maps + TaxJar</div>
-      <div class="tech-detail">Store locations, directions, and hours via Google Places API. Accurate sales tax by ZIP via TaxJar.</div>
-    </div>
-  </div>
-</div>
 
 <!-- APP DOWNLOAD -->
 <div class="app-section">
@@ -1608,7 +1803,19 @@ footer {
 <!-- FOOTER -->
 <footer class="reveal">
   <div class="footer-brand">
-    <div class="footer-logo">Price<span>Watch</span></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <svg width="30" height="30" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="7" fill="#0a0a0a"/>
+        <circle cx="18" cy="15" r="7.5" fill="none" stroke="#e63c2f" stroke-width="2"/>
+        <line x1="18" y1="7.5" x2="18" y2="4.5" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="18" y1="22.5" x2="18" y2="25.5" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="10.5" y1="15" x2="7.5" y2="15" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="25.5" y1="15" x2="28.5" y2="15" stroke="#e63c2f" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="18" cy="15" r="2.5" fill="#e63c2f"/>
+        <polyline points="9,30 13,25.5 16.5,27.5 21,21 25,23.5 29,18" fill="none" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a">Price<span style="color:#e63c2f">Watch</span></span>
+    </div>
     <div class="footer-tagline">Real-time price intelligence for every purchase you make — groceries, fashion, home, and everything in between.</div>
   </div>
   <div class="footer-col">
@@ -1855,7 +2062,340 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-/* ── DOWNLOAD MODAL ── */
+/* ── SIDEBAR ── */
+var currentPanel = null;
+
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sbOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  showPane('about', document.querySelector('.sb-nav-btn'));
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sbOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function showPane(name, btn) {
+  document.querySelectorAll('.sb-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.sb-nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  var pane = document.getElementById('sbp-' + name);
+  if(pane) pane.classList.add('active');
+  if(btn) btn.classList.add('active');
+  currentPanel = name;
+  if(name === 'tracker') renderTrackerItems();
+  if(name === 'stores') renderStoresList();
+}
+
+function openPanel(name, btn) { showPane(name, btn); }
+function closePanel() {}
+
+
+  {id:1,name:'Tide Pods 42ct',icon:'🧺',store:'Kroger',current:14.99,target:12.00,saved:6.00,freq:'Monthly',type:'repeat',onSale:false,alerts:{email:true,text:false,push:true},notify:{target:true,sale:true,low:true}},
+  {id:2,name:'Dyson V15 Detect',icon:'🌀',store:'Best Buy',current:499,target:450,saved:0,freq:'Future purchase',type:'future',onSale:true,alerts:{email:true,text:true,push:true},notify:{target:true,sale:true,low:false}},
+  {id:3,name:'Nike Air Max 270',icon:'👟',store:'Nike.com',current:110,target:95,saved:40,freq:'Future purchase',type:'future',onSale:true,alerts:{email:true,text:false,push:true},notify:{target:true,sale:false,low:true}},
+  {id:4,name:'Folgers Coffee',icon:'☕',store:'Walmart',current:8.97,target:8.00,saved:12.48,freq:'Bi-weekly',type:'repeat',onSale:false,alerts:{email:false,text:true,push:true},notify:{target:true,sale:true,low:false}},
+  {id:5,name:'Charmin TP 18pk',icon:'🧻',store:'Walmart',current:11.47,target:10.00,saved:18.00,freq:'Monthly',type:'repeat',onSale:false,alerts:{email:true,text:false,push:false},notify:{target:true,sale:true,low:true}},
+];
+
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sbOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if(!currentPanel) openPanel('about', document.getElementById('sb-about'));
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sbOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  closePanel();
+}
+
+function closePanel() {
+  document.querySelectorAll('.sb-panel').forEach(function(p){p.classList.remove('open');});
+  currentPanel = null;
+}
+
+function toggleAddForm() {
+  var toggle = document.getElementById('addTrackerToggle');
+  var form = document.getElementById('addTrackerForm');
+  var isOpen = form.style.display === 'block';
+  toggle.style.display = isOpen ? 'block' : 'none';
+  form.style.display = isOpen ? 'none' : 'block';
+  if(!isOpen) document.getElementById('atfName').focus();
+}
+
+function saveTrackerItem() {
+  var name = document.getElementById('atfName').value.trim();
+  var current = parseFloat(document.getElementById('atfCurrent').value) || 0;
+  var target = parseFloat(document.getElementById('atfTarget').value) || current * 0.9;
+  var store = document.getElementById('atfStore').value.trim() || 'Various';
+  var freq = document.getElementById('atfFreq').value;
+  var alertEmail = document.getElementById('atfAlertEmail').checked;
+  var alertText = document.getElementById('atfAlertText').checked;
+  var alertPush = document.getElementById('atfAlertPush').checked;
+  var notifyTarget = document.getElementById('atfNotifyTarget').checked;
+  var notifySale = document.getElementById('atfNotifySale').checked;
+  var notifyLow = document.getElementById('atfNotifyLow').checked;
+  if(!name){alert('Please enter an item name');return;}
+  if(!alertEmail && !alertText && !alertPush){alert('Please select at least one alert method');return;}
+  sbTrackerItems.push({
+    id:Date.now(),name:name,icon:'🏷️',store:store,current:current,target:target,
+    saved:0,freq:freq,type:freq==='Future purchase'?'future':'repeat',onSale:false,
+    alerts:{email:alertEmail,text:alertText,push:alertPush},
+    notify:{target:notifyTarget,sale:notifySale,low:notifyLow}
+  });
+  toggleAddForm();
+  document.getElementById('atfName').value='';
+  document.getElementById('atfCurrent').value='';
+  document.getElementById('atfTarget').value='';
+  document.getElementById('atfStore').value='';
+  document.getElementById('atfAlertEmail').checked=true;
+  document.getElementById('atfAlertText').checked=false;
+  document.getElementById('atfAlertPush').checked=true;
+  document.getElementById('atfNotifyTarget').checked=true;
+  document.getElementById('atfNotifySale').checked=true;
+  document.getElementById('atfNotifyLow').checked=true;
+  renderTrackerItems();
+}
+
+function removeTrackerItem(id) {
+  sbTrackerItems = sbTrackerItems.filter(function(i){return i.id !== id;});
+  renderTrackerItems();
+}
+
+function renderTrackerItems() {
+  var el = document.getElementById('trackerItemsList');
+  if(!el) return;
+  var totalSaved = sbTrackerItems.reduce(function(s,i){return s+i.saved;},0);
+  var savedEl = document.querySelector('.tracker-stat-val');
+  if(savedEl) savedEl.textContent = '$' + totalSaved.toFixed(2);
+  if(!sbTrackerItems.length){
+    el.innerHTML = '<div style="text-align:center;padding:20px;color:var(--ink3);font-size:13px">No items tracked yet. Add your first item above!</div>';
+    return;
+  }
+  el.innerHTML = sbTrackerItems.map(function(item){
+    var pct = Math.min(100, Math.round(((item.current - item.target) / (item.current * 0.3)) * 100));
+    pct = Math.max(0, 100 - pct);
+    var barColor = pct >= 90 ? '#16a34a' : pct >= 60 ? '#d97706' : '#e63c2f';
+    var cardCls = item.current <= item.target ? 'tracker-item-card on-target' : item.onSale ? 'tracker-item-card on-sale' : 'tracker-item-card';
+    var badge = item.current <= item.target
+      ? '<span style="font-size:10px;padding:2px 7px;border-radius:8px;background:#16a34a;color:white;font-weight:600">&#10003; Target reached!</span>'
+      : item.onSale
+      ? '<span style="font-size:10px;padding:2px 7px;border-radius:8px;background:#e63c2f;color:white;font-weight:600">On sale now</span>'
+      : '';
+    var alerts = item.alerts || {email:true,text:false,push:true};
+    var notify = item.notify || {target:true,sale:true,low:false};
+    var alertBadges = '';
+    if(alerts.push) alertBadges += '<span style="font-size:10px;padding:2px 6px;border-radius:6px;background:#dbeafe;color:#1e40af">&#128241; Push</span> ';
+    if(alerts.email) alertBadges += '<span style="font-size:10px;padding:2px 6px;border-radius:6px;background:#dcfce7;color:#166534">&#128140; Email</span> ';
+    if(alerts.text) alertBadges += '<span style="font-size:10px;padding:2px 6px;border-radius:6px;background:#fef9c3;color:#854d0e">&#128172; Text</span>';
+    var notifyLabels = [];
+    if(notify.target) notifyLabels.push('target price');
+    if(notify.sale) notifyLabels.push('sales');
+    if(notify.low) notifyLabels.push('12-mo low');
+    var notifyText = notifyLabels.length ? 'Notify on: '+notifyLabels.join(', ') : 'No notifications set';
+    return '<div class="'+cardCls+'">'+
+      '<div class="ti-top">'+
+        '<div class="ti-icon">'+item.icon+'</div>'+
+        '<div style="flex:1;min-width:0">'+
+          '<div class="ti-name">'+item.name+' '+badge+'</div>'+
+          '<div class="ti-brand">'+item.store+' &middot; '+item.freq+'</div>'+
+        '</div>'+
+        '<div class="ti-price-col">'+
+          '<div class="ti-current">$'+item.current.toFixed(2)+'</div>'+
+          '<div class="ti-target">Target: $'+item.target.toFixed(2)+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="ti-progress"><div class="ti-progress-fill" style="width:'+pct+'%;background:'+barColor+'"></div></div>'+
+      '<div class="ti-meta">'+
+        '<span>'+pct+'% to target</span>'+
+        (item.saved > 0 ? '<span style="color:#16a34a;font-weight:500">Saved $'+item.saved.toFixed(2)+'</span>' : '<span>Not yet purchased</span>')+
+      '</div>'+
+      '<div style="margin-top:8px;padding:8px 10px;background:var(--paper);border-radius:6px">'+
+        '<div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:5px">Alert settings</div>'+
+        '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px">'+alertBadges+'</div>'+
+        '<div style="font-size:11px;color:var(--ink3)">'+notifyText+'</div>'+
+      '</div>'+
+      '<div class="ti-actions">'+
+        '<button class="ti-btn" onclick="editTrackerAlerts('+item.id+')">&#9998; Edit alerts</button>'+
+        '<button class="ti-btn" onclick="showAlertConfirm(\''+item.name.replace(/'/g,"\\'")+'\',\''+item.target.toFixed(2)+'\',\''+[alerts.email?'email':'',alerts.text?'text':'',alerts.push?'push':''].filter(Boolean).join(',')+'\')">&#128276; Test alert</button>'+
+        '<button class="ti-btn danger" onclick="removeTrackerItem('+item.id+')">Remove</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function editTrackerAlerts(id) {
+  var item = sbTrackerItems.find(function(i){return i.id===id;});
+  if(!item) return;
+  var methods = [];
+  if(item.alerts && item.alerts.push) methods.push('Push notification');
+  if(item.alerts && item.alerts.email) methods.push('Email');
+  if(item.alerts && item.alerts.text) methods.push('Text message');
+  var triggers = [];
+  if(item.notify && item.notify.target) triggers.push('Target price reached');
+  if(item.notify && item.notify.sale) triggers.push('Goes on sale');
+  if(item.notify && item.notify.low) triggers.push('Hits 12-month low');
+  alert('Alert settings for '+item.name+':\n\nNotify via: '+(methods.length?methods.join(', '):'None')+'\nNotify when: '+(triggers.length?triggers.join(', '):'Nothing')+'\n\nFull alert editing will be available in the PriceWatch app when it launches!');
+}
+
+function showAlertConfirm(name, target, methods) {
+  var methodList = methods ? methods.split(',').filter(Boolean).join(', ') : 'email and push notification';
+  alert('Test alert sent for '+name+'!\n\nYou will be notified via '+methodList+' the moment the price drops to $'+target+' at any store.\n\nIn the full app this will be a real notification to your phone and email.');
+}
+
+
+/* ── FAVORITE STORES ── */
+var favoriteStores = [
+  {id:1,name:'Kroger',icon:'🛒',products:['milk','eggs','chicken','bread','butter','orange juice'],alerts:{email:true,text:false,push:true},salesCount:2,items:[
+    {name:'Whole milk 1gal',current:3.49,prev:3.99,onSale:true,salePrice:2.99},
+    {name:'Chicken breast/lb',current:4.49,prev:5.99,onSale:true,salePrice:4.49},
+    {name:'Eggs dozen',current:4.29,prev:4.29,onSale:false,salePrice:null},
+    {name:'Bread loaf',current:3.29,prev:3.29,onSale:false,salePrice:null},
+  ]},
+  {id:2,name:'Walmart',icon:'🏪',products:['coffee','toilet paper','laundry detergent','dish soap'],alerts:{email:true,text:true,push:true},salesCount:1,items:[
+    {name:'Folgers coffee',current:8.97,prev:9.97,onSale:false,salePrice:null},
+    {name:'Charmin TP 18pk',current:11.47,prev:12.97,onSale:true,salePrice:11.47},
+    {name:'Tide Pods 42ct',current:14.99,prev:14.99,onSale:false,salePrice:null},
+  ]},
+  {id:3,name:'Aldi',icon:'🧺',products:['bananas','apples','frozen pizza','pasta','yogurt'],alerts:{email:false,text:false,push:true},salesCount:2,items:[
+    {name:'Bananas /lb',current:0.49,prev:0.59,onSale:true,salePrice:0.49},
+    {name:'Frozen pizza',current:3.99,prev:4.99,onSale:true,salePrice:3.99},
+    {name:'Pasta 1lb',current:1.29,prev:1.29,onSale:false,salePrice:null},
+  ]},
+  {id:4,name:'Amazon Fresh',icon:'📦',products:['coffee pods','paper towels','vitamins','snacks'],alerts:{email:true,text:false,push:false},salesCount:0,items:[
+    {name:'Coffee pods 72ct',current:34.99,prev:34.99,onSale:false,salePrice:null},
+    {name:'Paper towels 6pk',current:12.99,prev:14.99,onSale:false,salePrice:null},
+  ]},
+];
+var showSalesFilter = false;
+
+function toggleAddStoreForm() {
+  var toggle = document.getElementById('addStoreToggle');
+  var form = document.getElementById('addStoreForm');
+  if(!toggle||!form) return;
+  var isOpen = form.style.display === 'block';
+  toggle.style.display = isOpen ? 'block' : 'none';
+  form.style.display = isOpen ? 'none' : 'block';
+}
+
+function saveStore() {
+  var select = document.getElementById('asStoreName');
+  var custom = document.getElementById('asCustomName').value.trim();
+  var name = select.value === 'Other (type below)' ? custom : select.value;
+  var productsRaw = document.getElementById('asProducts').value.trim();
+  var alertEmail = document.getElementById('asAlertEmail').checked;
+  var alertText = document.getElementById('asAlertText').checked;
+  var alertPush = document.getElementById('asAlertPush').checked;
+  if(!name){alert('Please select or enter a store name');return;}
+  if(!productsRaw){alert('Please enter at least one product');return;}
+  var products = productsRaw.split(',').map(function(p){return p.trim();}).filter(Boolean);
+  var icons = {Kroger:'🛒',Walmart:'🏪',Aldi:'🧺',Meijer:'🏬',Target:'🎯',Costco:'🏢','Amazon Fresh':'📦',Amazon:'📦','Whole Foods':'🌿','Best Buy':'💻','Home Depot':'🔨'};
+  favoriteStores.push({id:Date.now(),name:name,icon:icons[name]||'🏪',products:products,alerts:{email:alertEmail,text:alertText,push:alertPush},salesCount:0,items:products.map(function(p){return {name:p,current:0,prev:0,onSale:false,salePrice:null};})});
+  toggleAddStoreForm();
+  select.value=''; document.getElementById('asCustomName').value=''; document.getElementById('asProducts').value='';
+  renderStoresList();
+  var sc = document.getElementById('storeCount'); if(sc) sc.textContent = favoriteStores.length;
+}
+
+function removeStore(id) {
+  favoriteStores = favoriteStores.filter(function(s){return s.id!==id;});
+  renderStoresList();
+  var sc = document.getElementById('storeCount'); if(sc) sc.textContent = favoriteStores.length;
+}
+
+function showSalesOnly() {
+  showSalesFilter = !showSalesFilter;
+  renderStoresList();
+}
+
+function compareAllStores() {
+  var modal = document.getElementById('compareModal');
+  var table = document.getElementById('compareTable');
+  if(!modal||!table) return;
+  modal.style.display = 'block';
+  var allProducts = {};
+  favoriteStores.forEach(function(store){
+    store.items.forEach(function(item){
+      var key = item.name.toLowerCase();
+      if(!allProducts[key]) allProducts[key] = {name:item.name, prices:[]};
+      allProducts[key].prices.push({store:store.name, icon:store.icon, price:item.current, onSale:item.onSale});
+    });
+  });
+  var shared = Object.values(allProducts).filter(function(p){return p.prices.length > 1;});
+  if(!shared.length){
+    table.innerHTML = '<div style="font-size:13px;color:var(--ink3);text-align:center;padding:12px">No matching products across multiple stores yet. Add the same product to more than one store to compare.</div>';
+    return;
+  }
+  table.innerHTML = shared.map(function(product){
+    var sorted = product.prices.slice().sort(function(a,b){return a.price-b.price;});
+    var cheapest = sorted[0].price;
+    var rows = sorted.map(function(p,i){
+      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px">'+
+        '<span>'+p.icon+' '+p.store+'</span>'+
+        '<div style="display:flex;align-items:center;gap:5px">'+
+          (p.onSale?'<span style="font-size:10px;padding:1px 5px;background:#fde8e8;color:#c53030;border-radius:6px">SALE</span>':'')+
+          '<span style="font-weight:500;color:'+(i===0?'#16a34a':'var(--ink)')+'">$'+p.price.toFixed(2)+'</span>'+
+          (i===0?'<span style="font-size:10px;color:#16a34a">✓ cheapest</span>':'<span style="font-size:10px;color:var(--ink3)">+$'+(p.price-cheapest).toFixed(2)+'</span>')+
+        '</div>'+
+      '</div>';
+    }).join('');
+    return '<div style="margin-bottom:10px"><div style="font-size:12px;font-weight:500;margin-bottom:5px">'+product.name+'</div>'+rows+'</div>';
+  }).join('');
+  modal.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderStoresList() {
+  var el = document.getElementById('storesList');
+  if(!el) return;
+  var stores = showSalesFilter ? favoriteStores.filter(function(s){return s.salesCount>0;}) : favoriteStores;
+  var totalSales = favoriteStores.reduce(function(t,s){return t+s.salesCount;},0);
+  var ssc = document.getElementById('storeSaleCount'); if(ssc) ssc.textContent = totalSales;
+  if(!stores.length){el.innerHTML='<div style="text-align:center;padding:20px;color:var(--ink3);font-size:13px">'+(showSalesFilter?'No stores have active sales right now.':'Add your first store above!')+'</div>';return;}
+  el.innerHTML = stores.map(function(store){
+    var ab = '';
+    if(store.alerts.push) ab+='<span style="font-size:10px;padding:2px 6px;border-radius:6px;background:#dbeafe;color:#1e40af">📱</span> ';
+    if(store.alerts.email) ab+='<span style="font-size:10px;padding:2px 6px;border-radius:6px;background:#dcfce7;color:#166534">📧</span> ';
+    if(store.alerts.text) ab+='<span style="font-size:10px;padding:2px 6px;border-radius:6px;background:#fef9c3;color:#854d0e">💬</span>';
+    var itemsHtml = store.items.map(function(item){
+      var change = item.prev > 0 && item.current !== item.prev ? ((item.current - item.prev)/item.prev*100).toFixed(0) : null;
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px">'+
+        '<span style="color:var(--ink2)">'+item.name+'</span>'+
+        '<div style="display:flex;align-items:center;gap:5px">'+
+          (item.onSale?'<span style="font-size:10px;padding:1px 5px;background:#fde8e8;color:#c53030;border-radius:6px;font-weight:500">SALE $'+item.salePrice.toFixed(2)+'</span>':'')+
+          '<span style="font-weight:500;color:'+(item.onSale?'#16a34a':'var(--ink)')+'">$'+item.current.toFixed(2)+'</span>'+
+          (change?'<span style="font-size:10px;color:'+(change<0?'#16a34a':'#e63c2f')+'">'+(change<0?'▼':'▲')+Math.abs(change)+'%</span>':'')+
+        '</div></div>';
+    }).join('');
+    return '<div style="border:1px solid '+(store.salesCount>0?'#fca5a5':'var(--border)')+';border-radius:8px;overflow:hidden;margin-bottom:10px">'+
+      '<div style="padding:10px 14px;display:flex;align-items:center;gap:10px;background:'+(store.salesCount>0?'#fff7f7':'var(--paper)')+'">'+
+        '<span style="font-size:22px">'+store.icon+'</span>'+
+        '<div style="flex:1"><div style="font-size:13px;font-weight:500">'+store.name+'</div><div style="font-size:11px;color:var(--ink3)">'+store.products.length+' products tracked</div></div>'+
+        (store.salesCount>0?'<span style="font-size:11px;padding:2px 8px;border-radius:10px;background:#fde8e8;color:#c53030;font-weight:500">'+store.salesCount+' on sale</span>':'')+
+      '</div>'+
+      '<div style="padding:6px 14px;border-top:1px solid var(--border)">'+itemsHtml+'</div>'+
+      '<div style="padding:8px 14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">'+
+        '<div style="display:flex;gap:4px;align-items:center"><span style="font-size:11px;color:var(--ink3);margin-right:2px">Alerts:</span>'+ab+'</div>'+
+        '<button onclick="removeStore('+store.id+')" style="font-size:11px;padding:3px 10px;border:1px solid var(--border);border-radius:4px;background:none;cursor:pointer;color:var(--ink3);font-family:\'DM Sans\',sans-serif">Remove</button>'+
+      '</div></div>';
+  }).join('');
+}
+
+function openPanel(name, btn) {
+  document.querySelectorAll('.sb-panel').forEach(function(p){p.classList.remove('open');});
+  document.querySelectorAll('.sb-item').forEach(function(b){b.classList.remove('active');});
+  var panel = document.getElementById('panel-'+name);
+  if(panel) panel.classList.add('open');
+  if(btn) btn.classList.add('active');
+  currentPanel = name;
+  if(name === 'tracker') renderTrackerItems();
+  if(name === 'stores-sb') renderStoresList();
+}
+
 function openDownloadModal(){
   document.getElementById('downloadModal').style.display='flex';
   document.body.style.overflow='hidden';
