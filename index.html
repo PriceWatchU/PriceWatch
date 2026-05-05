@@ -33,9 +33,9 @@ body {
 
 /* NAV */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  position: sticky; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; padding: 0 40px; height: 64px;
-  background: rgba(248,246,241,0.92); backdrop-filter: blur(12px);
+  background: rgba(248,246,241,0.97); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
 .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.5px; }
@@ -231,15 +231,11 @@ footer {
 .footer-copy { font-size: 12px; color: var(--ink3); }
 
 /* ANIMATIONS */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal { opacity: 1; transform: none; }
 .reveal.visible { opacity: 1; transform: none; }
 
-/* TICKER TOP BAR */
-.top-bar {
-  background: var(--ink); color: white; padding: 8px 40px; font-size: 12px;
-  display: flex; align-items: center; gap: 16px; overflow: hidden;
-}
-.top-bar-text { white-space: nowrap; }
+/* TICKER STRIP STYLES */
+.ts-mode { transition: all 0.15s; }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
@@ -260,28 +256,129 @@ footer {
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="top-bar">
-  <div class="ticker-scroll" style="animation:scroll 30s linear infinite">
-    <span>Nike Air Max 270</span><span class="dn">▼ $40 at Nike.com</span>
-    <span>·</span>
-    <span>Kroger Milk</span><span class="up">Sale $1.99/gal</span>
-    <span>·</span>
-    <span>Coach Tabby Bag</span><span class="dn">▼ 30% off today</span>
-    <span>·</span>
-    <span>Dyson V15</span><span class="dn">▼ $80 at Best Buy</span>
-    <span>·</span>
-    <span>Chicken Breast</span><span class="up">$4.49/lb at Aldi</span>
-    <span>·</span>
-    <span>Nike Air Max 270</span><span class="dn">▼ $40 at Nike.com</span>
-    <span>·</span>
-    <span>Kroger Milk</span><span class="up">Sale $1.99/gal</span>
-    <span>·</span>
-    <span>Coach Tabby Bag</span><span class="dn">▼ 30% off today</span>
-    <span>·</span>
-    <span>Dyson V15</span><span class="dn">▼ $80 at Best Buy</span>
-    <span>·</span>
-    <span>Chicken Breast</span><span class="up">$4.49/lb at Aldi</span>
+<!-- DOWNLOAD APP MODAL -->
+<div id="downloadModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center" onclick="if(event.target===this)closeDownloadModal()">
+  <div style="background:var(--white);border-radius:12px;width:100%;max-width:480px;margin:20px;position:relative;overflow:hidden">
+
+    <div style="background:#0a0a0a;padding:28px 28px 24px">
+      <button onclick="closeDownloadModal()" style="position:absolute;top:14px;right:16px;border:none;background:rgba(255,255,255,0.1);width:28px;height:28px;border-radius:50%;color:white;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">&#10005;</button>
+      <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;color:white;margin-bottom:6px">Get the PriceWatch app</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.55)">Save money every day — in store, at home, and everywhere in between</div>
+    </div>
+
+    <div style="padding:24px 28px">
+
+      <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink3);margin-bottom:14px">Download for your device</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+
+        <a href="https://apps.apple.com" onclick="handleAppDownload(event,'ios')" target="_blank" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border:1.5px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.2s;background:var(--white)" onmouseover="this.style.borderColor='var(--ink)';this.style.background='var(--paper)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--white)'">
+          <div style="width:44px;height:44px;background:#0a0a0a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🍎</div>
+          <div style="flex:1">
+            <div style="font-size:11px;color:var(--ink3);margin-bottom:2px">Download on the</div>
+            <div style="font-size:16px;font-weight:600;font-family:'Syne',sans-serif;letter-spacing:-0.5px">App Store</div>
+            <div style="font-size:11px;color:var(--ink3);margin-top:2px">iPhone · iPad · iOS 15+</div>
+          </div>
+          <div style="font-size:20px">→</div>
+        </a>
+
+        <a href="https://play.google.com" onclick="handleAppDownload(event,'android')" target="_blank" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border:1.5px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.2s;background:var(--white)" onmouseover="this.style.borderColor='var(--ink)';this.style.background='var(--paper)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--white)'">
+          <div style="width:44px;height:44px;background:#01875f;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">▶</div>
+          <div style="flex:1">
+            <div style="font-size:11px;color:var(--ink3);margin-bottom:2px">Get it on</div>
+            <div style="font-size:16px;font-weight:600;font-family:'Syne',sans-serif;letter-spacing:-0.5px">Google Play</div>
+            <div style="font-size:11px;color:var(--ink3);margin-top:2px">Android 8.0+</div>
+          </div>
+          <div style="font-size:20px">→</div>
+        </a>
+
+      </div>
+
+      <div id="downloadComingSoon" style="display:none;background:#fef3c7;border:1px solid #fbbf24;border-radius:8px;padding:14px 16px;margin-bottom:20px">
+        <div style="font-size:14px;font-weight:500;color:#92400e;margin-bottom:4px">🚀 App coming soon!</div>
+        <div style="font-size:13px;color:#78350f;line-height:1.6">The PriceWatch app is currently in development. Sign up for early access below and you will be the first to know the moment it launches on the App Store and Google Play.</div>
+      </div>
+
+      <div style="background:var(--paper);border-radius:8px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px">Get notified when the app launches</div>
+        <div style="font-size:12px;color:var(--ink3);margin-bottom:12px">Join thousands on the early access waitlist — be first in line</div>
+        <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:block;padding:11px;background:var(--ink);color:white;text-align:center;border-radius:6px;text-decoration:none;font-size:14px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='#e63c2f'" onmouseout="this.style.background='var(--ink)'">
+          Join the waitlist — free →
+        </a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center">
+        <div style="padding:10px 8px;background:var(--paper);border-radius:6px">
+          <div style="font-size:18px;font-weight:700;font-family:'Syne',sans-serif">Free</div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:2px">to download</div>
+        </div>
+        <div style="padding:10px 8px;background:var(--paper);border-radius:6px">
+          <div style="font-size:18px;font-weight:700;font-family:'Syne',sans-serif">iOS</div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:2px">&amp; Android</div>
+        </div>
+        <div style="padding:10px 8px;background:var(--paper);border-radius:6px">
+          <div style="font-size:18px;font-weight:700;font-family:'Syne',sans-serif">4.9★</div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:2px">avg rating</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ADD TO WATCHLIST MODAL -->
+<div id="watchModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,0.5);align-items:center;justify-content:center">
+  <div style="background:var(--white);border-radius:8px;padding:28px;width:100%;max-width:400px;margin:20px;position:relative">
+    <button onclick="closeWatchModal()" style="position:absolute;top:12px;right:14px;border:none;background:none;font-size:18px;cursor:pointer;color:var(--ink3)">✕</button>
+    <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;margin-bottom:4px">Track a new item</div>
+    <div style="font-size:13px;color:var(--ink3);margin-bottom:20px">Add any item to your personal price tracker</div>
+    <div style="margin-bottom:12px">
+      <label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Item name</label>
+      <input type="text" id="watchItemName" placeholder="e.g. Tide Pods, Nike Air Max, Whole milk..." style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Price you are currently paying</label>
+      <input type="number" id="watchCurrentPrice" placeholder="0.00" step="0.01" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Your target price</label>
+      <input type="number" id="watchTargetPrice" placeholder="0.00" step="0.01" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+      <div style="font-size:11px;color:var(--ink3);margin-top:4px">Card glows gold when price reaches this</div>
+    </div>
+    <div style="margin-bottom:20px">
+      <label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Store you normally buy from</label>
+      <input type="text" id="watchStore" placeholder="e.g. Kroger, Amazon, Target..." style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+    </div>
+    <button onclick="addToWatch()" style="width:100%;padding:12px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Add to my tracker →</button>
+  </div>
+</div>
+
+<!-- SIGN IN MODAL -->
+<div id="signinModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(0,0,0,0.5);align-items:center;justify-content:center">
+  <div style="background:var(--white);border-radius:8px;padding:36px;width:100%;max-width:420px;margin:20px;position:relative">
+    <button onclick="closeSignin()" style="position:absolute;top:14px;right:14px;border:none;background:none;font-size:20px;cursor:pointer;color:var(--ink3);line-height:1">✕</button>
+    <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;letter-spacing:-1px;margin-bottom:4px">Welcome back</div>
+    <div style="font-size:14px;color:var(--ink3);margin-bottom:24px">Sign in to your PriceWatch account</div>
+    <div id="signinMsg" style="display:none;background:#dcfce7;border:1px solid #16a34a;border-radius:6px;padding:10px 14px;font-size:13px;color:#15803d;margin-bottom:16px"></div>
+    <div id="signinErr" style="display:none;background:#fee2e2;border:1px solid #fca5a5;border-radius:6px;padding:10px 14px;font-size:13px;color:#991b1b;margin-bottom:16px"></div>
+    <div style="margin-bottom:14px">
+      <label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Email address</label>
+      <input type="email" id="siEmail" placeholder="you@email.com" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+    </div>
+    <div style="margin-bottom:20px">
+      <label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Password</label>
+      <input type="password" id="siPassword" placeholder="Enter your password" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'" onkeydown="if(event.key==='Enter')doSignin()">
+      <div style="text-align:right;margin-top:6px"><a href="#" onclick="showForgot()" style="font-size:12px;color:var(--accent);text-decoration:none">Forgot password?</a></div>
+    </div>
+    <button onclick="doSignin()" style="width:100%;padding:13px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:14px">Sign in →</button>
+    <div style="text-align:center;font-size:13px;color:var(--ink3)">Don't have an account? <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" style="color:var(--accent);text-decoration:none;font-weight:500">Sign up free</a></div>
+    <div style="border-top:1px solid var(--border);margin-top:20px;padding-top:16px;text-align:center">
+      <div style="font-size:11px;color:var(--ink3);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px">Or continue with</div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button onclick="oauthSignin('Google')" style="flex:1;padding:10px;border:1px solid var(--border);border-radius:4px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;display:flex;align-items:center;justify-content:center;gap:8px">🌐 Google</button>
+        <button onclick="oauthSignin('Apple')" style="flex:1;padding:10px;border:1px solid var(--border);border-radius:4px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;display:flex;align-items:center;justify-content:center;gap:8px">🍎 Apple</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -290,27 +387,85 @@ footer {
   <div class="nav-logo">Price<span>Watch</span></div>
   <div class="nav-links">
     <a href="#features">Features</a>
-    <a href="#how">How it works</a>
+    <a href="#tutorial">How it works</a>
     <a href="#platforms">What we track</a>
+    <a href="#local" style="color:var(--accent);font-weight:500">Local</a>
+    <a href="#tutorial" style="color:var(--accent);font-weight:500">Tutorial</a>
+    <a href="#account">My account</a>
     <a href="#pricing">Pricing</a>
-    <a href="#tech">For developers</a>
+    <a href="#contact">Contact</a>
   </div>
   <div class="nav-right">
-    <a href="#" class="btn-ghost">Sign in</a>
-    <a href="#" class="btn-solid">Get early access</a>
+    <button onclick="openDownloadModal()" style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--border);border-radius:2px;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);transition:all 0.2s" onmouseover="this.style.background='var(--ink)';this.style.color='white'" onmouseout="this.style.background='none';this.style.color='var(--ink)'">
+      <span style="font-size:14px">📲</span> Download app
+    </button>
+    <button onclick="openSignin()" class="btn-ghost">Sign in</button>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" class="btn-solid">Get early access</a>
   </div>
 </nav>
 
+<!-- PRICE TICKER STRIP -->
+<div id="tickerStrip" style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.08);padding:0">
+
+  <div style="max-width:1100px;margin:0 auto;padding:6px 40px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div style="width:7px;height:7px;border-radius:50%;background:#4ade80;animation:livepulse 2s infinite"></div>
+      <span style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4)">Live prices</span>
+      <span style="width:1px;height:12px;background:rgba(255,255,255,0.1);display:inline-block"></span>
+      <div style="display:flex;gap:4px">
+        <button class="ts-mode ts-active" onclick="setStripMode('1d',this)" style="font-size:10px;padding:2px 8px;border-radius:2px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;cursor:pointer;font-family:'DM Sans',sans-serif">1D</button>
+        <button class="ts-mode" onclick="setStripMode('1w',this)" style="font-size:10px;padding:2px 8px;border-radius:2px;border:1px solid rgba(255,255,255,0.08);background:none;color:rgba(255,255,255,0.4);cursor:pointer;font-family:'DM Sans',sans-serif">1W</button>
+        <button class="ts-mode" onclick="setStripMode('1m',this)" style="font-size:10px;padding:2px 8px;border-radius:2px;border:1px solid rgba(255,255,255,0.08);background:none;color:rgba(255,255,255,0.4);cursor:pointer;font-family:'DM Sans',sans-serif">1M</button>
+        <button class="ts-mode" onclick="setStripMode('1y',this)" style="font-size:10px;padding:2px 8px;border-radius:2px;border:1px solid rgba(255,255,255,0.08);background:none;color:rgba(255,255,255,0.4);cursor:pointer;font-family:'DM Sans',sans-serif">1Y</button>
+        <button class="ts-mode" onclick="setStripMode('sale',this)" style="font-size:10px;padding:2px 8px;border-radius:2px;border:1px solid rgba(230,60,47,0.4);background:none;color:#e63c2f;cursor:pointer;font-family:'DM Sans',sans-serif">Sales</button>
+      </div>
+    </div>
+
+    <div style="flex:1;overflow:hidden;min-width:0;display:flex;justify-content:center">
+      <div style="overflow:hidden;width:100%;display:flex;align-items:center">
+        <div id="tickerScrollTrack" style="display:flex;align-items:center;gap:0;white-space:nowrap;animation:stripScroll 50s linear infinite" onmouseover="this.style.animationPlayState='paused'" onmouseout="this.style.animationPlayState='running'"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+      <span id="saleCountBadge" style="font-size:10px;padding:2px 8px;border-radius:2px;background:rgba(230,60,47,0.15);color:#e63c2f;font-weight:600;border:1px solid rgba(230,60,47,0.3)">6 on sale</span>
+      <button onclick="openWatchModal()" style="font-size:10px;padding:3px 10px;border-radius:2px;border:1px solid rgba(255,255,255,0.2);background:none;color:rgba(255,255,255,0.6);cursor:pointer;font-family:'DM Sans',sans-serif">+ Track item</button>
+    </div>
+  </div>
+
+  <style>
+    @keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.85)} }
+    @keyframes stripScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .ts-chip { display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-right:1px solid rgba(255,255,255,0.07);cursor:pointer;height:28px;transition:background 0.15s;white-space:nowrap }
+    .ts-chip:hover { background:rgba(255,255,255,0.04) }
+    .ts-chip.ts-low { background:rgba(74,222,128,0.08);border-top:2px solid rgba(74,222,128,0.5) }
+    .ts-chip.ts-target { background:rgba(250,204,21,0.07);border-top:2px solid rgba(250,204,21,0.4) }
+    .ts-chip.ts-sale { background:rgba(230,60,47,0.07) }
+    .ts-name { font-size:11px;font-weight:500;color:rgba(255,255,255,0.8) }
+    .ts-price { font-size:12px;font-weight:700;font-family:'Syne',sans-serif;color:white }
+    .ts-chg-dn { font-size:10px;color:#4ade80;font-weight:500 }
+    .ts-chg-up { font-size:10px;color:#f87171;font-weight:500 }
+    .ts-chg-fl { font-size:10px;color:rgba(255,255,255,0.3) }
+    .ts-badge { font-size:9px;padding:1px 5px;border-radius:2px;font-weight:600;letter-spacing:0.3px }
+    .ts-badge-low { background:#4ade80;color:#052e16 }
+    .ts-badge-tgt { background:#facc15;color:#1a0a00 }
+    .ts-badge-sale { background:#e63c2f;color:white }
+    .ts-store { font-size:9px;color:rgba(255,255,255,0.28) }
+    .ts-sep { display:inline-block;width:1px;height:22px;background:rgba(255,255,255,0.07);flex-shrink:0 }
+  </style>
+</div>
+
 <!-- HERO -->
-<section style="padding-top:28px">
-  <div class="hero">
+<section style="padding-top:0">
+  <div class="hero" style="padding-top:60px">
     <div class="hero-content reveal">
       <div class="hero-eyebrow">Live price intelligence</div>
       <h1>Never<br>overpay<br><em>again.</em></h1>
       <p class="hero-sub">PriceWatch tracks prices across 500+ retailers, grocery stores, delivery apps, and C2C marketplaces — so you always know where to buy anything for less.</p>
       <div class="hero-ctas">
-        <a href="#" class="btn-hero btn-hero-primary">Start saving free →</a>
-        <a href="#how" class="btn-hero btn-hero-secondary">See how it works</a>
+        <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" class="btn-hero btn-hero-primary">Start saving free →</a>
+        <a href="#" onclick="openDownloadModal();return false;" class="btn-hero btn-hero-secondary" style="display:inline-flex;align-items:center;gap:8px"><span>📲</span>Download app</a>
+        <a href="#tutorial" onclick="openTutorialFromHero()" class="btn-hero btn-hero-secondary">See how it works</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
@@ -327,7 +482,7 @@ footer {
         </div>
       </div>
     </div>
-    <div class="hero-visual reveal" style="transition-delay:0.2s">
+    <div class="hero-visual reveal">
       <div class="price-ticker">
         <div class="ticker-header">
           <div class="ticker-dot"></div>
@@ -423,7 +578,7 @@ footer {
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-title">Compare everything</div>
-      <div class="step-desc">See side-by-side pricing from retail stores, Amazon, eBay, Poshmark, Mercari, DoorDash, Instacart, local grocery chains, and nearby stores — all with delivery options.</div>
+      <div class="step-desc">See side-by-side pricing from retail stores, Amazon, Amazon Fresh, eBay, Poshmark, Mercari, DoorDash, Instacart, Shipt, local grocery chains, and nearby stores — all with delivery options.</div>
     </div>
     <div class="step">
       <div class="step-num">3</div>
@@ -433,7 +588,7 @@ footer {
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-title">Buy in one tap</div>
-      <div class="step-desc">Click through directly to the best deal, or import your grocery list straight into Kroger, Walmart, Target, or Meijer's cart. No copy-paste. No retyping.</div>
+      <div class="step-desc">Click through directly to the best deal, or import your grocery list straight into Kroger, Walmart, Target, Meijer, or Amazon Fresh's cart. No copy-paste. No retyping.</div>
     </div>
   </div>
 </div>
@@ -464,13 +619,13 @@ footer {
     <div class="platform-card">
       <div class="platform-card-icon">🛒</div>
       <div class="platform-card-title">Groceries</div>
-      <div class="platform-card-desc">Kroger, Walmart, Aldi, Meijer, Target, Costco — with sale prices, digital coupons, and loyalty card discounts.</div>
+      <div class="platform-card-desc">Kroger, Walmart, Aldi, Meijer, Target, Costco, and Amazon Fresh — with sale prices, digital coupons, loyalty card discounts, and Prime delivery pricing.</div>
       <span class="platform-card-tag tag-grocery">Grocery</span>
     </div>
     <div class="platform-card">
       <div class="platform-card-icon">🚗</div>
       <div class="platform-card-title">Delivery services</div>
-      <div class="platform-card-desc">DoorDash, Instacart, Shipt, Gopuff, and store-direct delivery — true cost including markups and tips.</div>
+      <div class="platform-card-desc">DoorDash, Instacart, Shipt, Amazon Fresh, Gopuff, and store-direct delivery — true cost including markups and tips.</div>
       <span class="platform-card-tag tag-delivery">Delivery</span>
     </div>
     <div class="platform-card">
@@ -497,10 +652,82 @@ footer {
       <div class="platform-card-desc">Facebook Marketplace, OfferUp, and Craigslist listings near you — with distance and meetup safety scores.</div>
       <span class="platform-card-tag tag-c2c">C2C Local</span>
     </div>
+    <div class="platform-card" style="border-color:var(--accent)">
+      <div class="platform-card-icon">📍</div>
+      <div class="platform-card-title">Local discovery — NEW</div>
+      <div class="platform-card-desc">Search "ice cream" or "coffee" and instantly see every nearby restaurant, shop, or café that offers it — with prices, ratings, hours, and directions.</div>
+      <span class="platform-card-tag tag-delivery">Local</span>
+    </div>
   </div>
 </div>
 
-<!-- PRICING -->
+<!-- LOCAL DISCOVERY SECTION -->
+<div id="local" style="background:var(--white);padding:1px 0;">
+<div class="section reveal">
+  <div class="section-label">Local discovery</div>
+  <div class="section-title">Find it nearby —<br>compare prices locally</div>
+  <div class="section-sub">Search any food, drink, or item and instantly see every place near you that has it, ranked by price, distance, and rating.</div>
+
+  <div style="margin-top:36px">
+
+    <div style="background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-bottom:24px">
+      <div style="font-size:13px;font-weight:500;margin-bottom:10px;color:var(--ink)">Try a local search</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px;display:flex;align-items:center;gap:8px;border:1.5px solid var(--ink);border-radius:4px;padding:10px 14px;background:var(--white)">
+          <span style="font-size:16px">🔍</span>
+          <input type="text" id="localSearchInput" placeholder='Try "ice cream", "coffee", "pizza"...' style="border:none;background:none;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;width:100%">
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:4px;padding:10px 14px;background:var(--white)">
+          <span style="font-size:14px">📍</span>
+          <input type="text" id="localZipInput" placeholder="ZIP code" style="border:none;background:none;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;width:80px">
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:4px;padding:10px 14px;background:var(--white)">
+          <span style="font-size:14px">📏</span>
+          <select id="localRadius" style="border:none;background:none;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;cursor:pointer">
+            <option value="1">Within 1 mile</option>
+            <option value="3" selected>Within 3 miles</option>
+            <option value="5">Within 5 miles</option>
+            <option value="10">Within 10 miles</option>
+          </select>
+        </div>
+        <button onclick="runLocalSearch()" style="padding:10px 24px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">Search nearby →</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <span style="font-size:11px;color:var(--ink3);padding:4px 0">Quick searches:</span>
+        <button onclick="quickLocal('Ice cream')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">🍦 Ice cream</button>
+        <button onclick="quickLocal('Coffee')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">☕ Coffee</button>
+        <button onclick="quickLocal('Pizza')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">🍕 Pizza</button>
+        <button onclick="quickLocal('Burger')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">🍔 Burger</button>
+        <button onclick="quickLocal('Sushi')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">🍣 Sushi</button>
+        <button onclick="quickLocal('Tacos')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">🌮 Tacos</button>
+        <button onclick="quickLocal('Smoothie')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">🥤 Smoothie</button>
+      </div>
+    </div>
+
+    <div id="localResults" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div id="localResultsLabel" style="font-size:14px;font-weight:500"></div>
+        <div style="display:flex;gap:8px">
+          <span style="font-size:11px;color:var(--ink3);padding:4px 0">Sort by:</span>
+          <button onclick="sortLocal('price',this)" class="sort-btn sort-active" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--ink);background:var(--ink);color:white;cursor:pointer;font-family:'DM Sans',sans-serif">Price</button>
+          <button onclick="sortLocal('distance',this)" class="sort-btn" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">Distance</button>
+          <button onclick="sortLocal('rating',this)" class="sort-btn" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2)">Rating</button>
+        </div>
+      </div>
+      <div id="localGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
+    </div>
+
+    <div id="localEmpty" style="text-align:center;padding:40px 20px;color:var(--ink3)">
+      <div style="font-size:40px;margin-bottom:12px">📍</div>
+      <div style="font-size:16px;font-weight:500;margin-bottom:6px">Search anything local</div>
+      <div style="font-size:14px">Type a food, drink, or item above and see every nearby place that has it — with prices and directions.</div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
 <div style="background: var(--white); padding: 1px 0;">
 <div class="section reveal" id="pricing">
   <div class="section-label">Pricing</div>
@@ -518,7 +745,7 @@ footer {
         <li>Grocery list (up to 10 items)</li>
         <li>Basic store locator</li>
       </ul>
-      <button class="price-cta">Get started free</button>
+      <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" class="price-cta" style="display:block;text-align:center;text-decoration:none">Get started free</a>
     </div>
     <div class="price-card featured">
       <div class="price-tier">Pro</div>
@@ -533,7 +760,7 @@ footer {
         <li>Delivery cost comparison</li>
         <li>C2C + marketplace search</li>
       </ul>
-      <button class="price-cta">Start 30-day free trial</button>
+      <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" class="price-cta" style="display:block;text-align:center;text-decoration:none">Start 30-day free trial</a>
     </div>
     <div class="price-card">
       <div class="price-tier">Family</div>
@@ -547,7 +774,7 @@ footer {
         <li>Priority alert delivery</li>
         <li>Dedicated support</li>
       </ul>
-      <button class="price-cta">Start 30-day free trial</button>
+      <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" class="price-cta" style="display:block;text-align:center;text-decoration:none">Start 30-day free trial</a>
     </div>
   </div>
 </div>
@@ -610,14 +837,14 @@ footer {
       <div class="app-title">Save money.<br>Every day.<br><span>Everywhere.</span></div>
       <p class="app-sub">The PriceWatch app puts a live price scanner in your pocket. Search, compare, set alerts, and import your grocery list — all from one place.</p>
       <div class="app-btns">
-        <a href="#" class="app-btn">
+        <a href="#" onclick="openDownloadModal();return false;" class="app-btn">
           <div class="app-btn-icon">🍎</div>
           <div class="app-btn-text">
             <span class="app-btn-sub">Download on the</span>
             <span class="app-btn-name">App Store</span>
           </div>
         </a>
-        <a href="#" class="app-btn">
+        <a href="#" onclick="openDownloadModal();return false;" class="app-btn">
           <div class="app-btn-icon">▶</div>
           <div class="app-btn-text">
             <span class="app-btn-sub">Get it on</span>
@@ -651,6 +878,733 @@ footer {
   </div>
 </div>
 
+<!-- TUTORIAL SECTION -->
+<div id="tutorial" style="background:var(--paper);padding:1px 0;">
+<div class="section reveal">
+  <div class="section-label">How to use PriceWatch</div>
+  <div class="section-title">Your complete<br>step-by-step guide</div>
+  <div class="section-sub">New to PriceWatch? Follow along to master every feature in under 10 minutes.</div>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;margin-bottom:32px" id="tutorialTabs">
+    <button onclick="showTutorial('search',this)" class="tut-tab tut-active" style="padding:10px 20px;border:1px solid var(--ink);border-radius:2px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;background:var(--ink);color:white;transition:all 0.2s">🔍 Search &amp; compare</button>
+    <button onclick="showTutorial('scan',this)" class="tut-tab" style="padding:10px 20px;border:1px solid var(--border);border-radius:2px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;color:var(--ink);transition:all 0.2s">📷 Barcode scanner</button>
+    <button onclick="showTutorial('grocery',this)" class="tut-tab" style="padding:10px 20px;border:1px solid var(--border);border-radius:2px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;color:var(--ink);transition:all 0.2s">🛒 Grocery lists</button>
+    <button onclick="showTutorial('alerts',this)" class="tut-tab" style="padding:10px 20px;border:1px solid var(--border);border-radius:2px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;color:var(--ink);transition:all 0.2s">🔔 Price alerts</button>
+    <button onclick="showTutorial('staples',this)" class="tut-tab" style="padding:10px 20px;border:1px solid var(--border);border-radius:2px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;color:var(--ink);transition:all 0.2s">🔁 Repeat purchases</button>
+    <button onclick="showTutorial('delivery',this)" class="tut-tab" style="padding:10px 20px;border:1px solid var(--border);border-radius:2px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;color:var(--ink);transition:all 0.2s">🚗 Delivery compare</button>
+  </div>
+
+  <div id="tut-search" class="tut-pane">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+      <div>
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:12px">Feature 1 of 6</div>
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px">Search &amp; compare prices</div>
+        <div style="font-size:14px;color:var(--ink2);margin-bottom:16px;line-height:1.6">Two ways to find and compare prices instantly — type a name or scan a barcode. Both give you the same powerful results.</div>
+
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:14px">
+          <div style="background:var(--ink);padding:10px 14px;display:flex;align-items:center;gap:8px">
+            <span style="font-size:16px">⌨️</span>
+            <span style="font-size:13px;font-weight:500;color:white">Option A — Type the item name</span>
+          </div>
+          <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</div>
+              <div><strong style="font-size:13px">Tap the search bar at the top of the screen</strong><br><span style="font-size:12px;color:var(--ink3)">Type any product name, brand, or category — "Nike Air Max," "whole milk," "Dyson vacuum," anything you want to buy.</span></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</div>
+              <div><strong style="font-size:13px">Press Search and see top 10 results instantly</strong><br><span style="font-size:12px;color:var(--ink3)">Results are ranked by true total cost — item price plus tax, shipping, and any fees — so you always see the real price.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border:2px solid var(--accent);border-radius:8px;overflow:hidden;margin-bottom:14px">
+          <div style="background:var(--accent);padding:10px 14px;display:flex;align-items:center;gap:8px">
+            <span style="font-size:16px">📷</span>
+            <span style="font-size:13px;font-weight:500;color:white">Option B — Scan the barcode (fastest!)</span>
+          </div>
+          <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</div>
+              <div><strong style="font-size:13px">Tap the camera icon next to the search bar</strong><br><span style="font-size:12px;color:var(--ink3)">The barcode scanner opens instantly using your phone's camera. Works on any product in any store.</span></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</div>
+              <div><strong style="font-size:13px">Point at the barcode — results appear in 2 seconds</strong><br><span style="font-size:12px;color:var(--ink3)">No typing needed. Scan the barcode on the shelf or product and PriceWatch instantly finds every store that sells it cheaper.</span></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</div>
+              <div><strong style="font-size:13px">See the 12-month price history for that exact item</strong><br><span style="font-size:12px;color:var(--ink3)">Know instantly if today's price is a deal, normal, or inflated — before you put it in your cart.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--paper);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--ink2);border:1px solid var(--border)">
+          <strong>Both options</strong> then show the same results — top 10 prices ranked cheapest to most expensive across every store, website, and delivery service near you.
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px">
+          <div style="font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Search bar — two ways to search</div>
+          <div style="display:flex;gap:8px;margin-bottom:10px">
+            <div style="flex:1;display:flex;align-items:center;gap:8px;border:1.5px solid var(--ink);border-radius:4px;padding:9px 12px;background:var(--paper)">
+              <span style="font-size:13px;color:var(--ink3)">🔍</span>
+              <span style="font-size:13px;color:var(--ink3)">Search any product...</span>
+            </div>
+            <div style="width:40px;height:40px;border-radius:4px;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0" title="Tap to open barcode scanner">
+              <span style="font-size:18px">📷</span>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--ink3);text-align:center">Type in the box <strong>or</strong> tap 📷 to scan a barcode</div>
+        </div>
+
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+          <div style="background:var(--paper);padding:10px 14px;border-bottom:1px solid var(--border);font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:1px">After scanning or searching — price results</div>
+          <div style="padding:12px 14px">
+            <div style="background:var(--paper);border-radius:8px;padding:10px 12px;margin-bottom:8px;border:2px solid var(--accent)">
+              <div style="display:flex;gap:10px;align-items:center;margin-bottom:6px">
+                <span style="font-size:20px">👟</span>
+                <div style="flex:1"><div style="font-size:12px;font-weight:500">Nike Air Max 270 — Black</div><div style="font-size:10px;color:var(--ink3)">Nike.com · ★★★★★ · Free shipping</div></div>
+                <div style="text-align:right"><div style="font-size:16px;font-weight:700;color:#16a34a">$110</div><div style="font-size:10px;color:var(--ink3)">Total $118.80</div></div>
+              </div>
+              <div style="display:flex;gap:5px">
+                <span style="font-size:10px;padding:2px 7px;border-radius:10px;background:#dbeafe;color:#1e40af;font-weight:500">Best price</span>
+                <span style="font-size:10px;padding:2px 7px;border-radius:10px;background:#dcfce7;color:#166534;font-weight:500">Free ship</span>
+              </div>
+            </div>
+            <div style="background:var(--paper);border-radius:8px;padding:10px 12px;margin-bottom:8px">
+              <div style="display:flex;gap:10px;align-items:center">
+                <span style="font-size:20px">👟</span>
+                <div style="flex:1"><div style="font-size:12px;font-weight:500">Nike Air Max 270 — Black</div><div style="font-size:10px;color:var(--ink3)">DSW · ★★★★☆ · Sale</div></div>
+                <div style="text-align:right"><div style="font-size:16px;font-weight:700">$115</div><div style="font-size:10px;color:var(--ink3)">Total $124.20</div></div>
+              </div>
+            </div>
+            <div style="background:var(--paper);border-radius:8px;padding:10px 12px;margin-bottom:8px">
+              <div style="display:flex;gap:10px;align-items:center">
+                <span style="font-size:20px">👟</span>
+                <div style="flex:1"><div style="font-size:12px;font-weight:500">Nike Air Max 270 — Black</div><div style="font-size:10px;color:var(--ink3)">Amazon · Prime · ★★★★☆</div></div>
+                <div style="text-align:right"><div style="font-size:16px;font-weight:700">$118</div><div style="font-size:10px;color:var(--ink3)">Total $127.44</div></div>
+              </div>
+            </div>
+            <div style="background:var(--ink);border-radius:6px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:11px;color:rgba(255,255,255,0.6)">12-month price history</span>
+              <span style="font-size:12px;font-weight:700;color:#4ade80">↓ $40 since January</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tut-scan" class="tut-pane" style="display:none">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+      <div>
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:12px">Feature 2 of 6</div>
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px">Barcode scanner</div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</div>
+            <div><strong style="font-size:14px">Open the scanner from any search screen</strong><br><span style="font-size:13px;color:var(--ink3)">Tap the camera icon in the search bar to launch the live barcode scanner. It works with any UPC barcode on any product.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</div>
+            <div><strong style="font-size:14px">Point your camera at the barcode</strong><br><span style="font-size:13px;color:var(--ink3)">Hold your phone 4–8 inches from the barcode. The green scanning line will lock onto it automatically within 1–2 seconds.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</div>
+            <div><strong style="font-size:14px">Instantly see if it is cheaper somewhere else</strong><br><span style="font-size:13px;color:var(--ink3)">Results appear in under 2 seconds showing every store near you that carries the item and their current price including delivery options.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</div>
+            <div><strong style="font-size:14px">View the full 12-month price history</strong><br><span style="font-size:13px;color:var(--ink3)">See whether the price has gone up or down over the past year so you know if now is a good time to buy or wait.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--ink);border-radius:12px;padding:24px;color:white">
+        <div style="font-size:12px;font-weight:500;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Scanner in action</div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;height:90px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;border:1px solid rgba(74,222,128,0.3);position:relative;overflow:hidden">
+          <div style="position:absolute;left:20px;right:20px;height:2px;background:#4ade80;animation:scanline 2s ease-in-out infinite;top:40%"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5)">Align barcode within frame</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px;margin-bottom:8px">
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px">UPC: 036000291452 · Tide Pods 42ct</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:13px;font-weight:500">Walmart — Cheapest nearby</div>
+            <div style="font-size:16px;font-weight:700;color:#4ade80">$11.47</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:13px">Current store (Kroger)</div>
+            <div style="font-size:16px;font-weight:700;color:#f87171">$14.99</div>
+          </div>
+          <div style="font-size:11px;color:#4ade80;margin-top:4px">You could save $3.52 — buy at Walmart instead</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tut-grocery" class="tut-pane" style="display:none">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+      <div>
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:12px">Feature 3 of 6</div>
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px">Grocery list comparison</div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</div>
+            <div><strong style="font-size:14px">Build your grocery list in the app</strong><br><span style="font-size:13px;color:var(--ink3)">Type each item or scan barcodes to add them. Set quantities. You can also paste a list directly from your notes app.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</div>
+            <div><strong style="font-size:14px">Compare prices across all stores including Amazon Fresh</strong><br><span style="font-size:13px;color:var(--ink3)">PriceWatch checks Kroger, Walmart, Aldi, Meijer, Target, and Amazon Fresh — totaling your entire list at each store with sale prices and loyalty discounts applied.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</div>
+            <div><strong style="font-size:14px">See which store is cheapest for your whole list</strong><br><span style="font-size:13px;color:var(--ink3)">Green highlights the cheapest price for each item. The total includes delivery fees for Amazon Fresh so you see the real cost comparison.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</div>
+            <div><strong style="font-size:14px">Import your list to any store cart in one tap</strong><br><span style="font-size:13px;color:var(--ink3)">Tap any "Open cart" button and PriceWatch sends your list straight to that store's website shopping cart — including Amazon Fresh. No retyping, no copy-paste.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+          <div style="background:var(--paper);padding:10px 14px;border-bottom:1px solid var(--border)">
+            <div style="font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:1px">Price comparison — 8 items</div>
+          </div>
+          <div style="padding:10px 14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 9px;background:#dcfce7;border-radius:6px;margin-bottom:5px;border:2px solid #16a34a">
+              <div style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🧺</span><span style="font-size:12px;font-weight:500">Aldi</span><span style="font-size:9px;padding:1px 5px;background:#16a34a;color:white;border-radius:6px;font-weight:500">Cheapest</span></div>
+              <span style="font-size:14px;font-weight:700;color:#15803d">$34.21</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 9px;background:var(--paper);border-radius:6px;margin-bottom:5px">
+              <div style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🏪</span><span style="font-size:12px;font-weight:500">Walmart</span></div>
+              <span style="font-size:14px;font-weight:700">$38.47</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 9px;background:var(--paper);border-radius:6px;margin-bottom:5px">
+              <div style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🛒</span><span style="font-size:12px;font-weight:500">Kroger</span></div>
+              <span style="font-size:14px;font-weight:700">$42.18</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 9px;background:#fff8f0;border-radius:6px;margin-bottom:5px;border:1px solid #fed7aa">
+              <div style="display:flex;align-items:center;gap:7px">
+                <span style="font-size:14px">📦</span>
+                <span style="font-size:12px;font-weight:500">Amazon Fresh</span>
+                <span style="font-size:9px;padding:1px 5px;background:#fef3c7;color:#92400e;border-radius:6px;font-weight:600">PRIME</span>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:14px;font-weight:700">$44.10</div>
+                <div style="font-size:9px;color:var(--ink3)">+$9.95 delivery</div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 9px;background:var(--paper);border-radius:6px">
+              <div style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🎯</span><span style="font-size:12px;font-weight:500">Target</span></div>
+              <span style="font-size:14px;font-weight:700">$46.99</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+          <div style="background:var(--paper);padding:10px 14px;border-bottom:1px solid var(--border)">
+            <div style="font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:1px">Import your list to cart — one tap</div>
+          </div>
+          <div style="padding:10px 14px;display:flex;flex-direction:column;gap:7px">
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:#dcfce7;border-radius:6px;border:1px solid #86efac">
+              <div style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🧺</span><span style="font-size:12px;font-weight:500">Aldi</span><span style="font-size:9px;padding:1px 5px;background:#16a34a;color:white;border-radius:6px">Cheapest</span></div>
+              <button style="font-size:11px;padding:4px 10px;background:#16a34a;color:white;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif">Open cart →</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--paper);border-radius:6px;border:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🏪</span><span style="font-size:12px;font-weight:500">Walmart</span></div>
+              <button style="font-size:11px;padding:4px 10px;background:var(--ink);color:white;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif">Open cart →</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--paper);border-radius:6px;border:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🛒</span><span style="font-size:12px;font-weight:500">Kroger</span></div>
+              <button style="font-size:11px;padding:4px 10px;background:var(--ink);color:white;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif">Open cart →</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:#fff8f0;border-radius:6px;border:1px solid #fed7aa">
+              <div style="display:flex;align-items:center;gap:7px">
+                <span style="font-size:14px">📦</span>
+                <span style="font-size:12px;font-weight:500">Amazon Fresh</span>
+                <span style="font-size:9px;padding:1px 5px;background:#fef3c7;color:#92400e;border-radius:6px;font-weight:600">PRIME</span>
+              </div>
+              <button style="font-size:11px;padding:4px 10px;background:#ff9900;color:white;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif">Open cart →</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--paper);border-radius:6px;border:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🎯</span><span style="font-size:12px;font-weight:500">Target</span></div>
+              <button style="font-size:11px;padding:4px 10px;background:var(--ink);color:white;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif">Open cart →</button>
+            </div>
+
+            <div style="padding:7px 9px;background:#dbeafe;border-radius:6px;font-size:11px;color:#1e40af;font-weight:500;text-align:center">
+              Clicking "Open cart" sends your full list to that store's website automatically
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tut-alerts" class="tut-pane" style="display:none">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+      <div>
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:12px">Feature 4 of 6</div>
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px">Price drop alerts</div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</div>
+            <div><strong style="font-size:14px">Search for any item you want to buy</strong><br><span style="font-size:13px;color:var(--ink3)">Find the item using search or the barcode scanner. Pull up its price comparison results screen.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</div>
+            <div><strong style="font-size:14px">Tap the bell icon and set your target price</strong><br><span style="font-size:13px;color:var(--ink3)">Enter the price you are willing to pay. PriceWatch will watch it every single day across all retailers automatically.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</div>
+            <div><strong style="font-size:14px">Choose how to be notified</strong><br><span style="font-size:13px;color:var(--ink3)">Select push notification, email, or text message. You can choose all three. Alerts arrive within minutes of a price dropping.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</div>
+            <div><strong style="font-size:14px">Manage all your alerts in one place</strong><br><span style="font-size:13px;color:var(--ink3)">Your Alerts tab shows every item you are watching, the current price, your target price, and how close it is to your goal.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--ink);border-radius:12px;padding:24px;color:white">
+        <div style="font-size:12px;font-weight:500;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Active price alerts</div>
+        <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);border-radius:8px;padding:12px;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+            <div style="font-size:13px;font-weight:500">Dyson V15 Detect</div>
+            <span style="font-size:10px;padding:2px 8px;border-radius:8px;background:#4ade80;color:#052e16;font-weight:600">ALERT TRIGGERED!</span>
+          </div>
+          <div style="display:flex;gap:16px;font-size:12px;color:rgba(255,255,255,0.6)">
+            <span>Current: <strong style="color:#4ade80">$499</strong></span>
+            <span>Your target: $500</span>
+            <span>You save: $130</span>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+            <div style="font-size:13px;font-weight:500">Coach Tabby Bag 26</div>
+            <span style="font-size:10px;padding:2px 8px;border-radius:8px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)">Watching</span>
+          </div>
+          <div style="display:flex;gap:16px;font-size:12px;color:rgba(255,255,255,0.6)">
+            <span>Current: <strong style="color:white">$285</strong></span>
+            <span>Your target: $250</span>
+          </div>
+          <div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px"><div style="width:75%;height:100%;background:#facc15;border-radius:2px"></div></div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px">75% of the way to your target price</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px">
+          <div style="font-size:13px;font-weight:500;margin-bottom:4px">Nike Air Max 270</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6)">Current: <strong style="color:white">$110</strong> · Target: $95</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tut-staples" class="tut-pane" style="display:none">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+      <div>
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:12px">Feature 5 of 6</div>
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px">Saving repeat purchases</div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</div>
+            <div><strong style="font-size:14px">Go to My Staples in your account</strong><br><span style="font-size:13px;color:var(--ink3)">Tap the profile icon then select "My Staples." This is where all your regularly purchased items live.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</div>
+            <div><strong style="font-size:14px">Tap "+ Add item" and enter what you buy regularly</strong><br><span style="font-size:13px;color:var(--ink3)">Type the item name and the brand you normally buy. Set how often you purchase it — weekly, bi-weekly, monthly, or as needed.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</div>
+            <div><strong style="font-size:14px">PriceWatch tracks the price every single day</strong><br><span style="font-size:13px;color:var(--ink3)">Your dashboard shows whether each staple item has gone up or down in price and alerts you to sales before your next purchase.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</div>
+            <div><strong style="font-size:14px">See cheaper brand alternatives automatically</strong><br><span style="font-size:13px;color:var(--ink3)">For every item you track, PriceWatch shows you every competing brand with price and quality rating so you can decide if switching brands saves you money.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13px;font-weight:500">My staples — 6 items tracked</div>
+          <div style="font-size:12px;color:var(--accent3);font-weight:500">Save $38/mo potential</div>
+        </div>
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div style="display:flex;gap:8px;align-items:center"><span style="font-size:18px">🧺</span><div><div style="font-size:13px;font-weight:500">Tide Pods · Monthly</div><div style="font-size:11px;color:var(--ink3)">Paying: $14.99</div></div></div>
+            <span style="font-size:11px;color:#dc2626;font-weight:500">↑ +8% this year</span>
+          </div>
+          <div style="background:#fef3c7;border-radius:4px;padding:6px 8px;font-size:11px;color:#92400e">💡 Switch to Arm &amp; Hammer — save $4.50/mo ($54/yr)</div>
+        </div>
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div style="display:flex;gap:8px;align-items:center"><span style="font-size:18px">☕</span><div><div style="font-size:13px;font-weight:500">Folgers Coffee · Bi-weekly</div><div style="font-size:11px;color:var(--ink3)">Paying: $10.99</div></div></div>
+            <span style="font-size:11px;color:#dc2626;font-weight:500">↑ +10% this year</span>
+          </div>
+          <div style="background:#fef3c7;border-radius:4px;padding:6px 8px;font-size:11px;color:#92400e">💡 Aldi Breakfast Best saves $4.50/purchase ($117/yr)</div>
+        </div>
+        <div style="padding:12px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:8px;align-items:center"><span style="font-size:18px">🍊</span><div><div style="font-size:13px;font-weight:500">Tropicana OJ · Weekly</div><div style="font-size:11px;color:var(--ink3)">Paying: $5.99</div></div></div>
+            <span style="font-size:11px;color:#16a34a;font-weight:500">↓ On sale now!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tut-delivery" class="tut-pane" style="display:none">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+      <div>
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:12px">Feature 6 of 6</div>
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px">Delivery cost comparison</div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</div>
+            <div><strong style="font-size:14px">After building your grocery list tap "Delivery options"</strong><br><span style="font-size:13px;color:var(--ink3)">PriceWatch calculates the true total cost of every delivery option including hidden fees, item markups, and the suggested tip.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</div>
+            <div><strong style="font-size:14px">Compare 6 delivery services side by side</strong><br><span style="font-size:13px;color:var(--ink3)">DoorDash, Instacart, Shipt, Amazon Fresh, store direct delivery, and in-store pickup — all ranked by true total cost including every fee.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</div>
+            <div><strong style="font-size:14px">Amazon Fresh included — Prime members save big</strong><br><span style="font-size:13px;color:var(--ink3)">Amazon Fresh offers free 2-hour delivery on orders over $150 for Prime members, and a flat $9.95 fee under that. PriceWatch shows you exactly when it beats local stores.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</div>
+            <div><strong style="font-size:14px">See if in-store pickup saves you money</strong><br><span style="font-size:13px;color:var(--ink3)">PriceWatch compares delivery vs pickup vs in-store so you always choose the most affordable option for your situation.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <div style="background:var(--paper);padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:12px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:1px">Delivery comparison — $85 list</span>
+          <span style="font-size:11px;color:var(--ink3)">Sorted cheapest first</span>
+        </div>
+        <div style="padding:12px 14px">
+
+          <div style="background:#dcfce7;border:2px solid #16a34a;border-radius:8px;padding:10px 12px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:13px;font-weight:500;color:#15803d">🏪 Kroger Direct</div><div style="font-size:11px;color:#166534">Free delivery over $35 · 2–4 hrs</div></div>
+            <div style="text-align:right"><div style="font-size:15px;font-weight:700;color:#15803d">$93.80</div><div style="font-size:10px;color:#166534">Best deal</div></div>
+          </div>
+
+          <div style="background:var(--paper);border-radius:8px;padding:10px 12px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border)">
+            <div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div style="font-size:13px;font-weight:500">📦 Amazon Fresh</div>
+                <span style="font-size:9px;padding:1px 6px;border-radius:8px;background:#fef3c7;color:#92400e;font-weight:600">PRIME</span>
+              </div>
+              <div style="font-size:11px;color:var(--ink3)">$9.95 fee (free over $150) · 2 hrs</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:15px;font-weight:700">$104.45</div>
+              <div style="font-size:10px;color:var(--ink3)">Free if order &gt;$150</div>
+            </div>
+          </div>
+
+          <div style="background:var(--paper);border-radius:8px;padding:10px 12px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:13px;font-weight:500">🛍️ Instacart</div><div style="font-size:11px;color:var(--ink3)">1–2 hrs · 15% markup + tip</div></div>
+            <div style="font-size:15px;font-weight:700">$122.44</div>
+          </div>
+
+          <div style="background:var(--paper);border-radius:8px;padding:10px 12px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:13px;font-weight:500">📦 Shipt</div><div style="font-size:11px;color:var(--ink3)">1–3 hrs · 12% markup + tip</div></div>
+            <div style="font-size:15px;font-weight:700">$114.20</div>
+          </div>
+
+          <div style="background:var(--paper);border-radius:8px;padding:10px 12px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:13px;font-weight:500">🚗 DoorDash</div><div style="font-size:11px;color:var(--ink3)">30–60 min · 18% markup + tip</div></div>
+            <div style="font-size:15px;font-weight:700">$128.73</div>
+          </div>
+
+          <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px">
+            <span style="font-size:14px;flex-shrink:0">💡</span>
+            <div style="font-size:11px;color:#9a3412;line-height:1.5">
+              <strong>Amazon Fresh tip:</strong> If your list is near $150, add a pantry staple to cross the free delivery threshold and save $9.95 instantly.
+              With Prime, Amazon Fresh is often the second cheapest option after store direct delivery.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+    <button onclick="prevTutorial()" id="tutPrevBtn" style="padding:10px 24px;border:1px solid var(--border);border-radius:2px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;color:var(--ink);display:none">← Previous</button>
+    <div style="display:flex;gap:8px;margin:0 auto" id="tutDots">
+      <div class="tut-dot" style="width:8px;height:8px;border-radius:50%;background:var(--ink);cursor:pointer" onclick="goTutorial(0)"></div>
+      <div class="tut-dot" style="width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer" onclick="goTutorial(1)"></div>
+      <div class="tut-dot" style="width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer" onclick="goTutorial(2)"></div>
+      <div class="tut-dot" style="width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer" onclick="goTutorial(3)"></div>
+      <div class="tut-dot" style="width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer" onclick="goTutorial(4)"></div>
+      <div class="tut-dot" style="width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer" onclick="goTutorial(5)"></div>
+    </div>
+    <button onclick="nextTutorial()" id="tutNextBtn" style="padding:10px 24px;border:none;border-radius:2px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;background:var(--ink);color:white">Next feature →</button>
+  </div>
+</div>
+</div>
+
+<!-- ACCOUNT MANAGEMENT SECTION -->
+<div id="account" style="background:var(--white);padding:1px 0;">
+<div class="section reveal">
+  <div class="section-label">Your account</div>
+  <div class="section-title">Manage everything<br>in one place</div>
+  <div class="section-sub">Your PriceWatch account puts you in full control of your preferences, alerts, subscription, and personal information.</div>
+
+  <div style="display:grid;grid-template-columns:240px 1fr;gap:32px;margin-top:48px">
+
+    <div style="display:flex;flex-direction:column;gap:4px" id="acctMenu">
+      <button onclick="showAcct('profile',this)" class="acct-btn acct-active" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:var(--ink);color:white;font-weight:500">👤 Personal info</button>
+      <button onclick="showAcct('stores',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:none;color:var(--ink2)">🏪 Preferred stores</button>
+      <button onclick="showAcct('alerts',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:none;color:var(--ink2)">🔔 Alert preferences</button>
+      <button onclick="showAcct('subscription',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:none;color:var(--ink2)">💳 Subscription</button>
+      <button onclick="showAcct('payment',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:none;color:var(--ink2)">💰 Payment info</button>
+      <button onclick="showAcct('privacy',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:none;color:var(--ink2)">🔒 Privacy &amp; data</button>
+    </div>
+
+    <div style="border:1px solid var(--border);border-radius:8px;padding:32px">
+
+      <div id="acct-profile" class="acct-pane">
+        <div style="font-size:18px;font-weight:500;margin-bottom:4px">Personal information</div>
+        <div style="font-size:14px;color:var(--ink3);margin-bottom:28px">Update your name, address, email, and phone number here.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">First name</label><input type="text" value="Sarah" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+          <div><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Last name</label><input type="text" value="Johnson" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+        </div>
+        <div style="margin-bottom:16px"><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Email address</label><input type="email" value="sarah.j@email.com" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+        <div style="margin-bottom:16px"><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Phone number</label><input type="tel" value="(614) 555-0142" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+        <div style="margin-bottom:16px"><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Street address</label><input type="text" value="1234 Maple Street" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;margin-bottom:24px">
+          <div><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">City</label><input type="text" value="Columbus" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+          <div><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">State</label><input type="text" value="OH" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+          <div><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">ZIP</label><input type="text" value="43215" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+        </div>
+        <button style="padding:12px 28px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Save changes</button>
+      </div>
+
+      <div id="acct-stores" class="acct-pane" style="display:none">
+        <div style="font-size:18px;font-weight:500;margin-bottom:4px">Preferred stores</div>
+        <div style="font-size:14px;color:var(--ink3);margin-bottom:28px">Select the stores you like to shop at. PriceWatch will prioritize these in your search results and price comparisons.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+          <label style="display:flex;align-items:center;gap:12px;padding:14px;border:2px solid var(--ink);border-radius:6px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--ink)"><div><div style="font-size:14px;font-weight:500">🛒 Kroger</div><div style="font-size:12px;color:var(--ink3)">0.8 mi · Kroger Plus card</div></div></label>
+          <label style="display:flex;align-items:center;gap:12px;padding:14px;border:2px solid var(--ink);border-radius:6px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--ink)"><div><div style="font-size:14px;font-weight:500">🏪 Walmart</div><div style="font-size:12px;color:var(--ink3)">1.2 mi · Walmart+</div></div></label>
+          <label style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--ink)"><div><div style="font-size:14px;font-weight:500">🧺 Aldi</div><div style="font-size:12px;color:var(--ink3)">1.6 mi</div></div></label>
+          <label style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><input type="checkbox" style="width:16px;height:16px;accent-color:var(--ink)"><div><div style="font-size:14px;font-weight:500">🏬 Meijer</div><div style="font-size:12px;color:var(--ink3)">2.1 mi · mPerks</div></div></label>
+          <label style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><input type="checkbox" style="width:16px;height:16px;accent-color:var(--ink)"><div><div style="font-size:14px;font-weight:500">🎯 Target</div><div style="font-size:12px;color:var(--ink3)">1.9 mi · Target Circle</div></div></label>
+          <label style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><input type="checkbox" style="width:16px;height:16px;accent-color:var(--ink)"><div><div style="font-size:14px;font-weight:500">🏪 Costco</div><div style="font-size:12px;color:var(--ink3)">6.4 mi · Member</div></div></label>
+        </div>
+        <div style="margin-bottom:16px"><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Add a custom store</label><div style="display:flex;gap:8px"><input type="text" placeholder="Store name or address..." style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"><button style="padding:10px 16px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">Add store</button></div></div>
+        <button style="padding:12px 28px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Save preferences</button>
+      </div>
+
+      <div id="acct-alerts" class="acct-pane" style="display:none">
+        <div style="font-size:18px;font-weight:500;margin-bottom:4px">Alert preferences</div>
+        <div style="font-size:14px;color:var(--ink3);margin-bottom:28px">Choose how and when PriceWatch notifies you about price drops, sales, and account activity.</div>
+        <div style="font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:12px">How to notify me</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">📱 Push notifications</div><div style="font-size:12px;color:var(--ink3)">Instant alerts on your phone — fastest option</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">📧 Email alerts</div><div style="font-size:12px;color:var(--ink3)">Detailed price drop emails with full comparison</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">💬 Text message (SMS)</div><div style="font-size:12px;color:var(--ink3)">Quick text alerts — standard rates apply</div></div><input type="checkbox" style="width:18px;height:18px;accent-color:var(--ink)"></label>
+        </div>
+        <div style="font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:12px">What to notify me about</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Price drops on tracked items</div><div style="font-size:12px;color:var(--ink3)">When any item hits your target price</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Sales on my staple items</div><div style="font-size:12px;color:var(--ink3)">When a regularly bought item goes on sale</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Weekly savings summary</div><div style="font-size:12px;color:var(--ink3)">A weekly email showing how much you saved</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Subscription renewal reminder</div><div style="font-size:12px;color:var(--ink3)">Text and email reminder 30 days before renewal</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+        </div>
+        <div style="font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:12px">Quiet hours — no alerts during</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+          <div><label style="display:block;font-size:11px;color:var(--ink3);margin-bottom:6px">From</label><select style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"><option>10:00 PM</option><option>9:00 PM</option><option>11:00 PM</option></select></div>
+          <div><label style="display:block;font-size:11px;color:var(--ink3);margin-bottom:6px">To</label><select style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"><option>7:00 AM</option><option>6:00 AM</option><option>8:00 AM</option></select></div>
+        </div>
+        <button style="padding:12px 28px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Save alert settings</button>
+      </div>
+
+      <div id="acct-subscription" class="acct-pane" style="display:none">
+        <div style="font-size:18px;font-weight:500;margin-bottom:4px">Subscription</div>
+        <div style="font-size:14px;color:var(--ink3);margin-bottom:28px">Manage your PriceWatch plan, renewal reminders, and cancellation options.</div>
+        <div style="background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div><div style="font-size:16px;font-weight:500">PriceWatch Pro</div><div style="font-size:13px;color:var(--ink3)">$4.99 per month · renews June 4, 2026</div></div>
+            <span style="font-size:11px;padding:4px 10px;border-radius:10px;background:#dcfce7;color:#15803d;font-weight:500">Active</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+            <div style="padding:8px;background:var(--white);border-radius:4px"><span style="color:var(--ink3)">Member since</span><br><strong>May 4, 2026</strong></div>
+            <div style="padding:8px;background:var(--white);border-radius:4px"><span style="color:var(--ink3)">Next bill</span><br><strong>June 4, 2026</strong></div>
+            <div style="padding:8px;background:var(--white);border-radius:4px"><span style="color:var(--ink3)">Total saved</span><br><strong style="color:var(--accent3)">$47.82</strong></div>
+            <div style="padding:8px;background:var(--white);border-radius:4px"><span style="color:var(--ink3)">Items tracked</span><br><strong>18 items</strong></div>
+          </div>
+        </div>
+        <div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:8px;padding:16px;margin-bottom:20px">
+          <div style="font-size:14px;font-weight:500;color:#92400e;margin-bottom:4px">🔔 Renewal reminder is on</div>
+          <div style="font-size:13px;color:#78350f">You will receive a text message and email 30 days before your subscription renews. You can turn this off in Alert preferences above.</div>
+        </div>
+        <div style="font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:12px">Change your plan</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+          <div style="border:1px solid var(--border);border-radius:6px;padding:16px">
+            <div style="font-size:13px;font-weight:500;margin-bottom:4px">Free plan</div>
+            <div style="font-size:22px;font-weight:700;margin-bottom:8px">$0</div>
+            <div style="font-size:12px;color:var(--ink3);margin-bottom:12px">20 searches/day · 3 alerts · basic features</div>
+            <button style="width:100%;padding:8px;border:1px solid var(--border);border-radius:4px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;background:none">Downgrade</button>
+          </div>
+          <div style="border:2px solid var(--ink);border-radius:6px;padding:16px;background:var(--ink);color:white">
+            <div style="font-size:13px;font-weight:500;margin-bottom:4px;color:rgba(255,255,255,0.6)">Pro — Current plan</div>
+            <div style="font-size:22px;font-weight:700;margin-bottom:8px">$4.99<span style="font-size:13px;font-weight:400;opacity:0.6">/mo</span></div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:12px">Unlimited everything · all features</div>
+            <button style="width:100%;padding:8px;border:1px solid rgba(255,255,255,0.3);border-radius:4px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;background:none;color:white">Current plan ✓</button>
+          </div>
+        </div>
+        <div style="border:1px solid #fca5a5;border-radius:8px;padding:20px;background:#fff1f2">
+          <div style="font-size:15px;font-weight:500;color:#991b1b;margin-bottom:6px">Cancel your subscription</div>
+          <div style="font-size:13px;color:#7f1d1d;margin-bottom:14px;line-height:1.6">You can cancel anytime with no penalty. Your Pro access continues until the end of your current billing period on June 4, 2026. Your data and tracked items are saved for 90 days so you can reactivate without losing anything.</div>
+          <button style="padding:10px 20px;background:none;border:1px solid #dc2626;border-radius:4px;font-size:13px;color:#dc2626;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500">Cancel subscription</button>
+        </div>
+      </div>
+
+      <div id="acct-payment" class="acct-pane" style="display:none">
+        <div style="font-size:18px;font-weight:500;margin-bottom:4px">Payment information</div>
+        <div style="font-size:14px;color:var(--ink3);margin-bottom:28px">Update your billing information. All payment data is securely handled by Stripe — PriceWatch never stores your card details.</div>
+        <div style="background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px;display:flex;align-items:center;gap:14px">
+          <div style="width:44px;height:28px;background:var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:700">VISA</div>
+          <div style="flex:1"><div style="font-size:14px;font-weight:500">Visa ending in 4242</div><div style="font-size:12px;color:var(--ink3)">Expires 08/28 · Billing ZIP 43215</div></div>
+          <button style="font-size:12px;padding:6px 14px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;font-family:'DM Sans',sans-serif">Update</button>
+        </div>
+        <div style="background:#dbeafe;border:1px solid #93c5fd;border-radius:8px;padding:14px;margin-bottom:20px">
+          <div style="font-size:13px;color:#1e40af;line-height:1.6">🔒 <strong>Your payment info is secure.</strong> PriceWatch uses Stripe for all billing. Your full card number is never stored on our servers. You can update or remove your card at any time.</div>
+        </div>
+        <div style="margin-bottom:16px"><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Billing email</label><input type="email" value="sarah.j@email.com" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+        <div style="margin-bottom:24px"><label style="display:block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:6px">Billing address ZIP code</label><input type="text" value="43215" style="width:200px;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif"></div>
+        <button style="padding:12px 28px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Save billing info</button>
+      </div>
+
+      <div id="acct-privacy" class="acct-pane" style="display:none">
+        <div style="font-size:18px;font-weight:500;margin-bottom:4px">Privacy &amp; data</div>
+        <div style="font-size:14px;color:var(--ink3);margin-bottom:28px">Control what data PriceWatch collects and how it is used.</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Personalized recommendations</div><div style="font-size:12px;color:var(--ink3)">Use my purchase history to suggest better deals</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Location-based store search</div><div style="font-size:12px;color:var(--ink3)">Use my location to find nearby stores and prices</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Anonymous usage analytics</div><div style="font-size:12px;color:var(--ink3)">Help improve PriceWatch with anonymized data</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Marketing emails</div><div style="font-size:12px;color:var(--ink3)">Receive tips, feature updates, and offers</div></div><input type="checkbox" style="width:18px;height:18px;accent-color:var(--ink)"></label>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--border)">
+          <button style="padding:10px 20px;border:1px solid var(--border);border-radius:4px;font-size:13px;cursor:pointer;background:none;font-family:'DM Sans',sans-serif">Download my data</button>
+          <button style="padding:10px 20px;border:1px solid #dc2626;border-radius:4px;font-size:13px;color:#dc2626;cursor:pointer;background:none;font-family:'DM Sans',sans-serif">Delete my account</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT SECTION -->
+<div id="contact" style="background:var(--white);padding:1px 0;">
+<div class="section reveal">
+  <div class="section-label">Contact us</div>
+  <div class="section-title">We'd love to<br>hear from you</div>
+  <div class="section-sub">Have a question, suggestion, or just want to say hello? Our team responds to every message within 24 hours.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;align-items:start">
+
+    <div>
+      <div id="contactSuccess" style="display:none;background:#dcfce7;border:1px solid #16a34a;border-radius:8px;padding:20px 24px;margin-bottom:24px">
+        <div style="font-size:16px;font-weight:500;color:#15803d;margin-bottom:4px">Message sent successfully!</div>
+        <div style="font-size:14px;color:#166534">Thank you for reaching out. Our team will reply to your email within 24 hours.</div>
+      </div>
+
+      <form id="contactForm" onsubmit="submitContact(event)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">First name *</label>
+            <input type="text" id="cfFirstName" required placeholder="Jane" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Last name *</label>
+            <input type="text" id="cfLastName" required placeholder="Smith" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Your email address *</label>
+          <input type="email" id="cfEmail" required placeholder="jane@example.com" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+        </div>
+
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Phone number (optional)</label>
+          <input type="tel" id="cfPhone" placeholder="(614) 555-0100" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+        </div>
+
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">What can we help you with?</label>
+          <select id="cfSubject" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'">
+            <option value="General question">General question</option>
+            <option value="Feature request">Feature request or suggestion</option>
+            <option value="Bug report">Report a bug or issue</option>
+            <option value="Partnership">Partnership or business inquiry</option>
+            <option value="Press">Press or media inquiry</option>
+            <option value="Investor">Investor inquiry</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Send to</label>
+          <input type="email" value="support@pricewatch.app" readonly style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink3);outline:none;cursor:default">
+          <div style="font-size:11px;color:var(--ink3);margin-top:4px">All messages go directly to our customer service team</div>
+        </div>
+
+        <div style="margin-bottom:24px">
+          <label style="display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Your message *</label>
+          <textarea id="cfMessage" required placeholder="Tell us what's on your mind — questions, ideas, feedback, anything at all. We read every message." rows="6" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);outline:none;resize:vertical;line-height:1.6;transition:border-color 0.2s" onfocus="this.style.borderColor='#e63c2f'" onblur="this.style.borderColor='rgba(10,10,10,0.12)'"></textarea>
+        </div>
+
+        <button type="submit" id="cfSubmitBtn" style="width:100%;padding:14px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s" onmouseover="this.style.background='#e63c2f'" onmouseout="this.style.background='var(--ink)'">
+          Send message →
+        </button>
+      </form>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:22px;margin-bottom:12px">📧</div>
+        <div style="font-size:15px;font-weight:500;margin-bottom:4px">Email us directly</div>
+        <div style="font-size:14px;color:var(--ink3);margin-bottom:8px">For any questions or support</div>
+        <a href="mailto:support@pricewatch.app" style="font-size:14px;color:var(--accent);text-decoration:none;font-weight:500">support@pricewatch.app</a>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:22px;margin-bottom:12px">⏱️</div>
+        <div style="font-size:15px;font-weight:500;margin-bottom:4px">Response time</div>
+        <div style="font-size:14px;color:var(--ink3);line-height:1.7">We respond to every single message within <strong>24 hours</strong> Monday through Friday. Weekend messages are answered first thing Monday morning.</div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:22px;margin-bottom:12px">💡</div>
+        <div style="font-size:15px;font-weight:500;margin-bottom:4px">Feature requests welcome</div>
+        <div style="font-size:14px;color:var(--ink3);line-height:1.7">PriceWatch is built by real shoppers for real shoppers. Your ideas directly shape what we build next. Tell us what would make your life easier.</div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:22px;margin-bottom:12px">📍</div>
+        <div style="font-size:15px;font-weight:500;margin-bottom:4px">Based in Columbus, Ohio</div>
+        <div style="font-size:14px;color:var(--ink3);line-height:1.7">PriceWatch LLC is a Columbus-based startup proudly serving shoppers across the United States.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
 <!-- FOOTER -->
 <footer class="reveal">
   <div class="footer-brand">
@@ -659,26 +1613,26 @@ footer {
   </div>
   <div class="footer-col">
     <h4>Product</h4>
-    <a href="#">Features</a>
-    <a href="#">Pricing</a>
-    <a href="#">Changelog</a>
-    <a href="#">Roadmap</a>
-    <a href="#">API</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Changelog</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Roadmap</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">API</a>
   </div>
   <div class="footer-col">
     <h4>Company</h4>
-    <a href="#">About</a>
-    <a href="#">Blog</a>
-    <a href="#">Careers</a>
-    <a href="#">Press</a>
-    <a href="#">Contact</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">About</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Blog</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Careers</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Press</a>
+    <a href="#contact">Contact</a>
   </div>
   <div class="footer-col">
     <h4>Legal</h4>
-    <a href="#">Privacy policy</a>
-    <a href="#">Terms of service</a>
-    <a href="#">Cookie settings</a>
-    <a href="#">Accessibility</a>
+    <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Privacy policy</a>
+    <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Terms of service</a>
+    <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Cookie settings</a>
+    <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Accessibility</a>
   </div>
 </footer>
 <div class="footer-bottom">
@@ -686,11 +1640,652 @@ footer {
   <div class="footer-copy">Built with ♥ in Columbus, Ohio</div>
 </div>
 
+
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible');});
+
+/* ── WATCHED ITEMS DATA ── */
+var WATCHED_ITEMS=[
+{id:1,name:'Nike Air Max 270',store:'Nike.com',cat:'Apparel',current:110,prev1d:112,prev1w:118,prev1m:130,prev1y:150,low12:95,target:105,onSale:true,saleStore:'Nike.com',salePrice:110,saleEnd:'Today only'},
+{id:2,name:'Tide Pods 42ct',store:'Kroger',cat:'Household',current:14.99,prev1d:14.99,prev1w:15.49,prev1m:16.99,prev1y:13.49,low12:11.47,target:12.00,onSale:false,saleStore:null,salePrice:null,saleEnd:null},
+{id:3,name:'Whole Milk 1gal',store:'Aldi',cat:'Grocery',current:2.49,prev1d:2.49,prev1w:2.99,prev1m:2.99,prev1y:2.29,low12:1.99,target:2.50,onSale:true,saleStore:'Kroger',salePrice:1.99,saleEnd:'Thru Sunday'},
+{id:4,name:'Dyson V15 Detect',store:'Best Buy',cat:'Electronics',current:499,prev1d:529,prev1w:549,prev1m:629,prev1y:599,low12:449,target:500,onSale:true,saleStore:'Best Buy',salePrice:499,saleEnd:'Limited time'},
+{id:5,name:'Coach Tabby 26',store:'Coach.com',cat:'Handbag',current:285,prev1d:295,prev1w:350,prev1m:350,prev1y:350,low12:215,target:250,onSale:false,saleStore:'Poshmark',salePrice:215,saleEnd:null},
+{id:6,name:'Folgers Coffee',store:'Walmart',cat:'Grocery',current:8.97,prev1d:8.97,prev1w:9.49,prev1m:10.99,prev1y:8.49,low12:7.48,target:9.00,onSale:false,saleStore:null,salePrice:null,saleEnd:null},
+{id:7,name:'Chicken Breast/lb',store:'Kroger',cat:'Grocery',current:4.49,prev1d:4.49,prev1w:4.99,prev1m:5.49,prev1y:3.99,low12:3.49,target:4.00,onSale:true,saleStore:'Aldi',salePrice:3.49,saleEnd:'Thru Sunday'},
+{id:8,name:'Charmin TP 18pk',store:'Walmart',cat:'Household',current:11.47,prev1d:11.47,prev1w:12.99,prev1m:14.99,prev1y:10.99,low12:9.99,target:11.00,onSale:false,saleStore:null,salePrice:null,saleEnd:null},
+{id:9,name:'Tropicana OJ',store:'Kroger',cat:'Grocery',current:3.99,prev1d:5.99,prev1w:5.99,prev1m:6.49,prev1y:5.49,low12:3.49,target:4.00,onSale:true,saleStore:'Kroger',salePrice:3.99,saleEnd:'Thru Saturday'},
+{id:10,name:'Dove Body Wash',store:'Target',cat:'Personal Care',current:5.99,prev1d:5.99,prev1w:7.97,prev1m:7.97,prev1y:6.99,low12:3.47,target:6.00,onSale:true,saleStore:'Target',salePrice:5.99,saleEnd:'Circle deal'}
+];
+var userItems=WATCHED_ITEMS.slice();
+var stripMode='1d';
+
+/* ── TICKER STRIP ── */
+function buildStrip(){
+  var track=document.getElementById('tickerScrollTrack');
+  if(!track)return;
+  var items=stripMode==='sale'?userItems.filter(function(i){return i.onSale;}):userItems;
+  if(!items.length){track.innerHTML='<span class="ts-chip"><span class="ts-name">No sale items right now</span></span>';return;}
+  var doubled=items.concat(items);
+  track.innerHTML=doubled.map(function(item){
+    var prev=stripMode==='1w'?item.prev1w:stripMode==='1m'?item.prev1m:stripMode==='1y'?item.prev1y:item.prev1d;
+    var diff=item.current-prev;
+    var pct=prev>0?Math.abs(diff/prev*100):0;
+    var isLow=item.current<=item.low12*1.02;
+    var isTarget=item.current<=item.target;
+    var cls=isLow?'ts-chip ts-low':isTarget?'ts-chip ts-target':item.onSale?'ts-chip ts-sale':'ts-chip';
+    var badge=isLow?'<span class="ts-badge ts-badge-low">LOW</span>':isTarget?'<span class="ts-badge ts-badge-tgt">TARGET</span>':(item.onSale&&stripMode!=='sale'?'<span class="ts-badge ts-badge-sale">SALE</span>':'');
+    var chgCls=diff<0?'ts-chg-dn':diff>0?'ts-chg-up':'ts-chg-fl';
+    var arrow=diff<0?'&#9660;':diff>0?'&#9650;':'&ndash;';
+    var price=stripMode==='sale'&&item.onSale?item.salePrice:item.current;
+    var chg=stripMode!=='sale'?'<span class="'+chgCls+'">'+arrow+pct.toFixed(1)+'%</span>':'<span class="ts-store">'+item.saleStore+'</span>';
+    return '<div class="'+cls+'"><span class="ts-name">'+item.name+'</span><span class="ts-price">$'+price.toFixed(2)+'</span>'+chg+badge+'</div><div class="ts-sep"></div>';
+  }).join('');
+  var speed=Math.max(30,items.length*5);
+  track.style.animation='stripScroll '+speed+'s linear infinite';
+  var badge=document.getElementById('saleCountBadge');
+  if(badge)badge.textContent=userItems.filter(function(i){return i.onSale;}).length+' on sale';
+}
+
+function setStripMode(mode,el){
+  stripMode=mode;
+  document.querySelectorAll('.ts-mode').forEach(function(b){
+    b.style.background='none';
+    b.style.color=b.textContent==='Sales'?'#e63c2f':'rgba(255,255,255,0.4)';
+    b.style.borderColor=b.textContent==='Sales'?'rgba(230,60,47,0.4)':'rgba(255,255,255,0.08)';
+  });
+  el.style.background=mode==='sale'?'rgba(230,60,47,0.2)':'rgba(255,255,255,0.1)';
+  el.style.color='white';
+  el.style.borderColor=mode==='sale'?'rgba(230,60,47,0.5)':'rgba(255,255,255,0.2)';
+  buildStrip();
+}
+
+buildStrip();
+
+/* ── LOCAL DISCOVERY ── */
+var LOCAL_DATA = {
+  'ice cream': [
+    {name:"Graeter's Ice Cream",addr:"2555 Bethel Rd, Columbus OH",dist:0.8,price:"$4.75",priceNote:"single scoop",rating:4.9,reviews:1842,open:true,hours:"Open until 10pm",phone:"(614) 459-2768",tags:["Best rated","Local favorite"]},
+    {name:"Jeni's Splendid Ice Creams",addr:"714 N High St, Columbus OH",dist:1.2,price:"$5.50",priceNote:"single scoop",rating:4.8,reviews:3204,open:true,hours:"Open until 11pm",phone:"(614) 294-5364",tags:["Columbus original"]},
+    {name:"Young's Jersey Dairy",addr:"6880 Springfield-Xenia Rd",dist:2.1,price:"$3.75",priceNote:"single scoop",rating:4.7,reviews:2891,open:true,hours:"Open until 9pm",phone:"(937) 325-0629",tags:["Farm fresh","Family friendly"]},
+    {name:"Dairy Queen",addr:"1350 W Lane Ave, Columbus OH",dist:1.5,price:"$3.29",priceNote:"small cone",rating:4.1,reviews:654,open:true,hours:"Open until 10pm",phone:"(614) 486-1952",tags:["Chain","Quick service"]},
+    {name:"Johnson's Real Ice Cream",addr:"2728 E Main St, Columbus OH",dist:3.2,price:"$4.25",priceNote:"single scoop",rating:4.8,reviews:1123,open:false,hours:"Opens at 11am",phone:"(614) 231-0014",tags:["Columbus classic"]},
+    {name:"Cold Stone Creamery",addr:"3733 W Dublin-Granville Rd",dist:2.8,price:"$5.99",priceNote:"like it size",rating:4.3,reviews:487,open:true,hours:"Open until 10pm",phone:"(614) 760-0100",tags:["Mix-ins","Chain"]},
+  ],
+  'coffee': [
+    {name:"Stauf's Coffee Roasters",addr:"1277 Grandview Ave, Columbus OH",dist:1.1,price:"$3.50",priceNote:"drip coffee",rating:4.8,reviews:2341,open:true,hours:"Open until 8pm",phone:"(614) 486-4653",tags:["Local roaster","Best coffee"]},
+    {name:"Impero Coffee",addr:"705 N High St, Columbus OH",dist:0.9,price:"$4.25",priceNote:"latte",rating:4.7,reviews:1876,open:true,hours:"Open until 6pm",phone:"(614) 298-0097",tags:["Specialty","Columbus local"]},
+    {name:"Starbucks",addr:"1 S High St, Columbus OH",dist:0.4,price:"$5.45",priceNote:"grande latte",rating:4.2,reviews:934,open:true,hours:"Open until 9pm",phone:"(614) 621-9230",tags:["Chain","Closest"]},
+    {name:"Luck Bros' Coffee House",addr:"800 Mohawk St, Columbus OH",dist:2.3,price:"$3.75",priceNote:"drip coffee",rating:4.6,reviews:1204,open:true,hours:"Open until 5pm",phone:"(614) 224-7333",tags:["Neighborhood gem"]},
+    {name:"Thunderkiss Coffee",addr:"2488 Summit St, Columbus OH",dist:1.7,price:"$4.00",priceNote:"latte",rating:4.5,reviews:876,open:false,hours:"Opens at 7am",phone:"(614) 268-5282",tags:["Cozy","Good Wi-Fi"]},
+  ],
+  'pizza': [
+    {name:"Harvest Pizzeria",addr:"495 S 4th St, Columbus OH",dist:1.4,price:"$14.00",priceNote:"12\" margherita",rating:4.8,reviews:2103,open:true,hours:"Open until 10pm",phone:"(614) 824-1769",tags:["Best rated","Wood fired"]},
+    {name:"Mikey's Late Night Slice",addr:"382 S 4th St, Columbus OH",dist:1.5,price:"$3.50",priceNote:"per slice",rating:4.6,reviews:3892,open:true,hours:"Open until 3am",phone:"(614) 737-7541",tags:["Late night","By the slice"]},
+    {name:"Massey's Pizza",addr:"1038 S James Rd, Columbus OH",dist:2.7,price:"$12.50",priceNote:"12\" cheese",rating:4.5,reviews:1654,open:true,hours:"Open until 11pm",phone:"(614) 237-9030",tags:["Columbus classic","Since 1949"]},
+    {name:"Donatos Pizza",addr:"1290 Bethel Rd, Columbus OH",dist:1.8,price:"$11.99",priceNote:"12\" cheese",rating:4.3,reviews:987,open:true,hours:"Open until 11pm",phone:"(614) 451-0440",tags:["Columbus original","Chain"]},
+    {name:"Tommy's Pizza",addr:"1350 Grandview Ave, Columbus OH",dist:1.2,price:"$13.00",priceNote:"12\" cheese",rating:4.4,reviews:743,open:false,hours:"Opens at 11am",phone:"(614) 488-3755",tags:["Neighborhood spot"]},
+  ],
+  'burger': [
+    {name:"Thurman Café",addr:"183 Thurman Ave, Columbus OH",dist:1.9,price:"$11.99",priceNote:"Thurmanator",rating:4.6,reviews:4231,open:true,hours:"Open until 11pm",phone:"(614) 443-1570",tags:["Columbus legend","Cash only"]},
+    {name:"Tip Top Kitchen & Cocktails",addr:"73 E Gay St, Columbus OH",dist:0.6,price:"$14.00",priceNote:"classic burger",rating:4.5,reviews:1876,open:true,hours:"Open until midnight",phone:"(614) 221-8200",tags:["Upscale","Downtown"]},
+    {name:"Five Guys",addr:"16 E Gay St, Columbus OH",dist:0.7,price:"$9.99",priceNote:"little burger",rating:4.4,reviews:2104,open:true,hours:"Open until 10pm",phone:"(614) 220-9299",tags:["Chain","Fresh cut fries"]},
+    {name:"Shake Shack",addr:"4015 Townsfair Way, Columbus OH",dist:3.4,price:"$8.99",priceNote:"ShackBurger",rating:4.5,reviews:1432,open:true,hours:"Open until 10pm",phone:"(614) 300-4170",tags:["Chain","Crinkle fries"]},
+    {name:"The Olde Mohawk",addr:"819 Mohawk St, Columbus OH",dist:2.2,price:"$10.50",priceNote:"classic burger",rating:4.4,reviews:892,open:true,hours:"Open until 11pm",phone:"(614) 444-7204",tags:["Neighborhood bar"]},
+  ],
+  'sushi': [
+    {name:"Haiku Poetic Japanese Cuisine",addr:"800 Mohawk St, Columbus OH",dist:2.3,price:"$14.00",priceNote:"8pc roll",rating:4.7,reviews:1543,open:true,hours:"Open until 10pm",phone:"(614) 294-8168",tags:["Best sushi","Upscale"]},
+    {name:"Fukuryu Ramen",addr:"641 N High St, Columbus OH",dist:1.1,price:"$12.00",priceNote:"8pc roll",rating:4.6,reviews:2104,open:true,hours:"Open until 11pm",phone:"(614) 298-0050",tags:["Trendy","Short North"]},
+    {name:"Tensuke Market",addr:"1167 Old Henderson Rd",dist:3.8,price:"$8.99",priceNote:"8pc roll",rating:4.8,reviews:876,open:true,hours:"Open until 8pm",phone:"(614) 451-6002",tags:["Japanese market","Best value"]},
+    {name:"Natalie's Coal-Fired Pizza",addr:"5601 N High St, Worthington OH",dist:4.2,price:"$13.50",priceNote:"8pc roll",rating:4.5,reviews:1231,open:false,hours:"Opens at 5pm",phone:"(614) 846-6177",tags:["Upscale","Live music"]},
+  ],
+  'tacos': [
+    {name:"Condado Tacos",addr:"680 N High St, Columbus OH",dist:1.0,price:"$4.50",priceNote:"per taco",rating:4.6,reviews:3421,open:true,hours:"Open until midnight",phone:"(614) 298-1060",tags:["Build your own","Columbus born"]},
+    {name:"Barrio",addr:"19 W 5th Ave, Columbus OH",dist:1.4,price:"$4.25",priceNote:"per taco",rating:4.5,reviews:2109,open:true,hours:"Open until 10pm",phone:"(614) 543-3727",tags:["Craft margaritas","Trendy"]},
+    {name:"Las Margaritas",addr:"3010 Hayden Rd, Columbus OH",dist:2.6,price:"$3.25",priceNote:"per taco",rating:4.4,reviews:1654,open:true,hours:"Open until 10pm",phone:"(614) 760-9011",tags:["Authentic","Best value"]},
+    {name:"El Vaquero",addr:"1288 W Lane Ave, Columbus OH",dist:1.7,price:"$3.75",priceNote:"per taco",rating:4.3,reviews:2876,open:false,hours:"Opens at 11am",phone:"(614) 487-5535",tags:["Columbus classic","Margaritas"]},
+  ],
+  'smoothie': [
+    {name:"Whole Foods Market",addr:"1555 W Lane Ave, Columbus OH",dist:1.9,price:"$7.99",priceNote:"16oz smoothie",rating:4.4,reviews:876,open:true,hours:"Open until 9pm",phone:"(614) 481-0782",tags:["Organic","Juice bar"]},
+    {name:"Tropical Smoothie Café",addr:"3474 W Dublin-Granville Rd",dist:3.1,price:"$6.49",priceNote:"24oz smoothie",rating:4.3,reviews:654,open:true,hours:"Open until 9pm",phone:"(614) 798-1100",tags:["Chain","Large sizes"]},
+    {name:"Jamba",addr:"4015 Townsfair Way, Columbus OH",dist:3.4,price:"$7.25",priceNote:"16oz smoothie",rating:4.2,reviews:432,open:true,hours:"Open until 9pm",phone:"(614) 473-0030",tags:["Chain","Boosts available"]},
+    {name:"Northstar Café",addr:"951 N High St, Columbus OH",dist:1.0,price:"$8.50",priceNote:"smoothie",rating:4.7,reviews:2341,open:true,hours:"Open until 9pm",phone:"(614) 298-9999",tags:["Local favorite","Fresh pressed"]},
+  ]
+};
+
+var localCurrentSort = 'price';
+var localCurrentData = [];
+var localCurrentTerm = '';
+
+function quickLocal(term) {
+  document.getElementById('localSearchInput').value = term;
+  runLocalSearch();
+}
+
+function runLocalSearch() {
+  var term = document.getElementById('localSearchInput').value.trim().toLowerCase();
+  if (!term) { alert('Please enter something to search for'); return; }
+  localCurrentTerm = term;
+  var key = Object.keys(LOCAL_DATA).find(function(k) { return term.includes(k) || k.includes(term); });
+  if (key) {
+    localCurrentData = LOCAL_DATA[key].slice();
+  } else {
+    localCurrentData = LOCAL_DATA['coffee'].map(function(p) {
+      return Object.assign({}, p, {tags:['Near you']});
+    });
+  }
+  localCurrentSort = 'price';
+  document.querySelectorAll('.sort-btn').forEach(function(b) {
+    b.style.background = 'none'; b.style.color = 'var(--ink2)'; b.style.borderColor = 'var(--border)';
+  });
+  var priceBtn = document.querySelector('.sort-btn');
+  if (priceBtn) { priceBtn.style.background = 'var(--ink)'; priceBtn.style.color = 'white'; priceBtn.style.borderColor = 'var(--ink)'; }
+  document.getElementById('localEmpty').style.display = 'none';
+  document.getElementById('localResults').style.display = 'block';
+  document.getElementById('localResultsLabel').textContent = localCurrentData.length + ' places near Columbus, OH offering "' + document.getElementById('localSearchInput').value + '"';
+  renderLocalGrid();
+  document.getElementById('local').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function sortLocal(by, btn) {
+  localCurrentSort = by;
+  document.querySelectorAll('.sort-btn').forEach(function(b) {
+    b.style.background = 'none'; b.style.color = 'var(--ink2)'; b.style.borderColor = 'var(--border)';
+  });
+  btn.style.background = 'var(--ink)'; btn.style.color = 'white'; btn.style.borderColor = 'var(--ink)';
+  renderLocalGrid();
+}
+
+function renderLocalGrid() {
+  var sorted = localCurrentData.slice().sort(function(a, b) {
+    if (localCurrentSort === 'price') return parseFloat(a.price.replace('$','')) - parseFloat(b.price.replace('$',''));
+    if (localCurrentSort === 'distance') return a.dist - b.dist;
+    if (localCurrentSort === 'rating') return b.rating - a.rating;
+    return 0;
+  });
+  var cheapest = sorted[0];
+  document.getElementById('localGrid').innerHTML = sorted.map(function(p, i) {
+    var stars = '';
+    for (var s = 1; s <= 5; s++) stars += s <= Math.round(p.rating) ? '★' : '☆';
+    var isOpen = p.open;
+    var isCheapest = i === 0 && localCurrentSort === 'price';
+    var borderStyle = isCheapest ? 'border:2px solid #16a34a' : 'border:1px solid var(--border)';
+    var bgStyle = isCheapest ? 'background:#f0fdf4' : 'background:var(--white)';
+    var tags = p.tags.map(function(t) {
+      return '<span style="font-size:10px;padding:2px 7px;border-radius:10px;background:var(--paper);color:var(--ink3);border:1px solid var(--border)">' + t + '</span>';
+    }).join('');
+    var mapsQuery = encodeURIComponent(p.name + ' ' + p.addr);
+    var mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + mapsQuery;
+    var mapsDir = 'https://www.google.com/maps/dir/?api=1&destination=' + mapsQuery;
+    return '<div style="' + bgStyle + ';' + borderStyle + ';border-radius:10px;overflow:hidden;transition:transform 0.15s" onmouseover="this.style.transform=\'translateY(-2px)\'" onmouseout="this.style.transform=\'none\'">' +
+      '<div style="padding:14px 16px;border-bottom:1px solid var(--border)">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">' +
+          '<div style="font-size:14px;font-weight:500;flex:1;margin-right:8px;line-height:1.3">' + p.name + (isCheapest ? ' <span style="font-size:10px;padding:1px 6px;border-radius:8px;background:#16a34a;color:white;font-weight:600">Cheapest</span>' : '') + '</div>' +
+          '<div style="text-align:right;flex-shrink:0"><div style="font-size:18px;font-weight:700;color:' + (isCheapest ? '#15803d' : 'var(--ink)') + '">' + p.price + '</div><div style="font-size:10px;color:var(--ink3)">' + p.priceNote + '</div></div>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">' +
+          '<span style="color:#d97706;font-size:12px">' + stars + '</span>' +
+          '<span style="font-size:11px;font-weight:500">' + p.rating + '</span>' +
+          '<span style="font-size:11px;color:var(--ink3)">(' + p.reviews.toLocaleString() + ' reviews)</span>' +
+        '</div>' +
+        '<div style="font-size:11px;color:var(--ink3);margin-bottom:4px">📍 ' + p.addr + ' · ' + p.dist + ' mi away</div>' +
+        '<div style="font-size:11px;font-weight:500;color:' + (isOpen ? '#16a34a' : '#dc2626') + '">' + (isOpen ? '● Open now' : '● Closed') + ' · ' + p.hours + '</div>' +
+      '</div>' +
+      '<div style="padding:8px 12px;display:flex;gap:6px;flex-wrap:wrap">' +
+        tags +
+      '</div>' +
+      '<div style="padding:8px 12px;display:grid;grid-template-columns:1fr 1fr;gap:6px;border-top:1px solid var(--border)">' +
+        '<a href="' + mapsDir + '" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px;background:var(--ink);color:white;border-radius:4px;text-decoration:none;font-size:12px;font-weight:500">🗺️ Directions</a>' +
+        '<a href="' + mapsUrl + '" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px;background:none;border:1px solid var(--border);color:var(--ink);border-radius:4px;text-decoration:none;font-size:12px">📍 View on map</a>' +
+        '<a href="tel:' + p.phone + '" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px;background:none;border:1px solid var(--border);color:var(--ink);border-radius:4px;text-decoration:none;font-size:12px">📞 Call</a>' +
+        '<button onclick="addPriceAlert(\'' + p.name.replace(/'/g,"\\'") + '\')" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px;background:none;border:1px solid var(--border);color:var(--ink);border-radius:4px;font-size:12px;cursor:pointer;font-family:\'DM Sans\',sans-serif">🔔 Price alert</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function addPriceAlert(name) {
+  alert('Price alert set for ' + name + '! You will be notified if their prices drop.');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var input = document.getElementById('localSearchInput');
+  if (input) input.addEventListener('keydown', function(e) { if (e.key === 'Enter') runLocalSearch(); });
+});
+
+
+
+/* ── DOWNLOAD MODAL ── */
+function openDownloadModal(){
+  document.getElementById('downloadModal').style.display='flex';
+  document.body.style.overflow='hidden';
+  setTimeout(function(){
+    document.getElementById('downloadComingSoon').style.display='block';
+  },400);
+}
+function closeDownloadModal(){
+  document.getElementById('downloadModal').style.display='none';
+  document.body.style.overflow='';
+}
+function handleAppDownload(e,platform){
+  e.preventDefault();
+  document.getElementById('downloadComingSoon').style.display='block';
+  document.getElementById('downloadComingSoon').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){closeSignin();closeWatchModal();closeDownloadModal();}
+});
+
+function pwChat(){
+  var w=document.getElementById('pwChatWrap');
+  var o=document.getElementById('pwChatOpen');
+  if(!w||!o)return;
+  var isOpen=w.style.display==='flex';
+  w.style.display=isOpen?'none':'flex';
+  o.style.display=isOpen?'flex':'none';
+  if(!isOpen){
+    var msgs=document.getElementById('pwMsgs');
+    if(msgs&&msgs.children.length===0){
+      setTimeout(function(){pwBotMsg("Hi! 👋 Welcome to PriceWatch. I am here to help you save money. What are you looking for today?");},400);
+      setTimeout(function(){pwShowOptions([
+        {label:"🛒 I'm grocery shopping",action:'grocery'},
+        {label:"🔍 Search for an item",action:'search'},
+        {label:"📋 See my repeat purchases",action:'staples'},
+        {label:"🔔 Set a price alert",action:'alert'},
+        {label:"📍 Find something local",action:'local'},
+        {label:"❓ How does PriceWatch work?",action:'how'},
+        {label:"💳 Pricing and plans",action:'pricing'}
+      ]);},1200);
+    }
+  }
+}
+
+function pwBotMsg(text){
+  var msgs=document.getElementById('pwMsgs');if(!msgs)return;
+  var d=document.createElement('div');
+  d.style.cssText='display:flex;gap:8px;align-items:flex-end;margin-bottom:12px';
+  d.innerHTML='<div style="width:28px;height:28px;border-radius:50%;background:#0a0a0a;color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0">PW</div>'+
+    '<div style="max-width:82%;background:#f1f1f1;color:#0a0a0a;padding:10px 13px;border-radius:14px 14px 14px 2px;font-size:13px;line-height:1.6;white-space:pre-line">'+text+'</div>';
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+
+function pwUserMsg(text){
+  var msgs=document.getElementById('pwMsgs');if(!msgs)return;
+  var d=document.createElement('div');
+  d.style.cssText='display:flex;justify-content:flex-end;margin-bottom:12px';
+  d.innerHTML='<div style="max-width:82%;background:#0a0a0a;color:white;padding:10px 13px;border-radius:14px 14px 2px 14px;font-size:13px;line-height:1.6">'+text+'</div>';
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+
+function pwShowOptions(opts){
+  var msgs=document.getElementById('pwMsgs');if(!msgs)return;
+  var old=document.getElementById('pwOpts');if(old)old.remove();
+  var d=document.createElement('div');d.id='pwOpts';
+  d.style.cssText='display:flex;flex-direction:column;gap:5px;margin-bottom:12px;padding-left:36px';
+  d.innerHTML=opts.map(function(o){
+    return '<button onclick="pwOption(\''+o.action+'\',\''+o.label.replace(/'/g,"\\'")+'\')" style="text-align:left;padding:8px 12px;border:1px solid #ddd;border-radius:20px;background:white;font-size:12px;cursor:pointer;font-family:\'DM Sans\',sans-serif;color:#0a0a0a;transition:all 0.15s" onmouseover="this.style.background=\'#0a0a0a\';this.style.color=\'white\'" onmouseout="this.style.background=\'white\';this.style.color=\'#0a0a0a\'">'+o.label+'</button>';
+  }).join('');
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+
+function pwClearOptions(){var o=document.getElementById('pwOpts');if(o)o.remove();}
+
+function pwNavigate(id){
+  var el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function pwOption(action,label){
+  pwClearOptions();pwUserMsg(label);
+  setTimeout(function(){
+    if(action==='menu'){
+      pwBotMsg("What else can I help you with? 😊");
+      setTimeout(function(){pwShowOptions([
+        {label:"🛒 I'm grocery shopping",action:'grocery'},
+        {label:"🔍 Search for an item",action:'search'},
+        {label:"📋 See my repeat purchases",action:'staples'},
+        {label:"🔔 Set a price alert",action:'alert'},
+        {label:"📍 Find something local",action:'local'},
+        {label:"❓ How does PriceWatch work?",action:'how'},
+        {label:"💳 Pricing and plans",action:'pricing'}
+      ]);},600);
+    } else if(action==='grocery'){
+      pwBotMsg("Great! Are you grocery shopping today? 🛒 Here is what I can help you with:");
+      setTimeout(function(){pwShowOptions([
+        {label:"Compare prices at local stores",action:'grocery_compare'},
+        {label:"Build my grocery list",action:'grocery_list'},
+        {label:"Check Amazon Fresh prices",action:'grocery_amazon'},
+        {label:"Compare delivery services",action:'grocery_delivery'},
+        {label:"Go back",action:'menu'}
+      ]);},600);
+    } else if(action==='grocery_compare'){
+      pwBotMsg("I can compare your whole grocery list across Kroger, Walmart, Aldi, Meijer, Target, Costco, and Amazon Fresh all at once — including sale prices and loyalty discounts. 🏆 Scroll down to the Local Discovery section or check the tutorial to get started!");
+      setTimeout(function(){pwShowOptions([
+        {label:"Take me to the grocery tutorial",action:'goto_grocery_tutorial'},
+        {label:"Which store is usually cheapest?",action:'cheapest_store'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='cheapest_store'){
+      pwBotMsg("Aldi is usually the cheapest for most grocery staples — sometimes 30–40% less than Kroger or Target for the same items. Walmart is typically second cheapest. For delivery, store direct is almost always cheaper than DoorDash or Instacart because third-party apps add 15–18% markups on top of fees and tips.");
+      setTimeout(function(){pwShowOptions([
+        {label:"Show me the grocery comparison",action:'goto_grocery_tutorial'},
+        {label:"Tell me about Amazon Fresh",action:'grocery_amazon'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='grocery_list'){
+      pwBotMsg("Building your grocery list is easy! Type each item or scan barcodes to add them. Set quantities, enter your ZIP code, and tap Compare — we total up your entire list at every store and highlight the cheapest option for each item in green. 💚");
+      setTimeout(function(){pwShowOptions([
+        {label:"How does cart import work?",action:'cart_import'},
+        {label:"Can I scan barcodes?",action:'scan'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='grocery_amazon'){
+      pwBotMsg("Amazon Fresh is fully included in our grocery comparison! 📦\n\nItem prices + $9.95 delivery fee (free over $150 for Prime members) are all shown so you see the real total cost compared to local stores. For orders over $150 with Prime, Amazon Fresh is often the second cheapest option after store direct delivery.");
+      setTimeout(function(){pwShowOptions([
+        {label:"Show me the comparison",action:'goto_grocery_tutorial'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='grocery_delivery'){
+      pwBotMsg("We compare 6 delivery options for you:\n\n🏪 Store direct delivery — usually cheapest\n📦 Amazon Fresh — good with Prime over $150\n🛍️ Instacart — 15% markup + tip\n📦 Shipt — 12% markup + tip\n🚗 DoorDash — 18% markup + tip\n\nDoorDash and Instacart often add 30–40% to your bill through hidden fees!");
+      setTimeout(function(){pwShowOptions([
+        {label:"Which delivery is cheapest?",action:'delivery_cheapest'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='delivery_cheapest'){
+      pwBotMsg("Store direct delivery wins almost every time. Most stores offer free delivery on orders over $35. After that Amazon Fresh with Prime is next. DoorDash and Instacart are the most expensive because they mark up item prices before you even add the delivery fee and tip.");
+      setTimeout(function(){pwShowOptions([
+        {label:"Take me to delivery tutorial",action:'goto_delivery_tutorial'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='search'){
+      pwBotMsg("You can search two ways — type the item name or scan a barcode! 🔍\n\nBoth show you the top 10 cheapest options ranked by true total cost — item price plus tax, shipping, and all fees. No hidden costs!");
+      setTimeout(function(){pwShowOptions([
+        {label:"How do I scan a barcode?",action:'scan'},
+        {label:"What stores do you search?",action:'stores'},
+        {label:"Can I see price history?",action:'price_history'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='scan'){
+      pwBotMsg("The barcode scanner works right in the app! 📷\n\nTap the camera icon next to the search bar, point it at any product barcode, and in 2 seconds you see:\n\n✅ Every store's current price\n✅ The 12-month price history chart\n✅ Whether today's price is a deal or not\n✅ Delivery options");
+      setTimeout(function(){pwShowOptions([
+        {label:"See the barcode scanner tutorial",action:'goto_scan_tutorial'},
+        {label:"What is the price history chart?",action:'price_history'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='price_history'){
+      pwBotMsg("The 12-month price history shows you whether today's price is genuinely cheap or if the item has been cheaper before. 📈\n\nJust like a stock chart — green means the price dropped, red means it went up. You can view daily, weekly, monthly, and yearly changes.");
+      setTimeout(function(){pwShowOptions([
+        {label:"How do I set a price alert?",action:'alert'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='staples'){
+      pwBotMsg("Do you want to see your frequently purchased items? 🔁\n\nYour Repeat Purchases tracker lets you add any item you buy regularly. PriceWatch then tracks the price every single day and alerts you to sales before your next shopping trip. We also find cheaper brand alternatives!");
+      setTimeout(function(){pwShowOptions([
+        {label:"How much could I save?",action:'staples_savings'},
+        {label:"See the repeat purchases tutorial",action:'goto_staples_tutorial'},
+        {label:"Tell me about brand alternatives",action:'brand_compare'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='staples_savings'){
+      pwBotMsg("Our users save an average of $847 per year! 💰\n\nSmall brand switches add up fast:\n☕ Folgers → Aldi coffee saves $117/yr\n🧺 Tide Pods → Arm & Hammer saves $54/yr\n🧻 Charmin → Aldi TP saves $108/yr\n\nAnd that is just 3 items!");
+      setTimeout(function(){pwShowOptions([
+        {label:"Show me the repeat purchases tracker",action:'goto_staples_tutorial'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='brand_compare'){
+      pwBotMsg("For every item you track, we automatically show every competing brand ranked by price and customer rating. 🏷️\n\nYou can see exactly how much quality you give up (if any) when switching to a cheaper brand — so you make smart decisions, not just cheap ones.");
+      setTimeout(function(){pwShowOptions([
+        {label:"See brand comparison tutorial",action:'goto_staples_tutorial'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='alert'){
+      pwBotMsg("Setting a price alert takes 10 seconds! 🔔\n\n1. Search any item\n2. Tap the bell icon\n3. Enter the price you want to pay\n\nThe moment any store hits that price we notify you by push notification, email, or text. You will also get a 30-day heads-up before your subscription renews!");
+      setTimeout(function(){pwShowOptions([
+        {label:"See the price alerts tutorial",action:'goto_alerts_tutorial'},
+        {label:"How do I manage my alerts?",action:'manage_alerts'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='manage_alerts'){
+      pwBotMsg("All your alerts live in My Account → Alert preferences. You can:\n\n📱 Choose push, email, or text alerts\n🌙 Set quiet hours\n📋 Pick exactly what triggers an alert\n💳 Get 30-day subscription renewal reminders\n\nEverything is in one place!");
+      setTimeout(function(){pwShowOptions([
+        {label:"Take me to My Account",action:'goto_account'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='local'){
+      pwBotMsg("The Local Discovery feature finds everything nearby! 📍\n\nType any food or drink — 'ice cream', 'coffee', 'pizza', 'tacos' — and instantly see every place near you that has it with:\n\n⭐ Ratings and reviews\n💰 Price comparison\n🕐 Hours and open/closed status\n🗺️ One-tap directions");
+      setTimeout(function(){pwShowOptions([
+        {label:"Try a local search now",action:'goto_local'},
+        {label:"What categories can I search?",action:'local_categories'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='local_categories'){
+      pwBotMsg("Right now you can search for:\n\n🍦 Ice cream\n☕ Coffee\n🍕 Pizza\n🍔 Burgers\n🍣 Sushi\n🌮 Tacos\n🥤 Smoothies\n\nAnd any other food or drink near Columbus, Ohio! We are expanding to more cities soon.");
+      setTimeout(function(){pwShowOptions([
+        {label:"Try a local search now",action:'goto_local'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='how'){
+      pwBotMsg("PriceWatch tracks prices across 500+ retailers, grocery stores, delivery apps, and local businesses — so you always buy anything for the least money! 💡\n\nHere is what you can do:");
+      setTimeout(function(){pwBotMsg("🔍 Search any item — top 10 cheapest options\n📷 Scan barcodes in stores instantly\n🛒 Compare your whole grocery list\n🔔 Set price drop alerts\n🔁 Track repeat purchases\n📍 Find local restaurants with prices\n📊 See 12-month price history charts");},800);
+      setTimeout(function(){pwShowOptions([
+        {label:"See the full tutorial",action:'goto_tutorial'},
+        {label:"How much does it cost?",action:'pricing'},
+        {label:"Sign up free",action:'goto_signup'},
+        {label:"Go back",action:'menu'}
+      ]);},1600);
+    } else if(action==='pricing'){
+      pwBotMsg("PriceWatch has three simple plans:\n\n🆓 Free — 20 searches/day, 3 alerts\n⭐ Pro — $4.99/month, unlimited everything\n👨‍👩‍👧 Family — $9.99/month, up to 6 members\n\nAll plans have a 30-day free trial and you can cancel anytime with no penalty!");
+      setTimeout(function(){pwShowOptions([
+        {label:"Sign up free now",action:'goto_signup'},
+        {label:"See full pricing details",action:'goto_pricing'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='stores'){
+      pwBotMsg("We track 500+ retailers including:\n\n👟 Nike, Zappos, DSW, Foot Locker\n💄 Sephora, Ulta, MAC\n🛒 Kroger, Walmart, Aldi, Target, Amazon Fresh\n📦 Amazon, eBay, Poshmark, Mercari\n🏠 Wayfair, Home Depot, Best Buy\n\nAnd hundreds more!");
+      setTimeout(function(){pwShowOptions([
+        {label:"See all categories",action:'goto_platforms'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='cart_import'){
+      pwBotMsg("Cart import is super convenient! 🛒\n\nAfter building your grocery list, tap any store's 'Open cart' button. Your full list is sent straight to that store's website — Kroger, Walmart, Target, Meijer, and Amazon Fresh all support this. No retyping, no copy-paste needed!");
+      setTimeout(function(){pwShowOptions([
+        {label:"See grocery tutorial",action:'goto_grocery_tutorial'},
+        {label:"Go back",action:'menu'}
+      ]);},700);
+    } else if(action==='goto_tutorial'){pwNavigate('tutorial');pwBotMsg("Taking you to the tutorial! 🎓 Click through all 6 features.");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_local'){pwNavigate('local');pwBotMsg("Taking you to Local Discovery! 📍 Try searching 'ice cream' or 'coffee'.");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_account'){pwNavigate('account');pwBotMsg("Taking you to My Account! 👤");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_pricing'){pwNavigate('pricing');pwBotMsg("Taking you to Pricing! 💳");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_platforms'){pwNavigate('platforms');pwBotMsg("Taking you to all categories we track! 📦");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_signup'){window.open('https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2','_blank');pwBotMsg("Opening signup — welcome to PriceWatch! 🎉");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_grocery_tutorial'){pwNavigate('tutorial');setTimeout(function(){showTutorial('grocery',null);},400);pwBotMsg("Taking you to the grocery list tutorial! 🛒");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_scan_tutorial'){pwNavigate('tutorial');setTimeout(function(){showTutorial('scan',null);},400);pwBotMsg("Taking you to the barcode scanner tutorial! 📷");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_alerts_tutorial'){pwNavigate('tutorial');setTimeout(function(){showTutorial('alerts',null);},400);pwBotMsg("Taking you to the price alerts tutorial! 🔔");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_staples_tutorial'){pwNavigate('tutorial');setTimeout(function(){showTutorial('staples',null);},400);pwBotMsg("Taking you to the repeat purchases tutorial! 🔁");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_delivery_tutorial'){pwNavigate('tutorial');setTimeout(function(){showTutorial('delivery',null);},400);pwBotMsg("Taking you to the delivery comparison tutorial! 🚗");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    }
+  },400);
+}
+
+function pwSendTyped(){
+  var inp=document.getElementById('pwChatInput');
+  if(!inp||!inp.value.trim())return;
+  var text=inp.value.trim();inp.value='';
+  pwClearOptions();pwUserMsg(text);
+  var t=text.toLowerCase();
+  setTimeout(function(){
+    if(t.includes('grocery')||t.includes('food')||t.includes('kroger')||t.includes('walmart')||t.includes('aldi')||t.includes('shopping')) pwOption('grocery','🛒 Grocery shopping');
+    else if(t.includes('scan')||t.includes('barcode')) pwOption('scan','📷 Scan a barcode');
+    else if(t.includes('alert')||t.includes('notify')) pwOption('alert','🔔 Set a price alert');
+    else if(t.includes('local')||t.includes('restaurant')||t.includes('nearby')||t.includes('near')) pwOption('local','📍 Find something local');
+    else if(t.includes('repeat')||t.includes('staple')||t.includes('frequent')) pwOption('staples','📋 My repeat purchases');
+    else if(t.includes('delivery')||t.includes('doordash')||t.includes('instacart')) pwOption('grocery_delivery','Delivery options');
+    else if(t.includes('amazon fresh')||t.includes('amazon')) pwOption('grocery_amazon','Amazon Fresh prices');
+    else if(t.includes('price')||t.includes('history')||t.includes('chart')) pwOption('price_history','Price history');
+    else if(t.includes('how')||t.includes('what')||t.includes('help')) pwOption('how','❓ How does PriceWatch work?');
+    else if(t.includes('cost')||t.includes('free')||t.includes('plan')||t.includes('subscri')) pwOption('pricing','💳 Pricing');
+    else if(t.includes('brand')||t.includes('alternative')||t.includes('cheaper brand')) pwOption('brand_compare','Brand alternatives');
+    else{
+      pwBotMsg("I want to help but I am not sure about that one! Here is what I can do:");
+      setTimeout(function(){pwShowOptions([
+        {label:"🛒 Grocery shopping help",action:'grocery'},
+        {label:"🔍 Search for an item",action:'search'},
+        {label:"📍 Find something local",action:'local'},
+        {label:"❓ How PriceWatch works",action:'how'}
+      ]);},600);
+    }
+  },500);
+}
+function addToWatch(){
+  var n=document.getElementById('watchItemName').value.trim();
+  var c=parseFloat(document.getElementById('watchCurrentPrice').value)||0;
+  var t=parseFloat(document.getElementById('watchTargetPrice').value)||Math.round(c*0.9*100)/100;
+  var s=document.getElementById('watchStore').value.trim()||'Various';
+  if(!n){alert('Please enter an item name');return;}
+  userItems.push({id:Date.now(),name:n,store:s,cat:'Custom',current:c,target:t,prev1d:c,prev1w:c*1.02,prev1m:c*1.08,prev1y:c*1.15,low12:Math.round(c*0.85*100)/100,onSale:false,saleStore:null,salePrice:null,saleEnd:null});
+  buildStrip();closeWatchModal();
+  ['watchItemName','watchCurrentPrice','watchTargetPrice','watchStore'].forEach(function(id){document.getElementById(id).value='';});
+}
+document.getElementById('watchModal').addEventListener('click',function(e){if(e.target===this)closeWatchModal();});
+
+/* ── TUTORIAL ── */
+var tutPanes=['search','scan','grocery','alerts','staples','delivery'];
+var tutIndex=0;
+
+function showTutorial(name,btn){
+  tutPanes.forEach(function(p){var el=document.getElementById('tut-'+p);if(el)el.style.display='none';});
+  var active=document.getElementById('tut-'+name);
+  if(active)active.style.display='block';
+  document.querySelectorAll('.tut-tab').forEach(function(b){b.style.background='none';b.style.color='#0a0a0a';b.style.borderColor='rgba(10,10,10,0.12)';});
+  if(btn){btn.style.background='#0a0a0a';btn.style.color='white';btn.style.borderColor='#0a0a0a';}
+  tutIndex=tutPanes.indexOf(name);
+  if(tutIndex<0)tutIndex=0;
+  updateTutNav();
+}
+
+function updateTutNav(){
+  document.querySelectorAll('.tut-dot').forEach(function(d,i){d.style.background=i===tutIndex?'#0a0a0a':'rgba(10,10,10,0.12)';});
+  var p=document.getElementById('tutPrevBtn');
+  var n=document.getElementById('tutNextBtn');
+  if(p)p.style.display=tutIndex===0?'none':'inline-block';
+  if(n)n.textContent=tutIndex===tutPanes.length-1?'Start over':'Next feature';
+}
+
+function nextTutorial(){
+  tutIndex=tutIndex>=tutPanes.length-1?0:tutIndex+1;
+  var tabs=document.querySelectorAll('.tut-tab');
+  showTutorial(tutPanes[tutIndex],tabs[tutIndex]||null);
+  if(tabs[tutIndex])tabs[tutIndex].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function prevTutorial(){
+  if(tutIndex>0){tutIndex--;var tabs=document.querySelectorAll('.tut-tab');showTutorial(tutPanes[tutIndex],tabs[tutIndex]||null);}
+}
+
+function goTutorial(i){
+  var tabs=document.querySelectorAll('.tut-tab');
+  showTutorial(tutPanes[i],tabs[i]||null);
+}
+
+function openTutorialFromHero(){
+  setTimeout(function(){
+    var s=document.getElementById('tutorial');
+    if(s)s.scrollIntoView({behavior:'smooth',block:'start'});
+    var t=document.querySelector('.tut-tab');
+    if(t)showTutorial('search',t);
+  },50);
+}
+
+/* ── ACCOUNT TABS ── */
+function showAcct(name,btn){
+  document.querySelectorAll('.acct-pane').forEach(function(p){p.style.display='none';});
+  var pane=document.getElementById('acct-'+name);if(pane)pane.style.display='block';
+  document.querySelectorAll('.acct-btn').forEach(function(b){b.style.background='none';b.style.color='#3a3a3a';b.style.fontWeight='400';});
+  if(btn){btn.style.background='#0a0a0a';btn.style.color='white';btn.style.fontWeight='500';}
+}
+
+/* ── SIGN IN ── */
+function openSignin(){
+  var m=document.getElementById('signinModal');m.style.display='flex';document.body.style.overflow='hidden';
+  setTimeout(function(){var e=document.getElementById('siEmail');if(e)e.focus();},100);
+}
+function closeSignin(){
+  document.getElementById('signinModal').style.display='none';document.body.style.overflow='';
+  ['signinMsg','signinErr'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
+  var e=document.getElementById('siEmail');if(e)e.value='';
+  var p=document.getElementById('siPassword');if(p)p.value='';
+}
+document.getElementById('signinModal').addEventListener('click',function(e){if(e.target===this)closeSignin();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSignin();closeWatchModal();}});
+
+function doSignin(){
+  var email=document.getElementById('siEmail').value.trim();
+  var pass=document.getElementById('siPassword').value.trim();
+  var err=document.getElementById('signinErr');var msg=document.getElementById('signinMsg');
+  err.style.display='none';msg.style.display='none';
+  if(!email){err.textContent='Please enter your email.';err.style.display='block';return;}
+  if(!pass){err.textContent='Please enter your password.';err.style.display='block';return;}
+  msg.textContent='Accounts coming soon! Redirecting to early access signup...';msg.style.display='block';
+  setTimeout(function(){closeSignin();window.location.href='https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2';},2500);
+}
+function oauthSignin(p){
+  var msg=document.getElementById('signinMsg');document.getElementById('signinErr').style.display='none';
+  msg.textContent=p+' sign-in coming soon! Redirecting to signup...';msg.style.display='block';
+  setTimeout(function(){closeSignin();window.location.href='https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2';},2500);
+}
+function showForgot(){
+  var msg=document.getElementById('signinMsg');document.getElementById('signinErr').style.display='none';
+  msg.textContent='Password reset coming soon!';msg.style.display='block';
+}
+
+/* ── CONTACT ── */
+function submitContact(e){
+  e.preventDefault();
+  var fn=document.getElementById('cfFirstName').value.trim();
+  var ln=document.getElementById('cfLastName').value.trim();
+  var em=document.getElementById('cfEmail').value.trim();
+  var ph=document.getElementById('cfPhone').value.trim();
+  var su=document.getElementById('cfSubject').value;
+  var ms=document.getElementById('cfMessage').value.trim();
+  var btn=document.getElementById('cfSubmitBtn');
+  btn.textContent='Sending...';btn.disabled=true;btn.style.background='#888';
+  var body=encodeURIComponent('Name: '+fn+' '+ln+'\nEmail: '+em+'\n'+(ph?'Phone: '+ph+'\n':'')+'Subject: '+su+'\n\nMessage:\n'+ms);
+  window.location.href='mailto:support@pricewatch.app?subject='+encodeURIComponent('PriceWatch: '+su)+'&body='+body;
+  setTimeout(function(){
+    document.getElementById('contactForm').reset();
+    var s=document.getElementById('contactSuccess');if(s){s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});}
+    btn.textContent='Send message';btn.disabled=false;btn.style.background='#0a0a0a';
+  },1000);
+}
 </script>
+
+<!-- LIVE CHAT WIDGET -->
+<div id="pwChatOpen" onclick="pwChat()" style="position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#0a0a0a;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.25);transition:transform 0.2s" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+  <div style="position:absolute;top:10px;right:10px;width:10px;height:10px;background:#e63c2f;border-radius:50%;border:2px solid white;animation:pwPulse 2s infinite"></div>
+</div>
+
+<div id="pwChatWrap" style="display:none;position:fixed;bottom:90px;right:24px;z-index:999;width:340px;height:520px;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);flex-direction:column;overflow:hidden;border:1px solid #e8e8e8">
+  <div style="background:#0a0a0a;padding:14px 16px;display:flex;align-items:center;gap:10px">
+    <div style="width:36px;height:36px;border-radius:50%;background:#e63c2f;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0">P</div>
+    <div style="flex:1">
+      <div style="font-size:14px;font-weight:500;color:white">PriceWatch Assistant</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block"></span>Online now</div>
+    </div>
+    <button onclick="pwChat()" style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);background:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">&#10005;</button>
+  </div>
+  <div id="pwMsgs" style="flex:1;overflow-y:auto;padding:14px;background:#fafafa"></div>
+  <div style="padding:10px 12px;background:white;border-top:1px solid #f0f0f0;display:flex;gap:8px;align-items:center">
+    <input id="pwChatInput" type="text" placeholder="Type a message..." onkeydown="if(event.key==='Enter')pwSendTyped()" style="flex:1;padding:9px 12px;border:1px solid #e8e8e8;border-radius:20px;font-size:13px;outline:none;font-family:'DM Sans',sans-serif;color:#0a0a0a">
+    <button onclick="pwSendTyped()" style="width:36px;height:36px;border-radius:50%;background:#0a0a0a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+  </div>
+</div>
+
+<style>
+@keyframes pwPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.85)}}
+</style>
+
 </body>
 </html>
