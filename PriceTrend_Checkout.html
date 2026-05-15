@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PriceTrend — Subscribe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<!-- Stripe.js -->
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red:    #E63C2F;
+    --black:  #0A0A0A;
+    --white:  #FFFFFF;
+    --paper:  #F8F6F1;
+    --border: #E5E2DB;
+    --ink:    #0A0A0A;
+    --ink2:   #374151;
+    --ink3:   #6B7280;
+    --green:  #16A34A;
+    --display:'Syne', sans-serif;
+    --body:   'DM Sans', sans-serif;
+    --mono:   'JetBrains Mono', monospace;
+  }
+  html { background: var(--paper); font-family: var(--body); color: var(--ink); }
+  body { min-height: 100vh; }
+
+  /* ── Top bar ── */
+  .topbar {
+    background: var(--black); padding: 14px 24px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .topbar-logo { font-family: var(--display); font-size: 20px; font-weight: 800; color: white; text-decoration: none; }
+  .topbar-logo span { color: var(--red); }
+  .topbar-back { margin-left: auto; font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .topbar-back:hover { color: white; }
+
+  /* ── Layout ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 40px 20px 80px; }
+  .page-title { font-family: var(--display); font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 6px; }
+  .page-sub { font-size: 15px; color: var(--ink3); margin-bottom: 32px; }
+
+  /* ── Billing toggle ── */
+  .billing-toggle {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 28px; background: white;
+    border: 1px solid var(--border); padding: 12px 18px;
+    width: fit-content;
+  }
+  .toggle-label { font-size: 14px; font-weight: 500; }
+  .toggle-label.dim { color: var(--ink3); }
+  .toggle-switch {
+    width: 48px; height: 26px; border-radius: 13px; background: var(--black);
+    cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0;
+  }
+  .toggle-knob {
+    position: absolute; top: 3px; left: 3px; width: 20px; height: 20px;
+    border-radius: 50%; background: white; transition: left 0.25s;
+  }
+  .toggle-switch.yearly .toggle-knob { left: 25px; }
+  .save-badge {
+    font-size: 11px; padding: 2px 8px; background: #dcfce7; color: var(--green);
+    border-radius: 10px; font-weight: 600; font-family: var(--mono);
+  }
+
+  /* ── Plan cards ── */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .plan-card {
+    background: white; border: 1.5px solid var(--border);
+    padding: 24px; cursor: pointer; position: relative;
+    transition: all 0.2s; display: flex; flex-direction: column;
+  }
+  .plan-card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .plan-card.selected { border-color: var(--black); border-width: 2px; background: #FAFAF9; }
+  .plan-card.featured { border-color: var(--red); border-width: 2px; }
+  .plan-card.featured.selected { background: #FFF8F7; }
+  .plan-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    font-size: 10px; font-weight: 700; padding: 3px 12px; white-space: nowrap;
+    letter-spacing: 0.5px; font-family: var(--mono);
+  }
+  .badge-red   { background: var(--red); color: white; }
+  .badge-green { background: var(--green); color: white; }
+  .plan-name { font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ink3); margin-bottom: 12px; font-family: var(--mono); }
+  .plan-price { font-family: var(--display); font-size: 36px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+  .plan-period { font-size: 13px; color: var(--ink3); margin-bottom: 6px; }
+  .plan-original { font-size: 12px; color: var(--ink3); text-decoration: line-through; margin-bottom: 4px; }
+  .plan-saving { font-size: 12px; color: var(--green); font-weight: 600; margin-bottom: 16px; }
+  .plan-features { list-style: none; margin-bottom: 20px; flex: 1; }
+  .plan-features li { font-size: 13px; color: var(--ink2); padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; border-bottom: 1px solid var(--border); }
+  .plan-features li:last-child { border-bottom: none; }
+  .plan-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .plan-select-btn {
+    width: 100%; padding: 12px; font-family: var(--body); font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: all 0.2s; border: 2px solid var(--black);
+    background: none; color: var(--black); letter-spacing: 0.3px;
+  }
+  .plan-card.selected .plan-select-btn,
+  .plan-select-btn:hover { background: var(--black); color: white; }
+  .plan-card.featured .plan-select-btn { background: var(--red); color: white; border-color: var(--red); }
+  .plan-card.featured .plan-select-btn:hover { background: #c42d22; }
+  .plan-card.featured.selected .plan-select-btn { background: #c42d22; }
+
+  /* ── Checkout form ── */
+  .checkout-section {
+    background: white; border: 1.5px solid var(--border); padding: 28px;
+    margin-bottom: 20px;
+  }
+  .checkout-section h3 { font-family: var(--display); font-size: 18px; font-weight: 800; margin-bottom: 20px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink3); font-family: var(--mono); }
+  .form-input {
+    padding: 12px 14px; border: 1.5px solid var(--border); background: var(--paper);
+    font-family: var(--body); font-size: 14px; color: var(--ink); outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--black); background: white; }
+  .form-input::placeholder { color: var(--ink3); }
+
+  /* ── Stripe card element ── */
+  .stripe-element {
+    padding: 12px 14px; border: 1.5px solid var(--border); background: var(--paper);
+    transition: border-color 0.2s;
+  }
+  .stripe-element.StripeElement--focus { border-color: var(--black); background: white; }
+  .stripe-element.StripeElement--invalid { border-color: var(--red); }
+
+  /* ── Order summary ── */
+  .order-summary {
+    background: var(--black); color: white; padding: 24px; margin-bottom: 20px;
+  }
+  .order-summary h3 { font-family: var(--display); font-size: 16px; font-weight: 800; margin-bottom: 16px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; font-size: 11px; }
+  .order-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 14px; }
+  .order-row:last-child { border-bottom: none; }
+  .order-row.total { font-family: var(--display); font-size: 22px; font-weight: 800; padding-top: 14px; }
+  .order-row.saving { color: #4ADE80; font-weight: 600; }
+  .order-label { color: rgba(255,255,255,0.7); }
+  .order-val { color: white; font-weight: 600; }
+
+  /* ── Submit button ── */
+  .submit-btn {
+    width: 100%; padding: 16px; background: var(--red); color: white;
+    border: none; font-family: var(--display); font-size: 18px; font-weight: 800;
+    cursor: pointer; transition: all 0.2s; letter-spacing: -0.3px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .submit-btn:hover { background: #c42d22; }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .submit-btn .spinner {
+    width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Trust badges ── */
+  .trust-row { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 16px; }
+  .trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink3); }
+
+  /* ── Error / success ── */
+  .msg-box { padding: 14px 16px; margin-bottom: 16px; font-size: 14px; display: none; border: 1px solid; }
+  .msg-box.error { background: #FFF0EF; border-color: #FCA5A5; color: var(--red); }
+  .msg-box.success { background: #F0FDF4; border-color: #86EFAC; color: var(--green); }
+
+  /* ── Success screen ── */
+  #successScreen {
+    display: none; text-align: center; padding: 60px 20px;
+    background: white; border: 1px solid var(--border);
+  }
+  #successScreen .check { font-size: 64px; margin-bottom: 16px; }
+  #successScreen h2 { font-family: var(--display); font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+  #successScreen p { color: var(--ink3); font-size: 15px; line-height: 1.7; max-width: 480px; margin: 0 auto 24px; }
+
+  /* ── Founding offer strip ── */
+  .founding-strip {
+    background: linear-gradient(135deg, #16A34A, #15803D);
+    color: white; padding: 12px 20px; text-align: center;
+    font-size: 13px; font-weight: 500; margin-bottom: 28px;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+  }
+  .founding-strip strong { font-weight: 700; }
+  .spots-badge { background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 10px; font-size: 12px; font-family: var(--mono); }
+
+  /* ── Setup instructions box ── */
+  .setup-box {
+    background: #FFFBEB; border: 1px solid #FDE68A; padding: 20px 24px; margin-bottom: 28px;
+  }
+  .setup-box h4 { font-size: 14px; font-weight: 700; color: #92400E; margin-bottom: 10px; }
+  .setup-box ol { padding-left: 18px; }
+  .setup-box li { font-size: 13px; color: #78350F; line-height: 1.8; }
+  .setup-box a { color: #B45309; font-weight: 600; }
+  .setup-box code { font-family: var(--mono); background: #FEF3C7; padding: 1px 5px; font-size: 12px; }
+
+  @media (max-width: 700px) {
+    .plans { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <a href="https://pricewatchu.github.io/PriceWatch/" class="topbar-logo">Price<span>Trend</span></a>
+  <a href="https://pricewatchu.github.io/PriceWatch/" class="topbar-back">← Back to website</a>
+</div>
+
+<div class="page">
+
+  <!-- Founding offer strip -->
+  <div class="founding-strip">
+    <span>🎉</span>
+    <span><strong>Founding Member Offer</strong> — First 10,000 subscribers only</span>
+    <span class="spots-badge" id="spotsLeft">9,847 spots left</span>
+    <span>·</span>
+    <span>Yearly: <strong>50% off</strong> · Monthly: <strong>first 2 months free</strong></span>
+  </div>
+
+  <!-- IMPORTANT SETUP BOX — shown until Stripe keys added -->
+  <div class="setup-box" id="setupBox">
+    <h4>⚙️ Owner Setup Required — Connect Your Stripe Account</h4>
+    <ol>
+      <li>Go to <a href="https://stripe.com" target="_blank">stripe.com</a> and create a free account</li>
+      <li>In your Stripe dashboard go to <strong>Developers → API Keys</strong></li>
+      <li>Copy your <strong>Publishable key</strong> (starts with <code>pk_live_</code> for real payments or <code>pk_test_</code> for testing)</li>
+      <li>Open this file in a text editor, find <code>YOUR_STRIPE_PUBLISHABLE_KEY</code> below and replace it with your key</li>
+      <li>In Stripe dashboard go to <strong>Products</strong> and create 4 products: Pro Monthly ($4.99), Pro Yearly ($25), Family Monthly ($7.99), Family Yearly ($39.50)</li>
+      <li>Copy each product's <strong>Price ID</strong> (starts with <code>price_</code>) and replace the 4 placeholders below</li>
+      <li>Connect your Mercury bank account in Stripe under <strong>Settings → Bank Account</strong></li>
+      <li>Delete or hide this yellow box once everything is set up</li>
+    </ol>
+  </div>
+
+  <div class="page-title">Choose your plan</div>
+  <div class="page-sub">Start saving money today. Cancel anytime. No hidden fees.</div>
+
+  <!-- Billing toggle -->
+  <div class="billing-toggle">
+    <span class="toggle-label" id="lbl-monthly">Monthly</span>
+    <div class="toggle-switch" id="billingSwitch" onclick="toggleBilling()">
+      <div class="toggle-knob"></div>
+    </div>
+    <span class="toggle-label dim" id="lbl-yearly">Yearly</span>
+    <span class="save-badge" id="saveBadge">Save 50% — Founding offer</span>
+  </div>
+
+  <!-- Plan cards -->
+  <div class="plans">
+
+    <!-- FREE -->
+    <div class="plan-card" onclick="selectPlan('free')" id="card-free">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">$0</div>
+      <div class="plan-period">forever · no card needed</div>
+      <ul class="plan-features">
+        <li>20 searches per day</li>
+        <li>Top 5 results per search</li>
+        <li>3 active price alerts</li>
+        <li>Grocery list up to 10 items</li>
+        <li>Basic store locator</li>
+        <li>Local discovery search</li>
+      </ul>
+      <button class="plan-select-btn">Get started free</button>
+    </div>
+
+    <!-- PRO -->
+    <div class="plan-card featured" onclick="selectPlan('pro')" id="card-pro">
+      <div class="plan-badge badge-red">MOST POPULAR</div>
+      <div class="plan-name">Pro</div>
+      <div id="pro-price" class="plan-price" style="color:var(--red)">$4.99</div>
+      <div id="pro-period" class="plan-period">per month · first 2 months free</div>
+      <div id="pro-original" class="plan-original" style="display:none"></div>
+      <div id="pro-saving" class="plan-saving" style="display:none"></div>
+      <ul class="plan-features">
+        <li>Unlimited searches</li>
+        <li>Full 10 results + 12-month history</li>
+        <li>Unlimited price alerts</li>
+        <li>Unlimited grocery lists + cart import</li>
+        <li>Barcode scanner + voice search</li>
+        <li>Delivery cost comparison</li>
+        <li>Coupons + auto-apply</li>
+        <li>Receipt scanning + budget tracker</li>
+        <li>Renewal reminders (3-day / 30-day)</li>
+      </ul>
+      <button class="plan-select-btn">Claim founding offer →</button>
+    </div>
+
+    <!-- FAMILY -->
+    <div class="plan-card" onclick="selectPlan('family')" id="card-family">
+      <div class="plan-badge badge-green">BEST VALUE</div>
+      <div class="plan-name">Family</div>
+      <div id="family-price" class="plan-price">$7.99</div>
+      <div id="family-period" class="plan-period">per month · up to 6 members · first 2 months free</div>
+      <div id="family-original" class="plan-original" style="display:none"></div>
+      <div id="family-saving" class="plan-saving" style="display:none"></div>
+      <ul class="plan-features">
+        <li>Everything in Pro</li>
+        <li>Up to 6 member accounts</li>
+        <li>Shared grocery lists</li>
+        <li>Family savings dashboard</li>
+        <li>Split-purchase comparison</li>
+        <li>Priority alert delivery</li>
+        <li>Renewal reminders (3-day / 30-day)</li>
+      </ul>
+      <button class="plan-select-btn">Claim founding offer →</button>
+    </div>
+
+  </div>
+
+  <!-- Checkout form (hidden for free plan) -->
+  <div id="checkoutForm">
+
+    <!-- Order summary -->
+    <div class="order-summary" id="orderSummary">
+      <h3>Order Summary</h3>
+      <div class="order-row"><span class="order-label">Plan</span><span class="order-val" id="summary-plan">PriceTrend Pro</span></div>
+      <div class="order-row"><span class="order-label">Billing</span><span class="order-val" id="summary-billing">Monthly</span></div>
+      <div class="order-row saving" id="summary-saving-row"><span>🎉 Founding member saving</span><span id="summary-saving">—</span></div>
+      <div class="order-row"><span class="order-label">First charge</span><span class="order-val" id="summary-first">Free (2 months)</span></div>
+      <div class="order-row total"><span>Due today</span><span id="summary-total" style="color:var(--green)">$0.00</span></div>
+    </div>
+
+    <div id="msgBox" class="msg-box"></div>
+
+    <!-- Account details -->
+    <div class="checkout-section">
+      <h3>Create your account</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">First name</label>
+          <input class="form-input" id="firstName" type="text" placeholder="Jane">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last name</label>
+          <input class="form-input" id="lastName" type="text" placeholder="Smith">
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Email address</label>
+          <input class="form-input" id="email" type="email" placeholder="jane@email.com">
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Create a password</label>
+          <input class="form-input" id="password" type="password" placeholder="At least 8 characters">
+        </div>
+        <div class="form-group full">
+          <label class="form-label">ZIP code (for local store discovery)</label>
+          <input class="form-input" id="zipcode" type="text" placeholder="43215" maxlength="5">
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment details -->
+    <div class="checkout-section">
+      <h3>Payment information</h3>
+      <div style="margin-bottom:16px;padding:10px 14px;background:var(--paper);border:1px solid var(--border);font-size:13px;color:var(--ink3);display:flex;align-items:center;gap:8px">
+        <span>🔒</span> Your payment info is encrypted and processed by Stripe. PriceTrend never sees your card number.
+      </div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label class="form-label">Card number</label>
+          <div class="stripe-element" id="cardNumber"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Expiry date</label>
+          <div class="stripe-element" id="cardExpiry"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CVC</label>
+          <div class="stripe-element" id="cardCvc"></div>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Name on card</label>
+          <input class="form-input" id="cardName" type="text" placeholder="Jane Smith">
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms -->
+    <div style="font-size:12px;color:var(--ink3);margin-bottom:16px;line-height:1.7;padding:0 4px">
+      By subscribing you agree to our <a href="#" style="color:var(--ink);text-decoration:underline">Terms of Service</a> and <a href="#" style="color:var(--ink);text-decoration:underline">Privacy Policy</a>. 
+      Founding member pricing applies to your first billing period. Renews at standard rate thereafter. 
+      You will receive a reminder <span id="reminderText">3 days</span> before each renewal. Cancel anytime — no penalties.
+    </div>
+
+    <!-- Submit -->
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+      <span class="spinner" id="spinner"></span>
+      <span id="submitText">Subscribe — $0.00 due today</span>
+    </button>
+
+    <!-- Trust badges -->
+    <div class="trust-row">
+      <div class="trust-item"><span>🔒</span> 256-bit SSL</div>
+      <div class="trust-item"><span>💳</span> Powered by Stripe</div>
+      <div class="trust-item"><span>↩️</span> Cancel anytime</div>
+      <div class="trust-item"><span>📧</span> Renewal reminders always sent</div>
+    </div>
+  </div>
+
+  <!-- Success screen -->
+  <div id="successScreen">
+    <div class="check">🎉</div>
+    <h2>Welcome to PriceTrend!</h2>
+    <p id="successMsg">Your account has been created and your founding member offer is locked in. Check your email for your login details.</p>
+    <a href="https://pricewatchu.github.io/PriceWatch/" style="display:inline-block;padding:14px 28px;background:var(--black);color:white;text-decoration:none;font-weight:600;font-size:15px;transition:background 0.2s" onmouseover="this.style.background='var(--red)'" onmouseout="this.style.background='var(--black)'">Start saving money →</a>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════
+// STRIPE CONFIGURATION
+// Replace these values with your real Stripe keys and Price IDs
+// ══════════════════════════════════════════════════════════════════════════
+var STRIPE_PUBLISHABLE_KEY = 'YOUR_STRIPE_PUBLISHABLE_KEY';
+// e.g. 'pk_test_51ABC...' for testing or 'pk_live_51ABC...' for real payments
+
+var PRICE_IDS = {
+  pro_monthly:    'price_PRO_MONTHLY_ID',     // $4.99/month — replace with real ID from Stripe
+  pro_yearly:     'price_PRO_YEARLY_ID',      // $25/year — replace with real ID from Stripe
+  family_monthly: 'price_FAMILY_MONTHLY_ID',  // $7.99/month — replace with real ID from Stripe
+  family_yearly:  'price_FAMILY_YEARLY_ID',   // $39.50/year — replace with real ID from Stripe
+};
+// ══════════════════════════════════════════════════════════════════════════
+
+// Initialize Stripe (will show test mode if key not set)
+var stripeReady = STRIPE_PUBLISHABLE_KEY !== 'YOUR_STRIPE_PUBLISHABLE_KEY';
+var stripe, cardNumber, cardExpiry, cardCvc;
+
+if(stripeReady) {
+  stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+  var elements = stripe.elements({
+    fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=DM+Sans&display=swap' }]
+  });
+  var style = {
+    base: { fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: '#0A0A0A',
+      '::placeholder': { color: '#9CA3AF' } },
+    invalid: { color: '#E63C2F' }
+  };
+  cardNumber = elements.create('cardNumber', { style });
+  cardExpiry = elements.create('cardExpiry', { style });
+  cardCvc    = elements.create('cardCvc', { style });
+  cardNumber.mount('#cardNumber');
+  cardExpiry.mount('#cardExpiry');
+  cardCvc.mount('#cardCvc');
+} else {
+  // Demo mode — show placeholder inputs
+  ['cardNumber','cardExpiry','cardCvc'].forEach(function(id) {
+    var el = document.getElementById(id);
+    el.innerHTML = '<input style="width:100%;border:none;background:transparent;font-family:var(--mono);font-size:13px;color:var(--ink3);outline:none" placeholder="'+(id==='cardNumber'?'1234 5678 9012 3456':id==='cardExpiry'?'MM / YY':'CVC')+'" readonly>';
+  });
+}
+
+// ── State ─────────────────────────────────────────────────────────────────
+var selectedPlan = 'pro';
+var isYearly = false;
+
+var planData = {
+  pro: {
+    name: 'PriceTrend Pro',
+    monthly: { price: 4.99, dueToday: 0, label: '$4.99/month · first 2 months free', saving: '$9.98 saved upfront', priceId: 'pro_monthly' },
+    yearly:  { price: 25,   dueToday: 25, label: '$25/year · founding member 50% off', saving: '$25 saved vs regular price', priceId: 'pro_yearly' }
+  },
+  family: {
+    name: 'PriceTrend Family',
+    monthly: { price: 7.99, dueToday: 0, label: '$7.99/month · first 2 months free', saving: '$15.98 saved upfront', priceId: 'family_monthly' },
+    yearly:  { price: 39.50, dueToday: 39.50, label: '$39.50/year · founding member 50% off', saving: '$39.50 saved vs regular price', priceId: 'family_yearly' }
+  }
+};
+
+function toggleBilling() {
+  isYearly = !isYearly;
+  var sw = document.getElementById('billingSwitch');
+  sw.classList.toggle('yearly', isYearly);
+  document.getElementById('lbl-monthly').classList.toggle('dim', isYearly);
+  document.getElementById('lbl-yearly').classList.toggle('dim', !isYearly);
+  document.getElementById('saveBadge').textContent = isYearly ? 'Save 50% — Founding offer' : '2 months FREE';
+
+  // Update pro card
+  var d = planData.pro[isYearly ? 'yearly' : 'monthly'];
+  document.getElementById('pro-price').textContent = '$' + d.price;
+  document.getElementById('pro-period').textContent = d.label;
+  if(isYearly) {
+    document.getElementById('pro-original').style.display = 'block';
+    document.getElementById('pro-original').textContent = 'was $50/year';
+    document.getElementById('pro-saving').style.display = 'block';
+    document.getElementById('pro-saving').textContent = '✓ ' + d.saving;
+  } else {
+    document.getElementById('pro-original').style.display = 'none';
+    document.getElementById('pro-saving').style.display = 'none';
+  }
+
+  // Update family card
+  var df = planData.family[isYearly ? 'yearly' : 'monthly'];
+  document.getElementById('family-price').textContent = '$' + df.price;
+  document.getElementById('family-period').textContent = df.label;
+  if(isYearly) {
+    document.getElementById('family-original').style.display = 'block';
+    document.getElementById('family-original').textContent = 'was $79/year';
+    document.getElementById('family-saving').style.display = 'block';
+    document.getElementById('family-saving').textContent = '✓ ' + df.saving;
+  } else {
+    document.getElementById('family-original').style.display = 'none';
+    document.getElementById('family-saving').style.display = 'none';
+  }
+
+  document.getElementById('reminderText').textContent = isYearly ? '30 days' : '3 days';
+  updateSummary();
+}
+
+function selectPlan(plan) {
+  selectedPlan = plan;
+  ['free','pro','family'].forEach(function(p) {
+    document.getElementById('card-'+p).classList.remove('selected');
+  });
+  document.getElementById('card-'+plan).classList.add('selected');
+  document.getElementById('checkoutForm').style.display = plan === 'free' ? 'none' : 'block';
+  updateSummary();
+}
+
+function updateSummary() {
+  if(selectedPlan === 'free') return;
+  var d = planData[selectedPlan][isYearly ? 'yearly' : 'monthly'];
+  var planName = planData[selectedPlan].name;
+  document.getElementById('summary-plan').textContent = planName;
+  document.getElementById('summary-billing').textContent = isYearly ? 'Yearly (founding member)' : 'Monthly (founding member)';
+  document.getElementById('summary-saving').textContent = d.saving;
+  document.getElementById('summary-first').textContent = isYearly ? '$'+d.price+'/year' : 'Free (first 2 months)';
+  var dueToday = d.dueToday;
+  document.getElementById('summary-total').textContent = dueToday === 0 ? '$0.00' : '$'+dueToday.toFixed(2);
+  document.getElementById('submitText').textContent = dueToday === 0
+    ? 'Start free — billing begins month 3'
+    : 'Subscribe — $'+dueToday.toFixed(2)+' due today';
+}
+
+function showMsg(text, type) {
+  var el = document.getElementById('msgBox');
+  el.textContent = text; el.className = 'msg-box '+type; el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+async function handleSubmit() {
+  // Validate fields
+  var first = document.getElementById('firstName').value.trim();
+  var last  = document.getElementById('lastName').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var pass  = document.getElementById('password').value;
+  var zip   = document.getElementById('zipcode').value.trim();
+  var cardN = document.getElementById('cardName').value.trim();
+
+  if(!first||!last) { showMsg('Please enter your full name.','error'); return; }
+  if(!email||!email.includes('@')) { showMsg('Please enter a valid email address.','error'); return; }
+  if(!pass||pass.length<8) { showMsg('Password must be at least 8 characters.','error'); return; }
+  if(!cardN) { showMsg('Please enter the name on your card.','error'); return; }
+
+  // Show loading
+  var btn = document.getElementById('submitBtn');
+  var spinner = document.getElementById('spinner');
+  btn.disabled = true;
+  spinner.style.display = 'block';
+  document.getElementById('submitText').textContent = 'Processing...';
+
+  if(!stripeReady) {
+    // Demo mode — simulate success
+    await new Promise(r => setTimeout(r, 2000));
+    showSuccess(first, email);
+    return;
+  }
+
+  try {
+    // Create payment method
+    var result = await stripe.createPaymentMethod({
+      type: 'card', card: cardNumber,
+      billing_details: { name: cardN, email: email }
+    });
+
+    if(result.error) {
+      showMsg(result.error.message, 'error');
+      btn.disabled = false; spinner.style.display = 'none';
+      document.getElementById('submitText').textContent = 'Try again';
+      return;
+    }
+
+    // At this point in a real implementation you would:
+    // 1. Send result.paymentMethod.id + email + priceId to your backend
+    // 2. Backend creates Stripe customer + subscription
+    // 3. Backend returns clientSecret for any 3D Secure confirmation
+    // 4. Call stripe.confirmCardPayment(clientSecret) if needed
+    // For now we show success — wire up backend when ready
+
+    var priceId = PRICE_IDS[planData[selectedPlan][isYearly?'yearly':'monthly'].priceId];
+    console.log('Payment method created:', result.paymentMethod.id);
+    console.log('Price ID to subscribe to:', priceId);
+    console.log('Customer email:', email);
+
+    showSuccess(first, email);
+
+  } catch(err) {
+    showMsg('Something went wrong. Please try again or contact support@pricetrend.app', 'error');
+    btn.disabled = false; spinner.style.display = 'none';
+    updateSummary();
+  }
+}
+
+function showSuccess(name, email) {
+  document.getElementById('checkoutForm').style.display = 'none';
+  document.querySelectorAll('.plans, .billing-toggle, .founding-strip, .setup-box, .page-title, .page-sub').forEach(function(el){ el.style.display='none'; });
+  var screen = document.getElementById('successScreen');
+  screen.style.display = 'block';
+  var d = selectedPlan==='free' ? null : planData[selectedPlan][isYearly?'yearly':'monthly'];
+  document.getElementById('successMsg').textContent =
+    'Welcome, '+name+'! Your PriceTrend account has been created. ' +
+    (selectedPlan==='free' ? 'You\'re on the free plan — upgrade anytime.' :
+      isYearly ? 'Your founding member yearly price is locked in forever.' :
+      'Your first 2 months are completely free. We\'ll email you at '+email+' before your first charge.') +
+    ' Check your inbox for your login link.';
+}
+
+// Init
+selectPlan('pro');
+updateSummary();
+</script>
+</body>
+</html>
