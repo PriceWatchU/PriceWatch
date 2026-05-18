@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -362,6 +361,10 @@ footer {
   .acct-two-col { grid-template-columns: 1fr !important; }
   .acct-city-grid { grid-template-columns: 1fr 1fr !important; }
 
+  /* ── Rewards section grids ── */
+  .rewards-tier-grid { grid-template-columns: 1fr 1fr !important; }
+  .rewards-how-grid  { grid-template-columns: 1fr 1fr !important; }
+
   /* ── Contact section ── */
   .contact-layout {
     grid-template-columns: 1fr !important;
@@ -663,6 +666,10 @@ body { overflow-x: hidden; max-width: 100vw; }
         <span style="font-size:16px;flex-shrink:0">❓</span>
         <span style="flex:1;text-align:left">FAQ</span>
       </button>
+      <button class="sb-nav-btn" onclick="closeSidebar();document.getElementById('rewards').scrollIntoView({behavior:'smooth'})">
+        <span style="font-size:16px;flex-shrink:0">🏆</span>
+        <span style="flex:1;text-align:left">Loyalty Rewards</span>
+      </button>
       <button class="sb-nav-btn" onclick="closeSidebar();openFullModal('contact')">
         <span style="font-size:16px;flex-shrink:0">✉️</span>
         <span style="flex:1;text-align:left">Contact Us</span>
@@ -911,12 +918,12 @@ body { overflow-x: hidden; max-width: 100vw; }
     <div class="sb-pane" id="sbp-contact">
       <div style="font-size:12px;color:var(--ink3);margin-bottom:14px;line-height:1.6">We respond to every message within 24 hours Monday through Friday.</div>
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
-        <a href="mailto:support@pricetrend.app" style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">📧</span><div><div style="font-size:13px;font-weight:500">Email us directly</div><div style="font-size:11px;color:#e63c2f">support@pricetrend.app</div></div></a>
+        <a href="mailto:support@pricetrend.llc" style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">📧</span><div><div style="font-size:13px;font-weight:500">Email us directly</div><div style="font-size:11px;color:#e63c2f">support@pricetrend.llc</div></div></a>
         <a href="#contact" onclick="closeSidebar()" style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:all 0.15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='white'"><span style="font-size:20px">📝</span><div><div style="font-size:13px;font-weight:500">Contact form</div><div style="font-size:11px;color:var(--ink3)">Send a detailed message</div></div></a>
         <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px"><span style="font-size:20px">📍</span><div><div style="font-size:13px;font-weight:500">Columbus, Ohio</div><div style="font-size:11px;color:var(--ink3)">Serving shoppers nationwide</div></div></div>
         <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px"><span style="font-size:20px">⏱️</span><div><div style="font-size:13px;font-weight:500">Response time</div><div style="font-size:11px;color:var(--ink3)">Within 24 hours, Mon–Fri</div></div></div>
       </div>
-      <a href="PriceTrend_Checkout.html" style="display:block;padding:11px;background:#0a0a0a;color:white;text-align:center;border-radius:6px;text-decoration:none;font-size:13px;font-weight:500">Join early access waitlist →</a>
+      <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:block;padding:11px;background:#0a0a0a;color:white;text-align:center;border-radius:6px;text-decoration:none;font-size:13px;font-weight:500">Join early access waitlist →</a>
     </div>
 
     <!-- TECH PANE -->
@@ -992,7 +999,7 @@ body { overflow-x: hidden; max-width: 100vw; }
       <div style="text-align:right;margin-top:6px"><a href="#" onclick="showForgot()" style="font-size:12px;color:var(--accent);text-decoration:none">Forgot password?</a></div>
     </div>
     <button onclick="doSignin()" style="width:100%;padding:13px;background:var(--ink);color:white;border:none;border-radius:4px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:14px">Sign in →</button>
-    <div style="text-align:center;font-size:13px;color:var(--ink3)">Don't have an account? <a href="PriceTrend_Checkout.html?plan=free" style="color:var(--accent);text-decoration:none;font-weight:500">Sign up free</a></div>
+    <div style="text-align:center;font-size:13px;color:var(--ink3)">Don't have an account? <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:500">Sign up free</a></div>
     <div style="border-top:1px solid var(--border);margin-top:20px;padding-top:16px;text-align:center">
       <div style="font-size:11px;color:var(--ink3);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px">Or continue with</div>
       <div style="display:flex;gap:10px;justify-content:center">
@@ -1041,7 +1048,7 @@ body { overflow-x: hidden; max-width: 100vw; }
     <button onclick="openDownloadModal()" style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--border);border-radius:2px;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);transition:all 0.2s;white-space:nowrap" onmouseover="this.style.background='var(--ink)';this.style.color='white'" onmouseout="this.style.background='none';this.style.color='var(--ink)'">
       <span style="font-size:14px">📲</span> Download
     </button>
-    <a href="PriceTrend_Checkout.html" class="btn-solid" style="white-space:nowrap">Get early access</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" class="btn-solid" style="white-space:nowrap">Get early access</a>
   </div>
 
 </nav>
@@ -1186,13 +1193,13 @@ body { overflow-x: hidden; max-width: 100vw; }
       <span style="font-size:11px;padding:2px 8px;background:rgba(255,255,255,0.2);color:white;border-radius:10px;font-weight:600">LIMITED — 10,000 SPOTS</span>
     </div>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center">
-      <span style="font-size:13px;color:rgba(255,255,255,0.9)">First year at <strong style="color:white;font-size:15px">50% off</strong> (just $25/yr)</span>
+      <span style="font-size:13px;color:rgba(255,255,255,0.9)">Yearly: <strong style="color:white;font-size:15px">$50 grocery credit</strong> on your first order</span>
       <span style="color:rgba(255,255,255,0.5);font-size:12px">·</span>
-      <span style="font-size:13px;color:rgba(255,255,255,0.9)">Monthly: <strong style="color:white">first 2 months free</strong></span>
+      <span style="font-size:13px;color:rgba(255,255,255,0.9)">Monthly: <strong style="color:white">$10 grocery credit</strong> on your first order</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
       <span style="font-size:12px;color:rgba(255,255,255,0.8)">Spots remaining:</span>
-      <span id="spotsRemaining" style="font-size:15px;font-weight:700;color:white;font-family:'Syne',sans-serif">9,847</span>
+      <span id="spotsRemaining" style="font-size:15px;font-weight:700;color:white;font-family:'Syne',sans-serif">9,998</span>
       <a href="#pricing" style="padding:6px 14px;background:white;color:#16a34a;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap">Claim offer →</a>
     </div>
   </div>
@@ -1212,9 +1219,10 @@ body { overflow-x: hidden; max-width: 100vw; }
     <div class="hero-content reveal">
       <div class="hero-eyebrow">Live price intelligence</div>
       <h1>Never<br>overpay<br><em>again.</em></h1>
+      <p style="font-size:15px;font-style:italic;color:var(--ink);font-family:Georgia,serif;line-height:1.6;margin-bottom:16px;max-width:420px;border-left:3px solid var(--accent);padding-left:14px;letter-spacing:0.1px">&#8220;Price intelligence that puts the power of saving back in the hands of everyday families.&#8221;</p>
       <p class="hero-sub">PriceTrend tracks prices across 500+ retailers, grocery stores, delivery apps, and C2C marketplaces — so you always know where to buy anything for less.</p>
       <div class="hero-ctas">
-        <a href="PriceTrend_Checkout.html" class="btn-hero btn-hero-primary">Start saving free →</a>
+        <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" class="btn-hero btn-hero-primary">Join the early access list →</a>
         <a href="#" onclick="openDownloadModal();return false;" class="btn-hero btn-hero-secondary" style="display:inline-flex;align-items:center;gap:8px"><span>📲</span>Download app</a>
         <a href="#tutorial" onclick="openTutorialFromHero()" class="btn-hero btn-hero-secondary">See how it works</a>
       </div>
@@ -1481,7 +1489,7 @@ body { overflow-x: hidden; max-width: 100vw; }
         <button onclick="openComingSoon('grocery')" style="display:flex;align-items:center;gap:7px;padding:10px 16px;background:none;border:1.5px solid var(--border);color:var(--ink);border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='none'">
           🛒 Grocery list demo →
         </button>
-        <a href="PriceTrend_Checkout.html" style="display:flex;align-items:center;gap:7px;padding:10px 16px;background:#16a34a;color:white;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:background 0.2s" onmouseover="this.style.background='#15803d'" onmouseout="this.style.background='#16a34a'">
+        <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:flex;align-items:center;gap:7px;padding:10px 16px;background:#16a34a;color:white;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:background 0.2s" onmouseover="this.style.background='#15803d'" onmouseout="this.style.background='#16a34a'">
           🎉 Get early access →
         </a>
       </div>
@@ -1534,7 +1542,7 @@ body { overflow-x: hidden; max-width: 100vw; }
         <text x="340" y="395" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="600" fill="white">Average user saves $847 a year with PriceTrend</text>
       </svg>
       <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <a href="PriceTrend_Checkout.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:#0a0a0a;color:white;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;font-family:'DM Sans',sans-serif;transition:background 0.2s" onmouseover="this.style.background='#e63c2f'" onmouseout="this.style.background='#0a0a0a'">🎉 Start saving — join free</a>
+        <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:#0a0a0a;color:white;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;font-family:'DM Sans',sans-serif;transition:background 0.2s" onmouseover="this.style.background='#e63c2f'" onmouseout="this.style.background='#0a0a0a'">🎉 Join early access — it's free</a>
         <button onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:none;border:1.5px solid var(--border);color:var(--ink);border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='var(--ink)';this.style.color='white'" onmouseout="this.style.background='none';this.style.color='var(--ink)'">See pricing →</button>
       </div>
     </div>
@@ -1695,7 +1703,7 @@ body { overflow-x: hidden; max-width: 100vw; }
       <div style="font-size:16px;font-weight:700;color:white;margin-bottom:5px">Every Wednesday morning — new grocery sales drop</div>
       <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7">Kroger, Walmart, Aldi, Meijer, Target and every major grocery chain releases their new weekly ads every Wednesday. PriceTrend loads them automatically — so before you write your shopping list for the week, you already know where everything is cheapest. <strong style="color:#4ade80">Most shoppers never know about this cycle. Now you do.</strong></div>
     </div>
-    <a href="PriceTrend_Checkout.html" style="padding:10px 20px;background:#16a34a;color:white;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0">Get Wednesday alerts →</a>
+    <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="padding:10px 20px;background:#16a34a;color:white;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0">Get Wednesday alerts →</a>
   </div>
 
   <!-- Anti-fake-sale message -->
@@ -1787,39 +1795,130 @@ body { overflow-x: hidden; max-width: 100vw; }
   <!-- Early adopter offer box -->
   <div id="earlyOfferBox" style="max-width:720px;margin:24px auto 0;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #16a34a;border-radius:12px;padding:20px 24px;position:relative;overflow:hidden">
     <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(22,163,74,0.08);border-radius:50%"></div>
+    <!-- Individual plan badge -->
+    <div style="position:absolute;top:14px;right:16px;background:#16a34a;color:white;font-size:9px;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.5px;text-transform:uppercase">Individual Plan</div>
     <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
       <div style="font-size:32px;flex-shrink:0">🎉</div>
       <div style="flex:1;min-width:200px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
-          <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#15803d">Founding Member Offer</span>
+          <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#15803d">Individual Plan — Founding Member Offer</span>
           <span style="font-size:10px;padding:2px 8px;background:#16a34a;color:white;border-radius:10px;font-weight:700;letter-spacing:0.5px">LIMITED TIME</span>
         </div>
-        <p style="font-size:13px;color:#166534;margin-bottom:12px;line-height:1.6">Be one of our first <strong>10,000 members</strong> and lock in a special founding rate. Our thank you for believing in PriceTrend from the start.</p>
+        <p style="font-size:13px;color:#166534;margin-bottom:12px;line-height:1.6">Be one of our first <strong>10,000 members</strong> and lock in a special founding rate. Your personal PriceTrend account — unlimited searches, price alerts, grocery lists, and rewards. Our thank you for believing in PriceTrend from the start.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
           <div style="padding:10px 14px;background:white;border-radius:8px;border:1px solid #86efac;flex:1;min-width:130px;text-align:center">
             <div style="font-size:10px;font-weight:600;color:#16a34a;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">📅 Yearly plan</div>
-            <div style="font-size:22px;font-weight:800;font-family:'Syne',sans-serif;color:#15803d">$25<span style="font-size:12px;font-weight:400;color:#16a34a">/year</span></div>
-            <div style="font-size:11px;color:#9ca3af;text-decoration:line-through">was $50/year</div>
-            <div style="font-size:11px;font-weight:700;color:#16a34a;margin-top:2px">50% OFF — save $25</div>
+            <div style="font-size:22px;font-weight:800;font-family:'Syne',sans-serif;color:#15803d">$50<span style="font-size:12px;font-weight:400;color:#16a34a">/year</span></div>
+            <div style="font-size:11px;color:#9ca3af">&nbsp;</div>
+            <div style="font-size:11px;font-weight:700;color:#16a34a;margin-top:2px">+ $50 grocery credit on 1st order</div>
           </div>
           <div style="padding:10px 14px;background:white;border-radius:8px;border:1px solid #86efac;flex:1;min-width:130px;text-align:center">
             <div style="font-size:10px;font-weight:600;color:#16a34a;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">📆 Monthly plan</div>
-            <div style="font-size:18px;font-weight:800;font-family:'Syne',sans-serif;color:#15803d;line-height:1.2">2 months<br><span style="font-size:14px;font-weight:400;color:#16a34a">free</span></div>
-            <div style="font-size:11px;color:#6b7280">then $4.99/month</div>
-            <div style="font-size:11px;font-weight:700;color:#16a34a;margin-top:2px">Save $9.98 upfront</div>
+            <div style="font-size:18px;font-weight:800;font-family:'Syne',sans-serif;color:#15803d;line-height:1.2">$10<br><span style="font-size:14px;font-weight:400;color:#16a34a">grocery credit</span></div>
+            <div style="font-size:11px;color:#6b7280">on your first order</div>
+            <div style="font-size:11px;font-weight:700;color:#16a34a;margin-top:2px">$4.99/month</div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
           <div style="display:flex;align-items:center;gap:6px">
             <div style="width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;animation:livepulse 2s infinite"></div>
-            <span style="font-size:12px;font-weight:500;color:#15803d">Spots remaining: <strong id="spotsCounter">9,847</strong> of 10,000</span>
+            <span style="font-size:12px;font-weight:500;color:#15803d">Spots remaining: <strong id="spotsCounter">9,998</strong> of 10,000</span>
           </div>
           <div style="flex:1;min-width:100px;height:6px;background:#bbf7d0;border-radius:3px;overflow:hidden">
-            <div id="spotsBar" style="height:100%;background:#16a34a;border-radius:3px;width:1.5%;transition:width 1.5s ease"></div>
+            <div id="spotsBar" style="height:100%;background:#16a34a;border-radius:3px;width:0.02%;transition:width 1.5s ease"></div>
           </div>
-          <a href="PriceTrend_Checkout.html" style="padding:7px 16px;background:#16a34a;color:white;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0">Claim offer now →</a>
+          <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="padding:7px 16px;background:#16a34a;color:white;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0">Claim offer now →</a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Family Plan founding offer box -->
+  <div id="familyOfferBox" style="max-width:760px;margin:16px auto 0;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #2563eb;border-radius:12px;padding:20px 24px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(37,99,235,0.07);border-radius:50%"></div>
+    <!-- Family plan badge -->
+    <div style="position:absolute;top:14px;right:16px;background:#2563eb;color:white;font-size:9px;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.5px;text-transform:uppercase">Family Plan</div>
+    <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
+      <div style="font-size:32px;flex-shrink:0">👨‍👩‍👧‍👦</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+          <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1d4ed8">Family Plan — Founding Member Offer</span>
+          <span style="font-size:10px;padding:2px 8px;background:#2563eb;color:white;border-radius:10px;font-weight:700;letter-spacing:0.5px">UP TO 6 MEMBERS</span>
+        </div>
+        <p style="font-size:13px;color:#1e3a8a;margin-bottom:12px;line-height:1.6">The Family Plan gives every member of your household their own account — shared grocery lists, individual rewards tracking, and a family spending dashboard. One plan, everyone saves. Be one of our first <strong>10,000 founding families</strong> and lock in the founding rate.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+          <!-- Yearly family -->
+          <div style="padding:10px 14px;background:white;border-radius:8px;border:2px solid #2563eb;flex:1;min-width:140px;text-align:center;position:relative">
+            <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#e63c2f;color:white;font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;white-space:nowrap">BEST VALUE</div>
+            <div style="font-size:10px;font-weight:600;color:#2563eb;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">📅 Yearly — family</div>
+            <div style="font-size:22px;font-weight:800;font-family:'Syne',sans-serif;color:#1d4ed8">$79<span style="font-size:12px;font-weight:400;color:#2563eb">/year</span></div>
+            <div style="font-size:10px;color:#6b7280;margin-top:2px">up to 6 members</div>
+            <div style="font-size:11px;font-weight:700;color:#16a34a;margin-top:4px">+ $50 grocery credit on 1st order</div>
+          </div>
+          <!-- Monthly family -->
+          <div style="padding:10px 14px;background:white;border-radius:8px;border:1px solid #93c5fd;flex:1;min-width:140px;text-align:center">
+            <div style="font-size:10px;font-weight:600;color:#2563eb;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">📆 Monthly — family</div>
+            <div style="font-size:22px;font-weight:800;font-family:'Syne',sans-serif;color:#1d4ed8;line-height:1">$7.99<span style="font-size:12px;font-weight:400;color:#2563eb">/month</span></div>
+            <div style="font-size:10px;color:#6b7280;margin-top:2px">up to 6 members</div>
+            <div style="font-size:11px;font-weight:700;color:#16a34a;margin-top:4px">+ $10 grocery credit on 1st order</div>
+          </div>
+          <!-- Per person -->
+          <div style="padding:10px 14px;background:#f0f9ff;border-radius:8px;border:1px solid #93c5fd;flex:1;min-width:140px;text-align:center;display:flex;flex-direction:column;justify-content:center">
+            <div style="font-size:10px;font-weight:600;color:#2563eb;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">💡 Per person</div>
+            <div style="font-size:18px;font-weight:800;font-family:'Syne',sans-serif;color:#1d4ed8">$1.33</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px">per member / month</div>
+            <div style="font-size:11px;font-weight:700;color:#1d4ed8;margin-top:4px">on the yearly plan</div>
+          </div>
+        </div>
+        <!-- What's included -->
+        <div style="background:white;border:1px solid #bfdbfe;border-radius:8px;padding:12px 14px;margin-bottom:12px">
+          <div style="font-size:11px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Everything in Pro — plus:</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px">
+            <div style="font-size:12px;color:#1e3a8a;display:flex;gap:6px;align-items:center"><span style="color:#2563eb;font-weight:700">✓</span> Up to 6 family members</div>
+            <div style="font-size:12px;color:#1e3a8a;display:flex;gap:6px;align-items:center"><span style="color:#2563eb;font-weight:700">✓</span> Shared grocery lists</div>
+            <div style="font-size:12px;color:#1e3a8a;display:flex;gap:6px;align-items:center"><span style="color:#2563eb;font-weight:700">✓</span> Individual rewards tracking</div>
+            <div style="font-size:12px;color:#1e3a8a;display:flex;gap:6px;align-items:center"><span style="color:#2563eb;font-weight:700">✓</span> Family spending dashboard</div>
+            <div style="font-size:12px;color:#1e3a8a;display:flex;gap:6px;align-items:center"><span style="color:#2563eb;font-weight:700">✓</span> Priority support</div>
+            <div style="font-size:12px;color:#1e3a8a;display:flex;gap:6px;align-items:center"><span style="color:#2563eb;font-weight:700">✓</span> One plan, everyone saves</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:6px">
+            <div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;animation:livepulse 2s infinite"></div>
+            <span style="font-size:12px;font-weight:500;color:#1d4ed8">Founding family spots: <strong>9,998</strong> of 10,000 remaining</span>
+          </div>
+          <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="margin-left:auto;padding:7px 16px;background:#2563eb;color:white;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0">Claim family offer →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW THE $50 GROCERY CREDIT WORKS -->
+  <div style="max-width:760px;margin:20px auto 0;background:white;border:1.5px solid var(--border);border-radius:12px;padding:20px 24px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <span style="font-size:22px">🛒</span>
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--ink)">How the $50 free grocery credit works</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px" class="credit-steps-grid">
+      <div style="text-align:center;padding:14px 10px;background:var(--paper);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">✅</div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px">Step 1 — Subscribe yearly</div>
+        <div style="font-size:11px;color:var(--ink3);line-height:1.6">Pay $50 for the full year. Right after checkout a "Claim your $50 grocery credit" button appears in your account.</div>
+      </div>
+      <div style="text-align:center;padding:14px 10px;background:var(--paper);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">🛒</div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px">Step 2 — Shop through PriceTrend</div>
+        <div style="font-size:11px;color:var(--ink3);line-height:1.6">Build your grocery list in PriceTrend. Compare prices. Tap "Import to store" — your $50 discount applies automatically at checkout. No code to type.</div>
+      </div>
+      <div style="text-align:center;padding:14px 10px;background:var(--paper);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">💰</div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px">Step 3 — Pay $50 less</div>
+        <div style="font-size:11px;color:var(--ink3);line-height:1.6">Your first order total is reduced by $50 at checkout. You see the discount before you confirm. Works at Kroger, Walmart, Instacart, and more.</div>
+      </div>
+    </div>
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start">
+      <span style="font-size:16px;flex-shrink:0">💡</span>
+      <div style="font-size:12px;color:#1e40af;line-height:1.7"><strong>Important:</strong> The credit applies to your first grocery order placed through PriceTrend and must be redeemed within 90 days of subscribing. It is applied as a one-time store discount — not cash. The full seamless auto-apply experience is available in the app. Web users receive a promo code that applies in one tap at checkout.</div>
     </div>
   </div>
 
@@ -1859,25 +1958,34 @@ body { overflow-x: hidden; max-width: 100vw; }
 
       <div id="proMonthlyOffer">
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:7px 10px;margin-bottom:8px;text-align:center">
-          <div style="font-size:9px;font-weight:700;color:#16a34a;letter-spacing:1px;text-transform:uppercase">🎉 Founding Member — First 2 months FREE</div>
+          <div style="font-size:9px;font-weight:700;color:#16a34a;letter-spacing:1px;text-transform:uppercase">🎉 Founding Member — $10 grocery credit on first order</div>
         </div>
         <div id="proPrice" class="price-amount">$4.99</div>
-        <div id="proPeriod" class="price-period">per month · first 2 months free</div>
+        <div id="proPeriod" class="price-period">per month · $10 grocery credit on first order</div>
       </div>
 
       <div id="proYearlyOffer" style="display:none">
-        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:7px 10px;margin-bottom:8px;text-align:center">
-          <div style="font-size:9px;font-weight:700;color:#16a34a;letter-spacing:1px;text-transform:uppercase">🎉 Founding Member — 50% OFF first year</div>
+        <div style="background:#f0fdf4;border:1.5px solid #16a34a;border-radius:10px;padding:10px 12px;margin-bottom:10px">
+          <div style="font-size:9px;font-weight:700;color:#16a34a;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">🎉 Founding Member — Full Year Plan</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div style="text-align:center;flex:1;min-width:80px">
+              <div style="font-size:10px;color:#6b7280">&nbsp;</div>
+              <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:900;color:#15803d;line-height:1">$50</div>
+              <div style="font-size:10px;color:#16a34a;font-weight:600">per year</div>
+            </div>
+            <div style="width:1px;height:40px;background:#86efac;flex-shrink:0"></div>
+            <div style="text-align:center;flex:1;min-width:80px">
+              <div style="font-size:10px;color:#6b7280">+ FREE</div>
+              <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:900;color:#e63c2f;line-height:1">$50</div>
+              <div style="font-size:10px;color:#e63c2f;font-weight:600">groceries</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#166534;font-weight:600;text-align:center;margin-top:8px;padding-top:8px;border-top:1px solid #bbf7d0">$50/year + $50 grocery credit on your first order 🎉</div>
         </div>
-        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:2px">
-          <span class="price-amount" style="color:#16a34a">$25</span>
-          <span style="font-size:15px;color:var(--ink3);text-decoration:line-through">$50</span>
-        </div>
-        <div class="price-period">per year · founding member price</div>
-        <div style="font-size:12px;color:#16a34a;font-weight:600;margin-bottom:4px">You save $25 — like getting 6 months free!</div>
+        <div class="price-period" style="margin-bottom:6px">$50/year · $50 grocery credit on first order · founding rate locked in</div>
       </div>
 
-      <ul class="price-features">
+      <ul class="price-features" id="proFeaturesList">
         <li>Unlimited searches</li>
         <li>Full top 10 results + 12-month history</li>
         <li>Unlimited price alerts</li>
@@ -1885,10 +1993,12 @@ body { overflow-x: hidden; max-width: 100vw; }
         <li>Barcode scanner + voice search</li>
         <li>Delivery cost comparison</li>
         <li>GPS store finder</li>
+        <li id="proGroceryCredit" style="display:none;color:#16a34a;font-weight:600;background:#f0fdf4;padding:4px 8px;border-radius:4px;border:1px solid #86efac">🛒 $50 grocery credit on first order</li>
+        <li id="proGroceryHowTo" style="display:none;font-size:11px;color:var(--ink3)">Auto-applies at checkout through PriceTrend · 90-day redemption window</li>
         <li>📧 Renewal reminder (3-day / 30-day)</li>
       </ul>
-      <a href="PriceTrend_Checkout.html?plan=pro" class="price-cta" style="display:block;text-align:center;text-decoration:none;background:#16a34a" id="proCtaBtn">Claim founding offer →</a>
-      <div style="font-size:10px;text-align:center;color:var(--ink3);margin-top:6px">Only 10,000 spots · <span id="proSpotsLeft" style="color:#16a34a;font-weight:600">9,847 left</span></div>
+      <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" class="price-cta" style="display:block;text-align:center;text-decoration:none;background:#16a34a" id="proCtaBtn">Claim founding offer →</a>
+      <div style="font-size:10px;text-align:center;color:var(--ink3);margin-top:6px">Only 10,000 spots · <span id="proSpotsLeft" style="color:#16a34a;font-weight:600">9,998 left</span></div>
     </div>
 
     <!-- FAMILY -->
@@ -1898,22 +2008,21 @@ body { overflow-x: hidden; max-width: 100vw; }
 
       <div id="familyMonthlyOffer">
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:7px 10px;margin-bottom:8px;text-align:center">
-          <div style="font-size:9px;font-weight:700;color:#16a34a;letter-spacing:1px;text-transform:uppercase">🎉 Founding Member — First 2 months FREE</div>
+          <div style="font-size:9px;font-weight:700;color:#16a34a;letter-spacing:1px;text-transform:uppercase">🎉 Founding Member — $10 grocery credit on first order</div>
         </div>
         <div id="familyPrice" class="price-amount">$7.99</div>
-        <div id="familyPeriod" class="price-period">per month · up to 6 members · first 2 months free</div>
+        <div id="familyPeriod" class="price-period">per month · up to 6 members · $10 grocery credit on first order</div>
       </div>
 
       <div id="familyYearlyOffer" style="display:none">
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:7px 10px;margin-bottom:8px;text-align:center">
-          <div style="font-size:9px;font-weight:700;color:#16a34a;letter-spacing:1px;text-transform:uppercase">🎉 Founding Member — 50% OFF first year</div>
+          <div style="font-size:9px;font-weight:700;color:#16a34a;letter-spacing:1px;text-transform:uppercase">🎉 Founding Member — $50 grocery credit on first order</div>
         </div>
         <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:2px">
-          <span class="price-amount" style="color:#16a34a">$39.50</span>
-          <span style="font-size:15px;color:var(--ink3);text-decoration:line-through">$79</span>
+          <span class="price-amount" style="color:#16a34a">$79</span>
         </div>
-        <div class="price-period">per year · up to 6 members · 50% off</div>
-        <div style="font-size:12px;color:#16a34a;font-weight:600;margin-bottom:4px">Just $0.55/person/month!</div>
+        <div class="price-period">per year · up to 6 members · $50 grocery credit on first order</div>
+        <div style="font-size:12px;color:#16a34a;font-weight:600;margin-bottom:4px">Just $1.10/person/month!</div>
       </div>
 
       <div style="font-size:11px;color:var(--ink3);margin-bottom:10px;padding:6px 10px;background:var(--paper);border-radius:4px;text-align:center">That's just <strong id="familyPerPerson">$1.33/person</strong> per month</div>
@@ -1926,18 +2035,24 @@ body { overflow-x: hidden; max-width: 100vw; }
         <li>Priority alert delivery</li>
         <li>📧 Renewal reminder (3-day / 30-day)</li>
       </ul>
-      <a href="PriceTrend_Checkout.html?plan=family" class="price-cta" style="display:block;text-align:center;text-decoration:none;background:#16a34a" id="familyCtaBtn">Claim founding offer →</a>
-      <div style="font-size:10px;text-align:center;color:var(--ink3);margin-top:6px">Only 10,000 spots · <span id="familySpotsLeft" style="color:#16a34a;font-weight:600">9,847 left</span></div>
+      <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" class="price-cta" style="display:block;text-align:center;text-decoration:none;background:#16a34a" id="familyCtaBtn">Claim founding offer →</a>
+      <div style="font-size:10px;text-align:center;color:var(--ink3);margin-top:6px">Only 10,000 spots · <span id="familySpotsLeft" style="color:#16a34a;font-weight:600">9,998 left</span></div>
     </div>
 
   </div>
 
   <!-- Offer terms -->
-  <div style="max-width:700px;margin:20px auto 0;background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:14px 18px;text-align:center">
+  <div style="max-width:760px;margin:20px auto 0;background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:14px 18px;text-align:center">
     <div style="font-size:11px;color:var(--ink3);line-height:1.8">
-      <strong style="color:var(--ink)">Founding Member Offer Terms</strong> — First 10,000 subscribers only. Monthly: first 2 months free, then $4.99/month. Yearly: 50% off at $25/year (reg. $50), renews at standard rate. Family plans discounted on same terms. No coupon code needed. Cancel anytime.
+      <strong style="color:var(--ink)">Offer Terms</strong> — Founding Member (first 10,000 only): Monthly plan includes a <strong>$10 grocery credit</strong> on your first order placed through PriceTrend. Yearly plan at $50/year (Pro) or $79/year (Family) includes a <strong>$50 grocery credit</strong> on your first order. Credits apply as a store discount through a PriceTrend affiliate link — not cash. Must be used within 90 days of signup. One credit per account. Cancel anytime with no penalty.
     </div>
   </div>
+
+  <style>
+  @media(max-width:600px){
+    .credit-steps-grid { grid-template-columns: 1fr !important; }
+  }
+  </style>
 
   <!-- Renewal note -->
   <div style="max-width:700px;margin:12px auto 0;background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px">
@@ -2528,6 +2643,7 @@ body { overflow-x: hidden; max-width: 100vw; }
 
     <div style="display:flex;flex-direction:column;gap:4px" id="acctMenu">
       <button onclick="showAcct('profile',this)" class="acct-btn acct-active" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:var(--ink);color:white;font-weight:500">👤 Personal info</button>
+      <button onclick="showAcct('rewards',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;font-weight:600;border:1px solid #fcd34d">🏆 My Rewards & Discounts</button>
       <button onclick="showAcct('stores',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:none;color:var(--ink2)">🏪 Preferred stores</button>
       <button onclick="showAcct('alerts',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:none;color:var(--ink2)">🔔 Alert preferences</button>
       <button onclick="showAcct('subscription',this)" class="acct-btn" style="padding:12px 16px;border:none;border-radius:4px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;background:none;color:var(--ink2)">💳 Subscription</button>
@@ -2536,6 +2652,75 @@ body { overflow-x: hidden; max-width: 100vw; }
     </div>
 
     <div style="border:1px solid var(--border);border-radius:8px;padding:32px">
+
+      <div id="acct-rewards" class="acct-pane" style="display:none">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+          <span style="font-size:28px">🏆</span>
+          <div>
+            <div style="font-size:18px;font-weight:700;color:var(--ink)">My Rewards &amp; Discounts</div>
+            <div style="font-size:13px;color:var(--ink3)">Earn bigger discounts the more you shop through PriceTrend</div>
+          </div>
+        </div>
+
+        <!-- Current tier badge -->
+        <div id="rewardsTierBadge" style="margin:20px 0 0"></div>
+
+        <!-- Spending progress meter -->
+        <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fcd34d;border-radius:12px;padding:20px 22px;margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:8px">
+            <div style="font-size:14px;font-weight:600;color:#92400e">Total spent through PriceTrend</div>
+            <div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:900;color:#92400e" id="rewardsTotalSpent">$347</div>
+          </div>
+          <div style="height:12px;background:rgba(0,0,0,0.08);border-radius:6px;overflow:hidden;margin-bottom:8px">
+            <div id="rewardsProgressBar" style="height:100%;background:linear-gradient(90deg,#f59e0b,#d97706);border-radius:6px;transition:width 1s ease;width:69%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:12px;color:#92400e" id="rewardsNextMsg">$153 more to unlock <strong>10% off</strong> your next order</div>
+            <div style="font-size:11px;color:#b45309" id="rewardsNextTier">Next: $500 → 10% off</div>
+          </div>
+        </div>
+
+        <!-- All tier levels -->
+        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink3);margin-bottom:12px">Reward tiers — all levels</div>
+        <div id="rewardsTierList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px"></div>
+
+        <!-- Active discount banner -->
+        <div id="rewardsActiveBanner" style="display:none;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #16a34a;border-radius:10px;padding:16px 18px;margin-bottom:20px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-size:28px">✅</span>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#15803d" id="rewardsActiveTitle">You have an active discount!</div>
+              <div style="font-size:13px;color:#166534" id="rewardsActiveDesc">Your discount applies automatically on your next order through PriceTrend.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How it works mini -->
+        <div style="background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:20px">
+          <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px">How rewards work</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:10px;font-size:12px;color:var(--ink2)"><span style="color:#f59e0b;font-size:14px;flex-shrink:0">•</span>Shop for groceries through any PriceTrend link — every purchase counts toward your total.</div>
+            <div style="display:flex;gap:10px;font-size:12px;color:var(--ink2)"><span style="color:#f59e0b;font-size:14px;flex-shrink:0">•</span>When your lifetime spending crosses a tier threshold, your discount unlocks automatically.</div>
+            <div style="display:flex;gap:10px;font-size:12px;color:var(--ink2)"><span style="color:#f59e0b;font-size:14px;flex-shrink:0">•</span>Your discount applies to your very next order — no code needed. It is applied before you check out.</div>
+            <div style="display:flex;gap:10px;font-size:12px;color:var(--ink2)"><span style="color:#f59e0b;font-size:14px;flex-shrink:0">•</span>Each discount is one-use. After you use it, you keep earning toward the same or higher tier on future purchases.</div>
+            <div style="display:flex;gap:10px;font-size:12px;color:var(--ink2)"><span style="color:#f59e0b;font-size:14px;flex-shrink:0">•</span>You will receive a push notification and email the moment a new discount unlocks.</div>
+          </div>
+        </div>
+
+        <!-- Purchase history -->
+        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink3);margin-bottom:10px">Recent qualifying purchases</div>
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
+          <table style="width:100%;border-collapse:collapse;font-size:13px">
+            <thead><tr style="background:var(--paper)">
+              <th style="text-align:left;padding:10px 14px;font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:1px;text-transform:uppercase">Date</th>
+              <th style="text-align:left;padding:10px 14px;font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:1px;text-transform:uppercase">Store</th>
+              <th style="text-align:right;padding:10px 14px;font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:1px;text-transform:uppercase">Amount</th>
+              <th style="text-align:right;padding:10px 14px;font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:1px;text-transform:uppercase">Discount used</th>
+            </tr></thead>
+            <tbody id="rewardsPurchaseHistory"></tbody>
+          </table>
+        </div>
+      </div>
 
       <div id="acct-profile" class="acct-pane acct-inner">
         <div style="font-size:18px;font-weight:500;margin-bottom:4px">Personal information</div>
@@ -2662,7 +2847,8 @@ body { overflow-x: hidden; max-width: 100vw; }
 
       <div id="acct-privacy" class="acct-pane" style="display:none">
         <div style="font-size:18px;font-weight:500;margin-bottom:4px">Privacy &amp; data</div>
-        <div style="font-size:14px;color:var(--ink3);margin-bottom:28px">Control what data PriceTrend collects and how it is used.</div>
+        <div style="font-size:14px;color:var(--ink3);margin-bottom:20px">Control what data PriceTrend collects and how it is used.</div>
+
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
           <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Personalized recommendations</div><div style="font-size:12px;color:var(--ink3)">Use my purchase history to suggest better deals</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
           <label style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:6px;cursor:pointer"><div><div style="font-size:14px;font-weight:500">Location-based store search</div><div style="font-size:12px;color:var(--ink3)">Use my location to find nearby stores and prices</div></div><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--ink)"></label>
@@ -2680,13 +2866,144 @@ body { overflow-x: hidden; max-width: 100vw; }
 </div>
 </div>
 
+<!-- LOYALTY REWARDS SECTION -->
+<div id="rewards" style="background:linear-gradient(135deg,#fffbeb,#ffffff);padding:1px 0;border-top:1px solid #fde68a">
+<div class="section reveal" style="max-width:960px">
+  <div class="section-label" style="color:#d97706">Loyalty Rewards</div>
+  <div class="section-title">Shop more. Save more.<br>Every time.</div>
+  <div class="section-sub">The more you buy through PriceTrend the bigger the discount on your next order. Automatically applied — no codes, no hassle.</div>
+
+  <!-- Tier showcase -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px;margin-bottom:36px" class="rewards-tier-grid">
+
+    <div style="background:white;border:1.5px solid #e5e7eb;border-radius:12px;padding:20px 16px;text-align:center;position:relative">
+      <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#6b7280;color:white;font-size:9px;font-weight:700;padding:3px 10px;border-radius:8px;white-space:nowrap;font-family:'DM Mono',monospace">STARTER</div>
+      <div style="font-size:36px;margin-bottom:8px">🛒</div>
+      <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:900;color:#6b7280;margin-bottom:4px">5%</div>
+      <div style="font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:8px">off next order</div>
+      <div style="background:#f9fafb;border-radius:6px;padding:8px;margin-bottom:6px">
+        <div style="font-size:11px;color:#6b7280;margin-bottom:2px">Unlock at</div>
+        <div style="font-family:'DM Mono',monospace;font-size:18px;font-weight:700;color:var(--ink)">$250</div>
+      </div>
+      <div style="font-size:11px;color:#9ca3af">lifetime spend</div>
+    </div>
+
+    <div style="background:white;border:2px solid #f59e0b;border-radius:12px;padding:20px 16px;text-align:center;position:relative;box-shadow:0 4px 16px rgba(245,158,11,0.12)">
+      <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#f59e0b;color:white;font-size:9px;font-weight:700;padding:3px 10px;border-radius:8px;white-space:nowrap;font-family:'DM Mono',monospace">REGULAR</div>
+      <div style="font-size:36px;margin-bottom:8px">⭐</div>
+      <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:900;color:#d97706;margin-bottom:4px">10%</div>
+      <div style="font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:8px">off next order</div>
+      <div style="background:#fffbeb;border-radius:6px;padding:8px;margin-bottom:6px;border:1px solid #fde68a">
+        <div style="font-size:11px;color:#92400e;margin-bottom:2px">Unlock at</div>
+        <div style="font-family:'DM Mono',monospace;font-size:18px;font-weight:700;color:#d97706">$500</div>
+      </div>
+      <div style="font-size:11px;color:#9ca3af">lifetime spend</div>
+    </div>
+
+    <div style="background:white;border:2px solid #f97316;border-radius:12px;padding:20px 16px;text-align:center;position:relative;box-shadow:0 4px 20px rgba(249,115,22,0.14)">
+      <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#f97316;color:white;font-size:9px;font-weight:700;padding:3px 10px;border-radius:8px;white-space:nowrap;font-family:'DM Mono',monospace">LOYAL SHOPPER</div>
+      <div style="font-size:36px;margin-bottom:8px">🌟</div>
+      <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:900;color:#ea580c;margin-bottom:4px">15%</div>
+      <div style="font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:8px">off next order</div>
+      <div style="background:#fff7ed;border-radius:6px;padding:8px;margin-bottom:6px;border:1px solid #fed7aa">
+        <div style="font-size:11px;color:#c2410c;margin-bottom:2px">Unlock at</div>
+        <div style="font-family:'DM Mono',monospace;font-size:18px;font-weight:700;color:#ea580c">$1,000</div>
+      </div>
+      <div style="font-size:11px;color:#9ca3af">lifetime spend</div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a);border:2px solid #e63c2f;border-radius:12px;padding:20px 16px;text-align:center;position:relative;box-shadow:0 6px 28px rgba(230,60,47,0.2)">
+      <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#e63c2f;color:white;font-size:9px;font-weight:700;padding:3px 10px;border-radius:8px;white-space:nowrap;font-family:'DM Mono',monospace">ELITE SAVER</div>
+      <div style="font-size:36px;margin-bottom:8px">💎</div>
+      <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:900;color:#e63c2f;margin-bottom:4px">25%</div>
+      <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px">off next order</div>
+      <div style="background:rgba(230,60,47,0.1);border-radius:6px;padding:8px;margin-bottom:6px;border:1px solid rgba(230,60,47,0.3)">
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:2px">Unlock at</div>
+        <div style="font-family:'DM Mono',monospace;font-size:18px;font-weight:700;color:#e63c2f">$2,500</div>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.4)">lifetime spend</div>
+    </div>
+
+  </div>
+
+  <!-- Interactive demo meter -->
+  <div style="background:white;border:1.5px solid #fde68a;border-radius:14px;padding:24px 28px;margin-bottom:32px;box-shadow:0 4px 20px rgba(245,158,11,0.08)">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap">
+      <span style="font-size:20px">🎯</span>
+      <div style="font-size:15px;font-weight:700;color:var(--ink)">See how close you are — drag to simulate your spending</div>
+    </div>
+    <div style="font-size:12px;color:var(--ink3);margin-bottom:16px">This is what your Rewards dashboard looks like inside the app</div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap">
+      <span style="font-size:12px;color:var(--ink2);width:120px;flex-shrink:0">Lifetime spend:</span>
+      <input type="range" id="demoSpend" min="0" max="3000" value="347" oninput="updateRewardsDemo()" style="flex:1;height:4px;-webkit-appearance:none;background:#fde68a;border-radius:2px;outline:none;cursor:pointer;min-width:100px">
+      <span style="font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:#d97706;width:64px;text-align:right" id="demoSpendVal">$347</span>
+    </div>
+    <div style="height:14px;background:#fef3c7;border-radius:7px;overflow:hidden;margin-bottom:10px;position:relative">
+      <div id="demoBar" style="height:100%;background:linear-gradient(90deg,#fbbf24,#d97706);border-radius:7px;transition:width .4s ease;width:13.8%"></div>
+      <!-- Tier markers -->
+      <div style="position:absolute;top:0;left:10%;height:100%;width:2px;background:rgba(0,0,0,0.15)"></div>
+      <div style="position:absolute;top:0;left:20%;height:100%;width:2px;background:rgba(0,0,0,0.15)"></div>
+      <div style="position:absolute;top:0;left:40%;height:100%;width:2px;background:rgba(0,0,0,0.15)"></div>
+      <div style="position:absolute;top:0;left:100%;height:100%;width:2px;background:rgba(0,0,0,0.15)"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;margin-bottom:16px;flex-wrap:wrap;gap:4px">
+      <span>$0</span><span>$250 → 5%</span><span>$500 → 10%</span><span>$1,000 → 15%</span><span>$2,500 → 25%</span>
+    </div>
+    <div id="demoStatus" style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fde68a;border-radius:8px;padding:14px 16px">
+      <div style="font-size:14px;font-weight:600;color:#92400e" id="demoStatusTitle">⏳ $153 more to unlock 10% off</div>
+      <div style="font-size:12px;color:#b45309;margin-top:4px" id="demoStatusDesc">You're at the Regular tier. Keep shopping through PriceTrend to reach the Loyal Shopper level.</div>
+    </div>
+  </div>
+
+  <!-- How it works steps -->
+  <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--ink3);margin-bottom:20px;text-align:center">How rewards work</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px" class="rewards-how-grid">
+    <div style="text-align:center;padding:20px 14px">
+      <div style="width:44px;height:44px;border-radius:50%;background:#fef3c7;border:2px solid #fcd34d;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px">🛒</div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">Shop through PriceTrend</div>
+      <div style="font-size:12px;color:var(--ink3);line-height:1.6">Every purchase you make through a PriceTrend link counts — groceries, household, electronics, anything.</div>
+    </div>
+    <div style="text-align:center;padding:20px 14px">
+      <div style="width:44px;height:44px;border-radius:50%;background:#fef3c7;border:2px solid #fcd34d;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px">📊</div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">We track your total</div>
+      <div style="font-size:12px;color:var(--ink3);line-height:1.6">PriceTrend automatically tracks your lifetime spending. You can see your progress in real time in your account.</div>
+    </div>
+    <div style="text-align:center;padding:20px 14px">
+      <div style="width:44px;height:44px;border-radius:50%;background:#fef3c7;border:2px solid #fcd34d;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px">🔔</div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">Get notified instantly</div>
+      <div style="font-size:12px;color:var(--ink3);line-height:1.6">The moment you cross a spending threshold we send you a push notification and email — your discount is ready.</div>
+    </div>
+    <div style="text-align:center;padding:20px 14px">
+      <div style="width:44px;height:44px;border-radius:50%;background:#fef3c7;border:2px solid #fcd34d;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px">✅</div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">Discount auto-applies</div>
+      <div style="font-size:12px;color:var(--ink3);line-height:1.6">No coupon code. No extra steps. Your next order through PriceTrend automatically shows the discount before you confirm.</div>
+    </div>
+  </div>
+
+  <!-- FAQ mini -->
+  <div style="background:white;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:0">
+    <div style="padding:16px 20px;border-bottom:1px solid var(--border);font-size:14px;font-weight:600;color:var(--ink)">Common questions about rewards</div>
+    <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q" style="font-size:13px">Does my spending carry over? Does my tier go back down after I use a discount?<span class="faq-icon">+</span></button><div class="faq-a"><p>Yes — your lifetime spending never resets. Once you reach a tier, you keep it. After you use a discount on your next order, your spending counter stays where it is and you keep earning toward the same tier or the next one up. You will never lose progress.</p></div></div>
+    <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q" style="font-size:13px">What counts as a qualifying purchase?<span class="faq-icon">+</span></button><div class="faq-a"><p>Any purchase made by clicking through a PriceTrend affiliate link — groceries, household goods, electronics, clothing, or any item you found and purchased through PriceTrend. The full order total at the store counts toward your lifetime spending. Returns reduce your total.</p></div></div>
+    <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q" style="font-size:13px">Is the discount a percentage off the whole order?<span class="faq-icon">+</span></button><div class="faq-a"><p>Yes — the percentage applies to your entire order total at the store. A 10% discount on a $200 grocery order saves you $20 off that single transaction. The discount is one-use per tier unlock and applies automatically to the very next order you place through PriceTrend after unlocking it.</p></div></div>
+    <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q" style="font-size:13px">Does my spending accumulate across all stores?<span class="faq-icon">+</span></button><div class="faq-a"><p>Yes — every store and every purchase through PriceTrend contributes to your total. Kroger, Walmart, Instacart, Amazon, Target, DoorDash — it all adds up in one place. The more PriceTrend becomes your starting point for every purchase decision, the faster you move up the tiers.</p></div></div>
+  </div>
+
+</div>
+</div>
+
 <!-- GIVING BACK SECTION -->
 <div id="giving-back" style="background:#0a0a0a;padding:1px 0;">
 <div class="section reveal" style="max-width:900px">
 
   <div class="section-label" style="color:rgba(255,255,255,0.4)">Community</div>
   <div class="section-title" style="color:white">Saving money together.<br>Giving back together.</div>
-  <div class="section-sub" style="color:rgba(255,255,255,0.5);max-width:600px;margin:0 auto 40px">PriceTrend was built to help everyday families stretch every dollar. We believe that mission does not stop at the app — it extends into the communities that support us.</div>
+  <div class="section-sub" style="color:rgba(255,255,255,0.5);max-width:600px;margin:0 auto 24px">PriceTrend was built to help everyday families stretch every dollar. We believe that mission does not stop at the app — it extends into the communities that support us.</div>
+
+  <!-- Mission statement — giving back section -->
+  <div style="max-width:680px;margin:0 auto 28px;text-align:center;padding:22px 32px;border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12)">
+    <p style="font-family:Georgia,serif;font-size:18px;font-style:italic;color:rgba(255,255,255,0.92);line-height:1.7;letter-spacing:0.2px;margin:0">&#8220;PriceTrend &mdash; Price intelligence that puts the power of saving<br>back in the hands of everyday families.&#8221;</p>
+  </div>
 
   <!-- Mission statement card -->
   <div style="background:linear-gradient(135deg,rgba(230,60,47,0.12),rgba(230,60,47,0.04));border:1px solid rgba(230,60,47,0.25);border-radius:14px;padding:28px 32px;margin-bottom:28px">
@@ -2741,7 +3058,7 @@ body { overflow-x: hidden; max-width: 100vw; }
       <div style="font-size:16px;font-weight:700;color:white;padding-top:4px">Starting in Columbus, Ohio</div>
     </div>
     <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:14px">PriceTrend was born in Columbus. Our first giving partners will be Columbus-area food banks and hunger relief organizations. If you know a local food bank or community organization we should support, we want to hear from you.</div>
-    <a href="mailto:support@pricetrend.app?subject=Charity%20Partnership%20Suggestion" style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:#16a34a;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;transition:background 0.2s" onmouseover="this.style.background='#15803d'" onmouseout="this.style.background='#16a34a'">
+    <a href="mailto:support@pricetrend.llc?subject=Charity%20Partnership%20Suggestion" style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:#16a34a;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;transition:background 0.2s" onmouseover="this.style.background='#15803d'" onmouseout="this.style.background='#16a34a'">
       💌 Suggest a local organization →
     </a>
   </div>
@@ -2760,14 +3077,14 @@ body { overflow-x: hidden; max-width: 100vw; }
 <div class="section reveal" style="max-width:860px">
   <div class="section-label">Help center</div>
   <div class="section-title">Frequently asked<br>questions</div>
-  <div class="section-sub">Everything you need to know about PriceTrend. Can't find your answer? <a href="mailto:support@pricetrend.app" style="color:var(--ink);text-decoration:underline">Email us</a> — we respond within 24 hours.</div>
+  <div class="section-sub">Everything you need to know about PriceTrend. Can't find your answer? <a href="mailto:support@pricetrend.llc" style="color:var(--ink);text-decoration:underline">Email us</a> — we respond within 24 hours.</div>
 
   <div style="margin-top:32px;display:flex;flex-direction:column;gap:8px" id="pageFaqList">
 
     <!-- FAQ items — accordion style -->
     <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q">What is PriceTrend and how does it save me money?<span class="faq-icon">+</span></button><div class="faq-a"><p>PriceTrend searches 500+ retailers, grocery stores, and delivery apps simultaneously and shows you the cheapest price for anything — including the true total cost with tax, shipping, and fees included. The average user saves $847 per year just by knowing where to buy.</p></div></div>
 
-    <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q">Is PriceTrend free?<span class="faq-icon">+</span></button><div class="faq-a"><p>Yes — the free plan is free forever with no credit card needed. It includes 20 searches per day, 3 price alerts, and a 10-item grocery list. The Pro plan ($4.99/month) unlocks unlimited everything including barcode scanning, voice search, coupons, and receipt scanning. Right now the first 10,000 subscribers get the founding member offer — first 2 months free (monthly) or 50% off the yearly plan.</p></div></div>
+    <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q">Is PriceTrend free?<span class="faq-icon">+</span></button><div class="faq-a"><p>Yes — the free plan is free forever with no credit card needed. It includes 20 searches per day, 3 price alerts, and a 10-item grocery list. The Pro plan ($4.99/month) unlocks unlimited everything including barcode scanning, voice search, coupons, and receipt scanning. Right now the first 10,000 subscribers get the founding member offer — a $10 grocery credit on your first order (monthly) or a $50 grocery credit on your first order (yearly, $50/year Pro or $79/year Family).</p></div></div>
 
     <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q">Will I be surprised by a charge?<span class="faq-icon">+</span></button><div class="faq-a"><p>Never. Monthly subscribers receive a reminder 3 days before each renewal. Yearly subscribers get a 30-day heads-up. Every reminder includes a one-click cancel link. No surprise charges, ever.</p></div></div>
 
@@ -2785,7 +3102,7 @@ body { overflow-x: hidden; max-width: 100vw; }
 
     <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q">How does PriceTrend give back to the community?<span class="faq-icon">+</span></button><div class="faq-a"><p>A portion of every PriceTrend subscription goes to local food banks and hunger relief organizations, starting in Columbus, Ohio. As PriceTrend grows to new cities, our giving grows with it. PriceTrend was built to help families afford groceries — giving back to those who struggle most is the whole point of what we do.</p></div></div>
 
-    <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q">How do I contact PriceTrend support?<span class="faq-icon">+</span></button><div class="faq-a"><p>Email us at <a href="mailto:support@pricetrend.app" style="color:var(--ink);text-decoration:underline">support@pricetrend.app</a> — we respond to every message within 24 hours Monday through Friday. You can also use the Contact Us option in the menu or the chat assistant button at the bottom right of this page.</p></div></div>
+    <div class="faq-item"><button onclick="toggleFaq(this)" class="faq-q">How do I contact PriceTrend support?<span class="faq-icon">+</span></button><div class="faq-a"><p>Email us at <a href="mailto:support@pricetrend.llc" style="color:var(--ink);text-decoration:underline">support@pricetrend.llc</a> — we respond to every message within 24 hours Monday through Friday. You can also use the Contact Us option in the menu or the chat assistant button at the bottom right of this page.</p></div></div>
 
   </div>
 
@@ -2798,7 +3115,7 @@ body { overflow-x: hidden; max-width: 100vw; }
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button onclick="openFullModal('faq')" style="padding:10px 18px;background:#0a0a0a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s" onmouseover="this.style.background='#e63c2f'" onmouseout="this.style.background='#0a0a0a'">View all FAQs →</button>
-      <a href="mailto:support@pricetrend.app" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:none;border:1.5px solid var(--border);color:var(--ink);border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:all 0.2s" onmouseover="this.style.background='var(--ink)';this.style.color='white'" onmouseout="this.style.background='none';this.style.color='var(--ink)'">✉️ Email us</a>
+      <a href="mailto:support@pricetrend.llc" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:none;border:1.5px solid var(--border);color:var(--ink);border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:all 0.2s" onmouseover="this.style.background='var(--ink)';this.style.color='white'" onmouseout="this.style.background='none';this.style.color='var(--ink)'">✉️ Email us</a>
     </div>
   </div>
 
@@ -2866,7 +3183,7 @@ body { overflow-x: hidden; max-width: 100vw; }
 
         <div style="margin-bottom:16px">
           <label style="display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Send to</label>
-          <input type="email" value="support@pricetrend.app" readonly style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink3);outline:none;cursor:default">
+          <input type="email" value="support@pricetrend.llc" readonly style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink3);outline:none;cursor:default">
           <div style="font-size:11px;color:var(--ink3);margin-top:4px">All messages go directly to our customer service team</div>
         </div>
 
@@ -2886,7 +3203,7 @@ body { overflow-x: hidden; max-width: 100vw; }
         <div style="font-size:22px;margin-bottom:12px">📧</div>
         <div style="font-size:15px;font-weight:500;margin-bottom:4px">Email us directly</div>
         <div style="font-size:14px;color:var(--ink3);margin-bottom:8px">For any questions or support</div>
-        <a href="mailto:support@pricetrend.app" style="font-size:14px;color:var(--accent);text-decoration:none;font-weight:500">support@pricetrend.app</a>
+        <a href="mailto:support@pricetrend.llc" style="font-size:14px;color:var(--accent);text-decoration:none;font-weight:500">support@pricetrend.llc</a>
       </div>
 
       <div style="border:1px solid var(--border);border-radius:8px;padding:28px">
@@ -2912,6 +3229,11 @@ body { overflow-x: hidden; max-width: 100vw; }
 </div>
 </div>
 
+<!-- MISSION STATEMENT BAR -->
+<div style="background:var(--ink);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:20px 40px;text-align:center">
+  <p style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:rgba(255,255,255,0.55);line-height:1.7;letter-spacing:0.2px;margin:0;max-width:600px;margin:0 auto">&#8220;PriceTrend &mdash; Price intelligence that puts the power of saving back in the hands of everyday families.&#8221;</p>
+</div>
+
 <!-- FOOTER -->
 <footer class="reveal">
   <div class="footer-brand">
@@ -2928,7 +3250,7 @@ body { overflow-x: hidden; max-width: 100vw; }
       </svg>
       <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a">Price<span style="color:#e63c2f">Trend</span></span>
     </div>
-    <div class="footer-tagline">Real-time price intelligence for every purchase you make — groceries, fashion, home, and everything in between.</div>
+    <div class="footer-tagline"><em style="font-family:Georgia,serif;font-size:12px;color:var(--ink3);font-style:italic;line-height:1.7;letter-spacing:0.1px">&#8220;Price intelligence that puts the power of saving back in the hands of everyday families.&#8221;</em></div>
   </div>
   <div class="footer-col">
     <h4>Product</h4>
@@ -2948,8 +3270,8 @@ body { overflow-x: hidden; max-width: 100vw; }
   </div>
   <div class="footer-col">
     <h4>Legal</h4>
-    <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Privacy policy</a>
-    <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Terms of service</a>
+    <a href="#">Privacy policy</a>
+    <a href="#">Terms of service</a>
     <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Cookie settings</a>
     <a href="https://github.us22.list-manage.com/subscribe/post?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2">Accessibility</a>
     <a href="#legal-disclaimer" onclick="document.getElementById('legalDisclaimer').scrollIntoView({behavior:'smooth'})">Price accuracy disclaimer</a>
@@ -2973,7 +3295,7 @@ body { overflow-x: hidden; max-width: 100vw; }
         Delivery fees, service charges, taxes, tips, membership costs, and other surcharges may not be included in all displayed prices. True total cost estimates are provided as approximations only and actual totals may vary based on your location, applicable taxes, and the retailer's current fee structure.
       </p>
       <p style="font-size:12px;color:#6b7280;line-height:1.8;">
-        By using PriceTrend, you acknowledge that price information is provided "as is" without warranty of any kind, and that you will verify all pricing directly with the retailer before completing any purchase. For questions about our data sources or to report a pricing error, please contact us at <a href="mailto:support@pricetrend.app" style="color:#374151;text-decoration:underline">support@pricetrend.app</a>.
+        By using PriceTrend, you acknowledge that price information is provided "as is" without warranty of any kind, and that you will verify all pricing directly with the retailer before completing any purchase. For questions about our data sources or to report a pricing error, please contact us at <a href="mailto:support@pricetrend.llc" style="color:#374151;text-decoration:underline">support@pricetrend.llc</a>.
       </p>
     </div>
   </div>
@@ -3882,7 +4204,7 @@ function pwOption(action,label){
     } else if(action==='goto_account'){pwNavigate('account');pwBotMsg("Taking you to My Account! 👤");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
     } else if(action==='goto_pricing'){pwNavigate('pricing');pwBotMsg("Taking you to Pricing! 💳");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
     } else if(action==='goto_platforms'){pwNavigate('platforms');pwBotMsg("Taking you to all categories we track! 📦");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
-    } else if(action==='goto_signup'){window.open('PriceTrend_Checkout.html','_blank');pwBotMsg("Opening signup — welcome to PriceTrend! 🎉");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
+    } else if(action==='goto_signup'){window.open('https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2','_blank');pwBotMsg("Opening signup — welcome to PriceTrend! 🎉");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
     } else if(action==='goto_grocery_tutorial'){pwNavigate('tutorial');setTimeout(function(){showTutorial('grocery',null);},400);pwBotMsg("Taking you to the grocery list tutorial! 🛒");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
     } else if(action==='goto_scan_tutorial'){pwNavigate('tutorial');setTimeout(function(){showTutorial('scan',null);},400);pwBotMsg("Taking you to the barcode scanner tutorial! 📷");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
     } else if(action==='goto_alerts_tutorial'){pwNavigate('tutorial');setTimeout(function(){showTutorial('alerts',null);},400);pwBotMsg("Taking you to the price alerts tutorial! 🔔");setTimeout(function(){pwShowOptions([{label:"Go back to main menu",action:'menu'}]);},800);
@@ -3995,6 +4317,7 @@ function showAcct(name,btn){
   var pane=document.getElementById('acct-'+name);if(pane)pane.style.display='block';
   document.querySelectorAll('.acct-btn').forEach(function(b){b.style.background='none';b.style.color='#3a3a3a';b.style.fontWeight='400';});
   if(btn){btn.style.background='#0a0a0a';btn.style.color='white';btn.style.fontWeight='500';}
+  if(name==='rewards') renderRewardsPane();
 }
 
 function saveAcctSection(section) {
@@ -4442,7 +4765,7 @@ var fullModalScreens = {
       '<div style="margin-top:14px;padding:14px;background:#fef9c3;border:1px solid #fde047;border-radius:10px;text-align:center">'+
         '<div style="font-size:13px;color:#854d0e;margin-bottom:8px">⚠️ Coming in the PriceTrend app</div>'+
         '<div style="font-size:12px;color:#92400e;margin-bottom:10px">The barcode scanner requires a native app. Sign up to be first to use it when we launch.</div>'+
-        '<a href="PriceTrend_Checkout.html" style="display:inline-block;padding:10px 20px;background:#0a0a0a;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500">🔔 Get early access →</a>'+
+        '<a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:inline-block;padding:10px 20px;background:#0a0a0a;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500">🔔 Get early access →</a>'+
       '</div></div>'; }
   },
   searchcompare: {
@@ -4471,7 +4794,7 @@ var fullModalScreens = {
       '<div style="margin-top:14px;padding:14px;background:#fef9c3;border:1px solid #fde047;border-radius:10px;text-align:center">'+
         '<div style="font-size:13px;color:#854d0e;margin-bottom:8px">⚠️ Live search coming in the app</div>'+
         '<div style="font-size:12px;color:#92400e;margin-bottom:10px">Real-time price search across all 500+ retailers launches with the PriceTrend app.</div>'+
-        '<a href="PriceTrend_Checkout.html" style="display:inline-block;padding:10px 20px;background:#e63c2f;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500">🔔 Get early access →</a>'+
+        '<a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:inline-block;padding:10px 20px;background:#e63c2f;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500">🔔 Get early access →</a>'+
       '</div></div>'; }
   },
   account: {
@@ -4491,7 +4814,7 @@ var fullModalScreens = {
       '<div style="margin-top:20px;padding:16px;background:#fff0ef;border:1px solid #fca5a5;border-radius:10px;text-align:center">'+
         '<div style="font-size:14px;color:#c53030;margin-bottom:8px">⚠️ Accounts coming soon</div>'+
         '<div style="font-size:13px;color:#92400e;margin-bottom:12px">Real accounts will be available when the PriceTrend app launches. Sign up for early access to be first in line.</div>'+
-        '<a href="PriceTrend_Checkout.html" style="display:inline-block;padding:10px 20px;background:#e63c2f;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500">Get early access →</a>'+
+        '<a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:inline-block;padding:10px 20px;background:#e63c2f;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500">Get early access →</a>'+
       '</div></div>'; }
   },
   explore: {
@@ -4533,8 +4856,8 @@ var fullModalScreens = {
     title: '✉️ Contact Us',
     html: function() { return '<div style="padding:20px">'+
       '<div style="font-size:14px;color:var(--ink3);margin-bottom:20px;line-height:1.7">We respond to every message within 24 hours, Monday through Friday. We would love to hear from you.</div>'+
-      '<a href="mailto:support@pricetrend.app" style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--paper);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--ink);margin-bottom:10px">'+
-        '<span style="font-size:28px">📧</span><div><div style="font-size:16px;font-weight:600">Email us directly</div><div style="font-size:13px;color:#e63c2f;margin-top:2px">support@pricetrend.app</div></div>'+
+      '<a href="mailto:support@pricetrend.llc" style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--paper);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--ink);margin-bottom:10px">'+
+        '<span style="font-size:28px">📧</span><div><div style="font-size:16px;font-weight:600">Email us directly</div><div style="font-size:13px;color:#e63c2f;margin-top:2px">support@pricetrend.llc</div></div>'+
       '</a>'+
       fmSection('📝 Contact form on page','Send a detailed message through our contact form','closeFullModal();document.getElementById(\'contact\').scrollIntoView({behavior:\'smooth\'})')+
       '<div style="display:flex;flex-direction:column;gap:10px;margin-top:16px">'+
@@ -4566,7 +4889,7 @@ var fullModalScreens = {
         { cat:'General', q:'What is PriceTrend?',
           a:'PriceTrend is a price comparison and tracking platform that searches 500+ retailers, grocery stores, delivery apps, and local businesses simultaneously. It shows you the cheapest price for anything — groceries, electronics, clothing, household goods — including the true total cost with tax, fees, and delivery included. The average user saves $847 per year.' },
         { cat:'General', q:'Is PriceTrend free to use?',
-          a:'Yes — PriceTrend has a free plan that is free forever with no credit card required. It includes 20 searches per day, 5 results per search, 3 active price alerts, and a grocery list of up to 10 items. The Pro plan ($4.99/month or $25/year as a founding member) unlocks unlimited everything including barcode scanning, voice search, receipt scanning, and coupon auto-apply.' },
+          a:'Yes — PriceTrend has a free plan that is free forever with no credit card required. It includes 20 searches per day, 5 results per search, 3 active price alerts, and a grocery list of up to 10 items. The Pro plan ($4.99/month or $50/year) unlocks unlimited everything including barcode scanning, voice search, receipt scanning, and coupon auto-apply.' },
         { cat:'General', q:'Where is PriceTrend available?',
           a:'PriceTrend is currently available as a web app that works on any phone, tablet, or computer — no download needed. We are based in Columbus, Ohio and our price data covers stores nationwide across the US. The native iOS and Android apps are coming soon.' },
         { cat:'General', q:'How is PriceTrend different from Honey or Flipp?',
@@ -4574,7 +4897,7 @@ var fullModalScreens = {
 
         /* Pricing & Billing */
         { cat:'Pricing & Billing', q:'What does the founding member offer include?',
-          a:'The founding member offer is available to the first 10,000 subscribers only. On the yearly plan you get 50% off — just $25/year instead of $50 (Pro) or $39.50/year instead of $79 (Family). On the monthly plan your first 2 months are completely free, then the standard rate applies. This special pricing is locked in for your first billing period. No coupon code needed — it applies automatically.' },
+          a:'The founding member offer is available to the first 10,000 subscribers only. Monthly subscribers get a $10 grocery credit on their first order through PriceTrend. Yearly subscribers get a $50 grocery credit on their first order — Pro at $50/year or Family at $79/year. Credits apply automatically through a PriceTrend affiliate link within 90 days of signup. One credit per account.' },
         { cat:'Pricing & Billing', q:'Will I be surprised by a charge?',
           a:'Never. Monthly subscribers receive an email and push notification 3 days before each renewal. Yearly subscribers receive a full 30-day heads-up before the annual renewal. Every reminder includes a one-click cancel link. We believe in complete billing transparency — no dark patterns, no hidden fees.' },
         { cat:'Pricing & Billing', q:'Can I cancel anytime?',
@@ -4616,13 +4939,13 @@ var fullModalScreens = {
 
         /* Giving Back */
         { cat:'Giving Back', q:'How does PriceTrend give back to the community?',
-          a:'A portion of every PriceTrend subscription goes to local food banks and hunger relief organizations in the cities where our customers live. We started in Columbus, Ohio and our first giving partners will be Columbus-area food banks. As PriceTrend grows to new cities, our giving grows with it. The exact percentage of profits dedicated to food banks will be announced at our official launch. If you know a local organization we should support, email us at support@pricetrend.app.' },
+          a:'A portion of every PriceTrend subscription goes to local food banks and hunger relief organizations in the cities where our customers live. We started in Columbus, Ohio and our first giving partners will be Columbus-area food banks. As PriceTrend grows to new cities, our giving grows with it. The exact percentage of profits dedicated to food banks will be announced at our official launch. If you know a local organization we should support, email us at support@pricetrend.llc.' },
 
         /* Contact */
         { cat:'Contact & Support', q:'How do I contact PriceTrend?',
-          a:'Email us at support@pricetrend.app — we respond to every message within 24 hours Monday through Friday. You can also use the Contact Us form in the menu. For urgent issues, include "URGENT" in your subject line and we will prioritize your message.' },
+          a:'Email us at support@pricetrend.llc — we respond to every message within 24 hours Monday through Friday. You can also use the Contact Us form in the menu. For urgent issues, include "URGENT" in your subject line and we will prioritize your message.' },
         { cat:'Contact & Support', q:'I found a price that is wrong. How do I report it?',
-          a:'We appreciate you helping us improve! Email support@pricetrend.app with the subject line "Price Error" and include the product name, the store, the price shown on PriceTrend, and the actual price you found. We will investigate and update our data feed. You can also use the flag icon on any price result in the app to report it directly.' },
+          a:'We appreciate you helping us improve! Email support@pricetrend.llc with the subject line "Price Error" and include the product name, the store, the price shown on PriceTrend, and the actual price you found. We will investigate and update our data feed. You can also use the flag icon on any price result in the app to report it directly.' },
       ];
 
       /* Group by category */
@@ -4693,7 +5016,7 @@ var fullModalScreens = {
       '</div>'+
       '<div style="margin-top:20px;padding:16px;background:var(--paper);border-radius:10px;text-align:center;border:1px solid var(--border)">'+
         '<div style="font-size:13px;color:var(--ink3);margin-bottom:10px">Founded in Columbus, Ohio · 2026</div>'+
-        '<div style="font-size:12px;color:var(--ink3)">📧 support@pricetrend.app</div>'+
+        '<div style="font-size:12px;color:var(--ink3)">📧 support@pricetrend.llc</div>'+
       '</div></div>'; }
 };
 
@@ -5020,9 +5343,9 @@ function buildSavingsBreakdown() {
 function shareSavings() {
   var total = calcTotalSaved();
   var monthly = calcMonthlySaved();
-  var msg = 'I\'ve saved $'+total+' on groceries using PriceTrend! ($'+monthly+' just this month) 🛒💰 Never overpay again — pricetrend.app';
+  var msg = 'I\'ve saved $'+total+' on groceries using PriceTrend! ($'+monthly+' just this month) 🛒💰 Never overpay again — pricetrend.llc';
   if(navigator.share) {
-    navigator.share({ title:'My PriceTrend Savings', text:msg, url:'https://pricewatchu.github.io/PriceWatch/' })
+    navigator.share({ title:'My PriceTrend Savings', text:msg, url:'https://pricetrend.llc/' })
       .catch(function(){});
   } else if(navigator.clipboard) {
     navigator.clipboard.writeText(msg).then(function(){
@@ -5046,7 +5369,7 @@ var searchIndex = [
   {title:'Account',desc:'Sign in · preferences · subscription',action:function(){openFullModal('account');}},
   {title:'Explore',desc:'Navigate all sections of PriceTrend',action:function(){openFullModal('explore');}},
   {title:'FAQ — Frequently Asked Questions',desc:'Answers to the most common questions about PriceTrend',action:function(){openFullModal('faq');}},
-  {title:'Contact Us',desc:'Email us · support@pricetrend.app',action:function(){openFullModal('contact');}},
+  {title:'Contact Us',desc:'Email us · support@pricetrend.llc',action:function(){openFullModal('contact');}},
   {title:'Technology',desc:'How PriceTrend is built · tech stack',action:function(){openFullModal('tech');}},
   {title:'About PriceTrend',desc:'Our mission · story · giving back',action:function(){openFullModal('about');}},
   {title:'Pricing plans',desc:'Free · Pro $4.99/mo · Family $7.99/mo',action:function(){closeGlobalSearch();document.getElementById('pricing').scrollIntoView({behavior:'smooth'});}},
@@ -5056,7 +5379,7 @@ var searchIndex = [
   {title:'Local discovery',desc:'Find cheapest coffee, pizza, ice cream near you',action:function(){closeGlobalSearch();document.getElementById('local').scrollIntoView({behavior:'smooth'});}},
   {title:'Giving back',desc:'How PriceTrend supports local food banks',action:function(){closeGlobalSearch();document.getElementById('giving-back').scrollIntoView({behavior:'smooth'});}},
   {title:'Voice search',desc:'Ask price questions out loud',action:function(){closeGlobalSearch();toggleVoiceSearch();}},
-  {title:'Early access / waitlist',desc:'Join 9,847 people on the early access list',action:function(){closeGlobalSearch();window.open('PriceTrend_Checkout.html','_blank');}},
+  {title:'Early access / waitlist',desc:'Join 9,998 people on the early access list',action:function(){closeGlobalSearch();window.open('https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2','_blank');}},
   {title:'Price drop alerts',desc:'Get notified when any item hits your target',action:function(){closeGlobalSearch();openComingSoon('alerts');}},
   {title:'Cart import',desc:'Send grocery list to store checkout in one tap',action:function(){closeGlobalSearch();openComingSoon('cart');}},
   {title:'Budget tracking',desc:'Track weekly and monthly grocery spending',action:function(){openFullModal('grocery');}},
@@ -5405,6 +5728,95 @@ window.addEventListener('beforeunload', function() {
 });
 
 
+/* ══ LOYALTY REWARDS SYSTEM ══ */
+var REWARD_TIERS=[
+  {spend:250, pct:5,  label:'Starter',       color:'#6b7280',icon:'🛒',bg:'#f9fafb',border:'#e5e7eb'},
+  {spend:500, pct:10, label:'Regular',        color:'#d97706',icon:'⭐',bg:'#fffbeb',border:'#fde68a'},
+  {spend:1000,pct:15, label:'Loyal Shopper',  color:'#ea580c',icon:'🌟',bg:'#fff7ed',border:'#fed7aa'},
+  {spend:2500,pct:25, label:'Elite Saver',    color:'#e63c2f',icon:'💎',bg:'#0a0a0a',border:'#e63c2f',dark:true},
+];
+var demoSpending={total:347,purchases:[
+  {date:'Jan 12',store:'Kroger',amount:124.50,discount:null},
+  {date:'Jan 5',store:'Walmart',amount:87.20,discount:null},
+  {date:'Dec 28',store:'Instacart',amount:93.15,discount:'$50 first-order credit'},
+  {date:'Dec 20',store:'Target',amount:42.15,discount:null},
+]};
+function getRewardTier(s){var t=null;for(var i=0;i<REWARD_TIERS.length;i++){if(s>=REWARD_TIERS[i].spend)t=REWARD_TIERS[i];}return t;}
+function getNextTier(s){for(var i=0;i<REWARD_TIERS.length;i++){if(s<REWARD_TIERS[i].spend)return REWARD_TIERS[i];}return null;}
+function renderRewardsPane(){
+  var s=demoSpending.total,tier=getRewardTier(s),next=getNextTier(s);
+  var badge=document.getElementById('rewardsTierBadge');
+  if(badge){badge.innerHTML=tier?
+    '<div style="display:inline-flex;align-items:center;gap:10px;padding:10px 16px;background:'+tier.bg+';border:2px solid '+tier.border+';border-radius:8px;margin-bottom:16px">'+
+      '<span style="font-size:22px">'+tier.icon+'</span>'+
+      '<div><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:'+tier.color+'">Your current tier</div>'+
+      '<div style="font-family:\'Syne\',sans-serif;font-size:18px;font-weight:900;color:'+tier.color+'">'+tier.label+' — '+tier.pct+'% off unlocked</div></div></div>':
+    '<div style="padding:10px 16px;background:var(--paper);border:1px solid var(--border);border-radius:8px;margin-bottom:16px;font-size:13px;color:var(--ink3)">Shop through PriceTrend to earn your first reward discount.</div>';}
+  var pct2=Math.min(100,(s/2500)*100);
+  var bar=document.getElementById('rewardsProgressBar');
+  if(bar)bar.style.width=pct2+'%';
+  var tot=document.getElementById('rewardsTotalSpent');if(tot)tot.textContent='$'+s;
+  var nm=document.getElementById('rewardsNextMsg'),ntl=document.getElementById('rewardsNextTier');
+  if(next){if(nm)nm.innerHTML='<strong>$'+(next.spend-s)+'</strong> more to unlock <strong>'+next.pct+'% off</strong>';if(ntl)ntl.textContent='Next: $'+next.spend+' → '+next.pct+'% off';}
+  else{if(nm)nm.innerHTML='🏆 <strong>Maximum tier — '+tier.pct+'% off next order</strong>';if(ntl)ntl.textContent='Elite Saver achieved';}
+  var ban=document.getElementById('rewardsActiveBanner');
+  if(ban&&tier){ban.style.display='block';
+    var at=document.getElementById('rewardsActiveTitle'),ad=document.getElementById('rewardsActiveDesc');
+    if(at)at.textContent='🎉 '+tier.pct+'% off your next order is ready!';
+    if(ad)ad.textContent='Shop through any PriceTrend link and your '+tier.pct+'% '+tier.label+' discount applies automatically.';}
+  var list=document.getElementById('rewardsTierList');
+  if(list){list.innerHTML=REWARD_TIERS.map(function(t){
+    var unlocked=s>=t.spend,isCur=tier&&tier.spend===t.spend,done=unlocked?100:Math.min(100,Math.round((s/t.spend)*100));
+    return'<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:'+(unlocked?t.bg:'var(--paper)')+';border:1.5px solid '+(isCur?t.color:unlocked?t.border:'var(--border)')+';border-radius:8px">'+
+      '<span style="font-size:20px;flex-shrink:0">'+t.icon+'</span>'+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="display:flex;justify-content:space-between;margin-bottom:4px;flex-wrap:wrap;gap:4px">'+
+          '<span style="font-size:13px;font-weight:600;color:'+(unlocked?t.color:'var(--ink2)')+'">'+t.label+' — '+t.pct+'% off</span>'+
+          '<span style="font-size:11px;font-family:var(--mono);color:'+(unlocked?t.color:'var(--ink3)')+'">'+(unlocked?'✓ Unlocked':'$'+t.spend)+' spend</span>'+
+        '</div>'+
+        '<div style="height:5px;background:rgba(0,0,0,.06);border-radius:3px;overflow:hidden">'+
+          '<div style="height:100%;width:'+done+'%;background:'+t.color+';border-radius:3px;opacity:'+(unlocked?1:.5)+'"></div>'+
+        '</div></div>'+
+      (unlocked?'<span style="font-size:16px">✅</span>':'<span style="font-size:11px;color:var(--ink3)">'+done+'%</span>')+
+    '</div>';
+  }).join('');}
+  var hist=document.getElementById('rewardsPurchaseHistory');
+  if(hist){hist.innerHTML=demoSpending.purchases.map(function(p){
+    return'<tr style="border-bottom:1px solid var(--border)">'+
+      '<td style="padding:9px 12px;font-size:12px;color:var(--ink3)">'+p.date+'</td>'+
+      '<td style="padding:9px 12px;font-size:13px;color:var(--ink)">'+p.store+'</td>'+
+      '<td style="padding:9px 12px;font-size:13px;font-family:var(--mono);text-align:right">$'+p.amount.toFixed(2)+'</td>'+
+      '<td style="padding:9px 12px;font-size:12px;text-align:right;color:'+(p.discount?'#16a34a':'var(--ink3)')+'">'+( p.discount||'—')+'</td></tr>';
+  }).join('');}
+}
+function updateRewardsDemo(){
+  var sl=document.getElementById('demoSpend');if(!sl)return;
+  var v=parseInt(sl.value);
+  var vEl=document.getElementById('demoSpendVal');if(vEl)vEl.textContent='$'+v.toLocaleString();
+  var bar=document.getElementById('demoBar');if(bar)bar.style.width=Math.min(100,(v/2500)*100)+'%';
+  var tier=getRewardTier(v),next=getNextTier(v);
+  var title=document.getElementById('demoStatusTitle'),desc=document.getElementById('demoStatusDesc'),box=document.getElementById('demoStatus');
+  if(!title||!desc)return;
+  if(tier&&!next){
+    title.innerHTML='💎 Elite Saver — <strong style="color:#e63c2f">25% off your next order!</strong>';
+    desc.textContent='Maximum tier reached. Your 25% discount applies automatically on your next qualifying order.';
+    if(box){box.style.background='linear-gradient(135deg,#0a0a0a,#1a1a1a)';box.style.border='1px solid #e63c2f';}
+    title.style.color='#e63c2f';desc.style.color='rgba(255,255,255,.6)';
+  } else if(tier){
+    var needed=next.spend-v;
+    title.innerHTML=tier.icon+' '+tier.label+' — <strong style="color:'+tier.color+'">'+tier.pct+'% off</strong> ready! $'+needed+' to '+next.pct+'%';
+    desc.textContent='Your '+tier.pct+'% discount applies on your next order. Spend $'+needed+' more to unlock '+next.pct+'%.';
+    if(box){box.style.background='linear-gradient(135deg,#fffbeb,#fef3c7)';box.style.border='1px solid #fde68a';}
+    title.style.color='#92400e';desc.style.color='#b45309';
+  } else {
+    var prog=v>0?Math.round((v/next.spend)*100):0;
+    title.innerHTML='⏳ Spend <strong>$'+next.spend+'</strong> to unlock <strong style="color:'+next.color+'">'+next.pct+'% off</strong>';
+    desc.textContent='$'+v.toLocaleString()+' spent so far ('+prog+'% to first reward). Every purchase through PriceTrend counts.';
+    if(box){box.style.background='linear-gradient(135deg,#fffbeb,#fef3c7)';box.style.border='1px solid #fde68a';}
+    title.style.color='#92400e';desc.style.color='#b45309';
+  }
+}
+
 function toggleFaq(btn) {
   var answer = btn.nextElementSibling;
   var icon = btn.querySelector('span:last-child');
@@ -5587,12 +5999,12 @@ function doSignin(){
   if(!email){err.textContent='Please enter your email.';err.style.display='block';return;}
   if(!pass){err.textContent='Please enter your password.';err.style.display='block';return;}
   msg.textContent='Accounts coming soon! Redirecting to early access signup...';msg.style.display='block';
-  setTimeout(function(){closeSignin();window.location.href='PriceTrend_Checkout.html';},2500);
+  setTimeout(function(){closeSignin();window.open('https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2','_blank');},2500);
 }
 function oauthSignin(p){
   var msg=document.getElementById('signinMsg');document.getElementById('signinErr').style.display='none';
   msg.textContent=p+' sign-in coming soon! Redirecting to signup...';msg.style.display='block';
-  setTimeout(function(){closeSignin();window.location.href='PriceTrend_Checkout.html';},2500);
+  setTimeout(function(){closeSignin();window.open('https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2','_blank');},2500);
 }
 
 /* ── LOCATION ── */
@@ -5918,7 +6330,7 @@ function getAllStorePrices(product, miles) {
 
 /* ── FOUNDING MEMBER SPOTS COUNTER ── */
 var spotsTotal = 10000;
-var spotsUsed = 153; /* UPDATE THIS NUMBER to match your real Mailchimp subscriber count */
+var spotsUsed = 2; /* UPDATE THIS NUMBER to match your real Mailchimp subscriber count */
 var spotsLeft = spotsTotal - spotsUsed;
 var foundingOfferExpired = spotsUsed >= spotsTotal;
 
@@ -5946,9 +6358,9 @@ function showOfferExpiredState() {
       '<div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span style="font-size:18px">🎊</span>' +
       '<span style="font-size:13px;font-weight:700;color:white;letter-spacing:0.3px">ALL 10,000 FOUNDING SPOTS CLAIMED!</span></div>' +
       '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center">' +
-      '<span style="font-size:13px;color:rgba(255,255,255,0.9)">Great news — you still get <strong style="color:white;font-size:15px">2 months free</strong> when you sign up today</span>' +
+      '<span style="font-size:13px;color:rgba(255,255,255,0.9)">Join PriceTrend — <strong style="color:white;font-size:15px">$10 grocery credit</strong> on your first order when you sign up today</span>' +
       '</div>' +
-      '<a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" style="padding:6px 14px;background:white;color:#1e40af;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0">Get 2 months free →</a>' +
+      '<a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="padding:6px 14px;background:white;color:#1e40af;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0">Claim grocery credit →</a>' +
     '</div>' +
     '<button onclick="this.parentElement.style.display=\'none\'" style="position:absolute;top:50%;right:16px;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;font-size:16px">✕</button>';
   }
@@ -5965,13 +6377,13 @@ function showOfferExpiredState() {
           '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">' +
             '<span style="font-family:\'Syne\',sans-serif;font-size:18px;font-weight:800;color:#1e40af">All 10,000 founding spots have been claimed!</span>' +
           '</div>' +
-          '<p style="font-size:14px;color:#1e40af;margin-bottom:12px;line-height:1.6">Thank you to our incredible founding community. The 50% off founding rate has ended — but we still have a great offer for new members joining today.</p>' +
+          '<p style="font-size:14px;color:#1e40af;margin-bottom:12px;line-height:1.6">Thank you to our incredible founding community. The founding member grocery credits are still available — join today.</p>' +
           '<div style="background:white;border:1px solid #93c5fd;border-radius:8px;padding:14px 18px;margin-bottom:12px">' +
             '<div style="font-size:12px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">🎁 Current new member offer</div>' +
-            '<div style="font-size:15px;font-weight:700;color:#1d4ed8;margin-bottom:4px">Get your first 2 months completely free</div>' +
+            '<div style="font-size:15px;font-weight:700;color:#1d4ed8;margin-bottom:4px">Get a $10 grocery credit on your first order</div>' +
             '<div style="font-size:13px;color:#3b82f6">Monthly plan only · then $4.99/month · cancel anytime</div>' +
           '</div>' +
-          '<a href="PriceTrend_Checkout.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#1e40af;color:white;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none">Get 2 months free today →</a>' +
+          '<a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#1e40af;color:white;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none">Claim your grocery credit →</a>' +
         '</div>' +
       '</div>';
   }
@@ -5980,14 +6392,14 @@ function showOfferExpiredState() {
   ['proSpotsLeft','familySpotsLeft'].forEach(function(id){
     var el = document.getElementById(id);
     if(el) {
-      el.textContent = 'Founding offer closed — 2 months free still available';
+      el.textContent = 'Founding offer — grocery credits included';
       el.style.color = '#3b82f6';
     }
   });
   ['proCtaBtn','familyCtaBtn'].forEach(function(id){
     var el = document.getElementById(id);
     if(el) {
-      el.textContent = 'Get 2 months free →';
+      el.textContent = 'Get grocery credit →';
       el.style.background = '#1e40af';
     }
   });
@@ -5999,7 +6411,7 @@ function showOfferExpiredState() {
     var inner = el.querySelector('div');
     if(inner) {
       inner.style.color = '#1e40af';
-      inner.textContent = '🎁 New member offer — first 2 months free then $4.99/mo';
+      inner.textContent = '🎁 New member offer — $10 grocery credit on first order';
     }
   });
 }
@@ -6212,9 +6624,18 @@ function toggleBilling() {
     if(py)py.style.display='block';
     if(fm)fm.style.display='none';
     if(fy)fy.style.display='block';
-    if(document.getElementById('proCtaBtn'))document.getElementById('proCtaBtn').textContent='Claim 50% off — $25/year →';
-    if(document.getElementById('familyCtaBtn'))document.getElementById('familyCtaBtn').textContent='Claim 50% off — $39.50/year →';
-    if(document.getElementById('familyPerPerson'))document.getElementById('familyPerPerson').textContent='$0.55/person';
+    // Show grocery credit in Pro features
+    var gc=document.getElementById('proGroceryCredit');
+    var gh=document.getElementById('proGroceryHowTo');
+    if(gc)gc.style.display='list-item';
+    if(gh)gh.style.display='list-item';
+    // Update CTA buttons
+    if(document.getElementById('proCtaBtn')){
+      document.getElementById('proCtaBtn').textContent='Subscribe yearly — get $50 groceries free →';
+      document.getElementById('proCtaBtn').href='https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2';
+    }
+    if(document.getElementById('familyCtaBtn'))document.getElementById('familyCtaBtn').textContent='Subscribe yearly — get $50 groceries free →';
+    if(document.getElementById('familyPerPerson'))document.getElementById('familyPerPerson').textContent='$1.10/person';
   } else {
     knob.style.left = '4px';
     monthlyLabel.style.color = 'var(--ink)';
@@ -6230,8 +6651,16 @@ function toggleBilling() {
     if(py)py.style.display='none';
     if(fm)fm.style.display='block';
     if(fy)fy.style.display='none';
-    if(document.getElementById('proCtaBtn'))document.getElementById('proCtaBtn').textContent='Claim founding offer →';
-    if(document.getElementById('familyCtaBtn'))document.getElementById('familyCtaBtn').textContent='Claim founding offer →';
+    // Hide grocery credit
+    var gc=document.getElementById('proGroceryCredit');
+    var gh=document.getElementById('proGroceryHowTo');
+    if(gc)gc.style.display='none';
+    if(gh)gh.style.display='none';
+    if(document.getElementById('proCtaBtn')){
+      document.getElementById('proCtaBtn').textContent='Claim founding offer — $10 grocery credit →';
+      document.getElementById('proCtaBtn').href='https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2';
+    }
+    if(document.getElementById('familyCtaBtn'))document.getElementById('familyCtaBtn').textContent='Claim founding offer — $10 grocery credit →';
     if(document.getElementById('familyPerPerson'))document.getElementById('familyPerPerson').textContent='$1.33/person';
   }
 }
@@ -6290,7 +6719,7 @@ function submitContact(e){
   var btn=document.getElementById('cfSubmitBtn');
   btn.textContent='Sending...';btn.disabled=true;btn.style.background='#888';
   var body=encodeURIComponent('Name: '+fn+' '+ln+'\nEmail: '+em+'\n'+(ph?'Phone: '+ph+'\n':'')+'Subject: '+su+'\n\nMessage:\n'+ms);
-  window.location.href='mailto:support@pricetrend.app?subject='+encodeURIComponent('PriceTrend: '+su)+'&body='+body;
+  window.location.href='mailto:support@pricetrend.llc?subject='+encodeURIComponent('PriceTrend: '+su)+'&body='+body;
   setTimeout(function(){
     document.getElementById('contactForm').reset();
     var s=document.getElementById('contactSuccess');if(s){s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});}
@@ -6716,7 +7145,7 @@ function submitContact(e){
           </div>
           <div style="display:flex;align-items:center;gap:5px"><div style="width:7px;height:7px;border-radius:50%;background:#4ade80;animation:livepulse 2s infinite"></div><span style="font-size:11px;color:#4ade80;font-weight:600">LIVE</span></div>
         </div>
-        <a href="PriceTrend_Checkout.html" style="display:block;text-align:center;padding:11px;background:#16a34a;color:white;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;transition:background 0.2s" onmouseover="this.style.background='#15803d'" onmouseout="this.style.background='#16a34a'">Open web app → Subscribe now</a>
+        <a href="https://github.us22.list-manage.com/subscribe?u=0faa8a223d3d1d04286c2c125&id=b17903d7e2" target="_blank" style="display:block;text-align:center;padding:11px;background:#16a34a;color:white;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;transition:background 0.2s" onmouseover="this.style.background='#15803d'" onmouseout="this.style.background='#16a34a'">Open web app → Subscribe now</a>
       </div>
 
       <!-- iOS App Store -->
@@ -6760,11 +7189,6 @@ function submitContact(e){
       </div>
 
       <div style="text-align:center;font-size:12px;color:rgba(255,255,255,0.3)">
-        Already using the web app? <a href="PriceTrend_Checkout.html" style="color:rgba(255,255,255,0.5);text-decoration:underline">Subscribe or manage your account →</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
